@@ -13,7 +13,7 @@ class BacklogItemTest < ActiveSupport::TestCase
 
     should_ensure_length_in_range :story, (1..200)
 
-    should_belong_to :backlog, :backlog_item
+    should_belong_to :backlog, :backlog_item, :sprint
 
     should_validate_numericality_of :estimative
 
