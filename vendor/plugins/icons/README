@@ -1,0 +1,38 @@
+Icons
+=====
+
+Helper to simplify using of Silk icons in your rails application
+
+Icon sets are in public/icons.
+
+Example
+=======
+
+1. Displaying an icon (view).
+
+  link_to icon(:add), add_foo_path           # /public/icons/silk/add.png
+  link_to icon([:add, :bar]), add_foo_path   # /public/icons/bar/add.png
+
+2. Changing current set.
+
+  Icons.current_set = "myicons".
+  link_to icon(:add), add_foo_path	     # /public/icons/myicons/add.png
+
+3. Creating alias for an icon.
+
+  Icons.alias({ :add_user => :add, :add_item => [ :add, :bar ] })
+  link_to icon(:add_user), add_foo_path      # /public/icons/silk/add.png
+  link_to icon(:add_item), add_foo_path      # /public/icons/bar/add.png
+
+Copyright (c) 2008 Victor Sokolov, released under the MIT license
+
+Icon sets included
+==================
+
+Silk Icon Set:
+http://www.famfamfam.com/lab/icons/silk/
+License: http://creativecommons.org/licenses/by/2.5/
+
+Fugue Icon Set:
+http://www.pinvoke.com/
+License: http://creativecommons.org/licenses/by/3.0/
