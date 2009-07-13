@@ -1,0 +1,74 @@
+#footer {
+  text-align: center;
+}
+
+.fieldWithErrors > input.text, .fieldWithErrors > input.title, .fieldWithErrors > textarea, .fieldWithErrors > select {
+  border: 1px solid #8A1F11;
+}
+
+.fieldWithErrors > label {
+  color: #8A1F11;
+}
+
+#errorExplanation h2 {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.pagination {
+  background: #F1F1F1;
+  border: 1px solid #E5E5E5;
+  text-align: center;
+  padding: 1em;
+}
+.pagination a, .pagination span {
+  padding: .2em .3em;
+}
+.pagination span.disabled_page {
+  color: #AAA;
+}
+.pagination span.current_page {
+  font-weight: bold;
+  background: transparent url(/images/pagination-circle.gif) no-repeat 50% 50%;
+}
+.pagination a {
+  text-decoration: none;
+  color: black;
+}
+.pagination a:hover, .pagination a:focus {
+  text-decoration: underline;
+}
+
+td {
+  border-bottom: 1px solid #CCCCCC;
+}
+
+tr:hover td {
+ background: #EEEEEE none repeat scroll 0 0;
+}
+
+#search fieldset {
+  padding-bottom: 6px;
+}
+
+#search p {
+  margin: 0;
+}
+
+#search button {
+  padding: 1px 10px 3px 7px;
+  display: inline;
+}
+
+a.button {
+  display: inline;
+}
+
+.img_container {
+  width:80px;
+  height:80px;
+  border:1px solid #574331;
+  padding:5px;
+  background:#eee;
+}
+

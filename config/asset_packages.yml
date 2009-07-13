@@ -1,0 +1,15 @@
+---
+javascripts:
+- base:
+  - jquery
+  - jquery-ui
+  - jrails
+stylesheets:
+- base_screen:
+  - blueprint/screen
+  - blueprint/ie
+  - blueprint/buttons/screen
+  - blueprint/fancy-type/screen
+- base_print:
+  - blueprint/print
+
