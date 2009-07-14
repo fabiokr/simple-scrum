@@ -153,9 +153,13 @@ en-US:
       _all:
         created_at: "Created at"
         updated_at: "Updated at"
+        name: 'Name'
       backlog:
         project_name: "Project Name"
         slug: "Slug"
+      sprint:
+        start: "Start"
+        end: "End"
   system:
     create: 'new'
     update: 'update'
@@ -176,8 +180,13 @@ en-US:
   app:
     menu:
         backlogs: "Backlogs"
+        sprints: "Sprints"
     backlog:
         new: "New Backlog"
         editing: "Editing Backlog"
         listing: "Backlogs"
+    sprint:
+        new: "New Sprint"
+        editing: "Editing Sprint"
+        listing: "Sprints"
 

@@ -1,0 +1,9 @@
+- form_for(@sprint) do |f|
+  %fieldset
+    %legend= t('app.sprint.editing')
+    = render :partial => 'sprints/form', :locals => { :f => f }
+    %p= button_tag t('system.update'), :accept, :class => 'positive'
+
+= link_to t('system.show'), sprint_path(@sprint)
+= link_to t('system.back'), sprints_path
+

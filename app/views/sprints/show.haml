@@ -1,0 +1,23 @@
+%p
+  %b= show_label('activerecord.attributes._all.name')
+  = h @sprint.name
+  %br
+  %b= show_label('activerecord.models.backlog')
+  = h @sprint.backlog.project_name unless @sprint.backlog.nil?
+  %br
+  %b= show_label('activerecord.attributes.sprint.start')
+  = h @sprint.start.to_formatted_s(:short)
+  %br
+  %b= show_label('activerecord.attributes.sprint.end')
+  = h @sprint.end.to_formatted_s(:short)
+  %br
+  %b= show_label('activerecord.attributes._all.created_at')
+  = h @sprint.created_at.to_formatted_s(:short)
+  %br
+  %b= show_label('activerecord.attributes._all.updated_at')
+  = h @sprint.updated_at.to_formatted_s(:short)
+  %br
+
+= link_to t('system.edit'), edit_sprint_path(@sprint)
+= link_to t('system.back'), sprints_path
+
