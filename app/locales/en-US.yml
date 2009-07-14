@@ -153,6 +153,9 @@ en-US:
       _all:
         created_at: "Created at"
         updated_at: "Updated at"
+      backlog:
+        project_name: "Project Name"
+        slug: "Slug"
   system:
     create: 'new'
     update: 'update'
@@ -170,4 +173,11 @@ en-US:
     successfully_destroyed: "{{model}} deleted"
     previous_label: '&laquo; Previous'
     next_label: 'Next &raquo;'
+  app:
+    menu:
+        backlogs: "Backlogs"
+    backlog:
+        new: "New Backlog"
+        editing: "Editing Backlog"
+        listing: "Backlogs"
 

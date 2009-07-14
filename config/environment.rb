@@ -25,6 +25,9 @@ Rails::Initializer.run do |config|
   config.gem 'jscruggs-metric_fu', :lib => 'metric_fu', :source => 'http://gems.github.com'
   config.gem 'random_data'
   config.gem 'webrat', :source => 'http://gems.github.com'
+  config.gem "searchlogic"
+  config.gem 'mocha'
+  config.gem 'mislav-will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

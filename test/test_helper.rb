@@ -42,6 +42,14 @@ class ActiveSupport::TestCase
   #fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def mock_record_invalid(model)
+    model_errors, record_invalid_error = mock('errors'), mock('record_invalid_error')
+    model_errors.stubs(:full_messages).returns([])
+    model_errors.stubs(:count).returns(0)
+    model.stubs(:errors).returns(model_errors)
+    record_invalid_error.stubs(:exception).returns(ActiveRecord::RecordInvalid.new(model))
+  end
+
   def t(hash)
     I18n.translate hash
   end

@@ -1,0 +1,17 @@
+%p
+  %b= show_label('activerecord.attributes.backlog.project_name')
+  = h @backlog.project_name
+  %br
+  %b= show_label('activerecord.attributes.backlog.slug')
+  = h @backlog.slug
+  %br
+  %b= show_label('activerecord.attributes._all.created_at')
+  = h @backlog.created_at.to_formatted_s(:short)
+  %br
+  %b= show_label('activerecord.attributes._all.updated_at')
+  = h @backlog.updated_at.to_formatted_s(:short)
+  %br
+
+= link_to t('system.edit'), edit_backlog_path(@backlog)
+= link_to t('system.back'), backlogs_path
+
