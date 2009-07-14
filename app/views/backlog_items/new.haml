@@ -1,0 +1,8 @@
+- form_for(@backlog_item) do |f|
+  %fieldset
+    %legend= t('app.backlog_item.new')
+    = render :partial => 'backlog_items/form', :locals => { :f => f }
+    %p= button_tag t('system.create'), :accept, :class => 'positive'
+
+= link_to t('system.back'), backlog_items_path
+

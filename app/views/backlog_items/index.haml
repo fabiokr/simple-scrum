@@ -1,0 +1,47 @@
+#search
+  - form_for @search do |f|
+    %fieldset
+      %legend= t('system.search_legend')
+      - f.fields_for @search.conditions do |backlog_items|
+        %p
+          = backlog_items.label :story_keywords, t('activerecord.attributes.backlog_item.story')
+          %br
+          = backlog_items.text_field :story_keywords, :class => 'text'
+
+      = button_tag t('system.search'), :find, :class => 'search'
+
+= link_to "#{icon(:page_add)}#{t('app.backlog_item.new')}", new_backlog_item_path, :class => 'button'
+%br
+%br
+
+%table
+  %caption
+    %h3= "#{t('app.backlog_item.listing')} - #{t('system.found_registries', :count => @backlog_items_count)}"
+  %thead
+    %tr
+      %th= order_by_link({:backlog => :project_name}, :text => t('activerecord.attributes.backlog.project_name'))
+      %th= order_by_link({:sprint => :name}, :text => t('activerecord.attributes._all.name'))
+      %th= order_by_link({:backlog_item => :story}, :text => t('activerecord.attributes.backlog_item.father'))
+      %th= order_by_link(:story, :text => t('activerecord.attributes.backlog_item.story'))
+      %th= order_by_link(:estimative, :text => t('activerecord.attributes.backlog_item.estimative'))
+      %th= order_by_link(:created_at, :text => t('activerecord.attributes._all.created_at'))
+      %th= order_by_link(:updated_at, :text => t('activerecord.attributes._all.updated_at'))
+      %th
+      %th
+      %th
+  %tbody
+    - for backlog_item in @backlog_items
+      %tr
+        %td= h backlog_item.backlog.project_name unless backlog_item.backlog.nil?
+        %td= h backlog_item.sprint.name unless backlog_item.sprint.nil?
+        %td= h backlog_item.backlog_item.story unless backlog_item.backlog_item.nil?
+        %td= h backlog_item.story
+        %td= h backlog_item.estimative
+        %td= h backlog_item.created_at.to_formatted_s(:short)
+        %td= h backlog_item.updated_at.to_formatted_s(:short)
+        %td= link_to icon(:page), backlog_item_path(backlog_item), :alt => t('system.show'), :title => t('system.show')
+        %td= link_to icon(:page_edit), edit_backlog_item_path(backlog_item), :alt => t('system.edit'), :title => t('system.edit')
+        %td= link_to icon(:page_delete), backlog_item_path(backlog_item), :confirm => t('system.confirm'), :method => :delete, :alt => t('system.destroy'), :title => t('system.destroy')
+- if @search.page_count > 0
+  .pagination= page_links :prev => t('system.previous_label'), :next => t('system.next_label')
+

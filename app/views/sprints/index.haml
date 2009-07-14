@@ -19,8 +19,8 @@
     %h3= "#{t('app.sprint.listing')} - #{t('system.found_registries', :count => @sprints_count)}"
   %thead
     %tr
-      %th= order_by_link(:name, :text => t('activerecord.attributes._all.name'))
       %th= order_by_link({:backlog => :project_name}, :text => t('activerecord.models.backlog'))
+      %th= order_by_link(:name, :text => t('activerecord.attributes._all.name'))
       %th= order_by_link(:start, :text => t('activerecord.attributes.sprint.start'))
       %th= order_by_link(:end, :text => t('activerecord.attributes.sprint.end'))
       %th= order_by_link(:created_at, :text => t('activerecord.attributes._all.created_at'))
@@ -31,8 +31,8 @@
   %tbody
     - for sprint in @sprints
       %tr
-        %td= h sprint.name
         %td= h sprint.backlog.project_name unless sprint.backlog.nil?
+        %td= h sprint.name
         %td= h sprint.start.to_formatted_s(:short)
         %td= h sprint.end.to_formatted_s(:short)
         %td= h sprint.created_at.to_formatted_s(:short)

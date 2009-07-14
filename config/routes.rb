@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :backlogs
   map.resources :sprints
+  map.resources :backlog_items
 
   # The priority is based upon order of creation: first created -> highest priority.
 

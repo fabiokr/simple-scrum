@@ -160,6 +160,11 @@ en-US:
       sprint:
         start: "Start"
         end: "End"
+      backlog_item:
+        story: 'Story'
+        description: "Description"
+        estimative: "Estimative"
+        father: 'Father'
   system:
     create: 'new'
     update: 'update'
@@ -181,6 +186,7 @@ en-US:
     menu:
         backlogs: "Backlogs"
         sprints: "Sprints"
+        backlog_items: "Backlog Items"
     backlog:
         new: "New Backlog"
         editing: "Editing Backlog"
@@ -189,4 +195,8 @@ en-US:
         new: "New Sprint"
         editing: "Editing Sprint"
         listing: "Sprints"
+    backlog_item:
+        new: "New Backlog Item"
+        editing: "Editing Backlog Item"
+        listing: "Backlog Items"
 
