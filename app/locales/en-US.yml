@@ -146,21 +146,20 @@ en-US:
         odd: "precisa ser ímpar"
         even: "precisa ser par"
     models:
-      backlog: 'Backlog'
+      product: 'Product'
       sprint: 'Sprint'
-      backlog_item: 'Backlog Item'
+      story: 'Story'
     attributes:
       _all:
         created_at: "Created at"
         updated_at: "Updated at"
         name: 'Name'
-      backlog:
-        project_name: "Project Name"
         slug: "Slug"
+      product:
       sprint:
         start: "Start"
         end: "End"
-      backlog_item:
+      story:
         story: 'Story'
         description: "Description"
         estimative: "Estimative"
@@ -184,19 +183,19 @@ en-US:
     next_label: 'Next &raquo;'
   app:
     menu:
-        backlogs: "Backlogs"
+        products: "Products"
         sprints: "Sprints"
-        backlog_items: "Backlog Items"
-    backlog:
-        new: "New Backlog"
-        editing: "Editing Backlog"
-        listing: "Backlogs"
+        storys: "Storys"
+    product:
+        new: "New Product"
+        editing: "Editing Product"
+        listing: "Products"
     sprint:
         new: "New Sprint"
         editing: "Editing Sprint"
         listing: "Sprints"
-    backlog_item:
-        new: "New Backlog Item"
-        editing: "Editing Backlog Item"
-        listing: "Backlog Items"
+    story:
+        new: "New Story"
+        editing: "Editing Story"
+        listing: "Stories"
 

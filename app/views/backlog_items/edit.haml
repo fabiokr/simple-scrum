@@ -1,9 +1,0 @@
-- form_for(@backlog_item) do |f|
-  %fieldset
-    %legend= t('app.backlog_item.editing')
-    = render :partial => 'backlog_items/form', :locals => { :f => f }
-    %p= button_tag t('system.update'), :accept, :class => 'positive'
-
-= link_to t('system.show'), backlog_item_path(@backlog_item)
-= link_to t('system.back'), backlog_items_path
-

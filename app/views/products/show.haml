@@ -1,0 +1,17 @@
+%p
+  %b= show_label('activerecord.attributes.product.name')
+  = h @product.name
+  %br
+  %b= show_label('activerecord.attributes.product.slug')
+  = h @product.slug
+  %br
+  %b= show_label('activerecord.attributes._all.created_at')
+  = h @product.created_at.to_formatted_s(:short)
+  %br
+  %b= show_label('activerecord.attributes._all.updated_at')
+  = h @product.updated_at.to_formatted_s(:short)
+  %br
+
+= link_to t('system.edit'), edit_product_path(@product)
+= link_to t('system.back'), products_path
+

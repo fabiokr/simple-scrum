@@ -7,13 +7,15 @@ class SprintTest < ActiveSupport::TestCase
       @sprint = Factory.create(:sprint)
     end
 
-    should_have_db_columns :id, :name, :start, :end, :backlog_id, :created_at, :updated_at
+    should_have_db_columns :id, :name, :start, :end, :product_id, :created_at, :updated_at
 
-    should_validate_presence_of :name
+    should_validate_presence_of :name, :product
 
     should_ensure_length_in_range :name, (1..60)
 
-    should_belong_to :backlog
+    should_belong_to :product
+
+    should_validate_numericality_of :velocity
 
   end
 end

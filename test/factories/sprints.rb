@@ -3,8 +3,8 @@ Factory.define :sprint, :default_strategy => :build do |u|
   u.name 'Admin Module Sprint'
   u.start Time.now
   u.end Time.now
-
-  u.backlog {|a| a.association(:backlog) }
+  u.velocity 0
+  u.product {|a| a.association(:product) }
 
   u.created_at Time.now
   u.updated_at Time.now

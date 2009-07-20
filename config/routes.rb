@@ -2,9 +2,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :dashboard
 
-  map.resources :backlogs
-  map.resources :sprints
-  map.resources :backlog_items
+  map.resources :products do |product|
+    product.resources :stories
+    product.resources :sprints
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
 
