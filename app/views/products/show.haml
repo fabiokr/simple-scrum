@@ -1,9 +1,9 @@
 %p
-  %b= show_label('activerecord.attributes.product.name')
+  %b= show_label('activerecord.attributes._all.name')
   = h @product.name
   %br
-  %b= show_label('activerecord.attributes.product.slug')
-  = h @product.slug
+  %b= show_label('activerecord.attributes.product.owner')
+  = h @product.owner
   %br
   %b= show_label('activerecord.attributes._all.created_at')
   = h @product.created_at.to_formatted_s(:short)

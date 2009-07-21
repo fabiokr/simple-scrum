@@ -20,7 +20,7 @@
   %thead
     %tr
       %th= order_by_link(:name, :text => t('activerecord.attributes._all.name'))
-      %th= order_by_link(:slug, :text => t('activerecord.attributes._all.slug'))
+      %th= order_by_link(:owner, :text => t('activerecord.attributes.product.owner'))
       %th= order_by_link(:created_at, :text => t('activerecord.attributes._all.created_at'))
       %th= order_by_link(:updated_at, :text => t('activerecord.attributes._all.updated_at'))
       %th
@@ -30,7 +30,7 @@
     - for product in @products
       %tr
         %td= h product.name
-        %td= h product.slug
+        %td= h product.owner
         %td= h product.created_at.to_formatted_s(:short)
         %td= h product.updated_at.to_formatted_s(:short)
         %td= link_to icon(:page), product_path(product), :alt => t('system.show'), :title => t('system.show')

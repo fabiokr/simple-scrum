@@ -154,8 +154,8 @@ en-US:
         created_at: "Created at"
         updated_at: "Updated at"
         name: 'Name'
-        slug: "Slug"
       product:
+        owner: 'Owner'
       sprint:
         start: "Start"
         end: "End"
