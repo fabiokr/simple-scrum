@@ -190,12 +190,5 @@ en-US:
         new: "New Product"
         editing: "Editing Product"
         listing: "Products"
-    sprint:
-        new: "New Sprint"
-        editing: "Editing Sprint"
-        listing: "Sprints"
-    story:
-        new: "New Story"
-        editing: "Editing Story"
-        listing: "Stories"
+        change: "Change product"
 
