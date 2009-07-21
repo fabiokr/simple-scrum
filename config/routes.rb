@@ -1,7 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.resource :dashboard
-
   map.resources :products do |product|
     product.resources :stories
     product.resources :sprints
@@ -39,7 +37,7 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => 'dashboard', :action => 'show'
+  map.root :controller => 'products', :action => 'index'
 
   # See how all your routes lay out with "rake routes"
 
