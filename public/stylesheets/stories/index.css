@@ -1,0 +1,12 @@
+div#product-backlog {
+  border: 1px solid black;
+}
+
+ul.cards, ul.cards li ul.details-small {
+  list-style-type: none;
+}
+
+ul.cards li {
+  float: left;
+}
+

@@ -1,8 +1,2 @@
-.span-16
-  %h2= "#{@product.name} - #{@product.owner}"
-.span-8.last
-  %select{:id => 'change-product', :name => 'product_id'}
-    %option{:selected => 'selected'}= t('app.product.change')
-    = Product.all.collect do |product|
-      %option{:value => product.id}= product.name
+=render :partial => 'products/top'
 

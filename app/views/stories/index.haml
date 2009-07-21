@@ -1,0 +1,13 @@
+=render :partial => 'products/top'
+#product-backlog.span-24.last
+  %h2= t('app.product.backlog')
+  %ul.cards
+    - @stories.each do |story|
+      %li
+        %ul.details-small
+          %li.id= story.id
+          %li.story= story.name
+          %li.notes= story.description
+          %li.priority= story.priority
+          %li.estimative= story.estimative
+

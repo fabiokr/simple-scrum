@@ -55,7 +55,8 @@ class ProductsControllerTest < ActionController::TestCase
   context "on GET to :show" do
     setup do
       @product = Factory(:product)
-      Product.expects(:find => @product)
+      @products = [Factory(:product), Factory(:product)].paginate
+      Product.expects(:find => @product, :all => @products)
 
       get :show, :id => @product.id
     end
