@@ -8,8 +8,11 @@ class StoriesControllerTest < ActionController::TestCase
       @products = [@product, Factory(:product)].paginate
       @stories = [Factory(:story), Factory(:story)].paginate
 
+      @search = Story.search
+
+      @search.stubs(:all => @stories)
+      Story.expects(:search => @search)
       Product.expects(:find => @product, :all => @products)
-      @product.expects(:stories => @stories)
 
       get :index, :product_id => @product.id
     end

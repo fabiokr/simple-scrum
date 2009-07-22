@@ -5,10 +5,10 @@ class ProductsControllerTest < ActionController::TestCase
   context 'on GET to :index' do
     setup do
       @products = [Factory(:product), Factory(:product)].paginate
-      @search = Product.new_search
+      @search = Product.search
 
-      @search.stubs(:all => @products, :count => @products.size)
-      Product.expects(:new_search => @search)
+      @search.stubs(:paginate => @products)
+      Product.expects(:search => @search)
 
       get :index
     end

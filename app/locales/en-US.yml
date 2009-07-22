@@ -160,7 +160,7 @@ en-US:
         start: "Start"
         end: "End"
       story:
-        story: 'Story'
+        priority: "Priority"
         description: "Description"
         estimative: "Estimative"
         father: 'Father'
@@ -192,4 +192,6 @@ en-US:
         listing: "Products"
         change: "Change product"
         backlog: 'Product backlog'
+    story:
+        listing: "Stories"
 

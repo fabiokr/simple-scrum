@@ -24,10 +24,10 @@
 .pagination a, .pagination span {
   padding: .2em .3em;
 }
-.pagination span.disabled_page {
+.pagination span.disabled {
   color: #AAA;
 }
-.pagination span.current_page {
+.pagination span.current {
   font-weight: bold;
   background: transparent url(/images/pagination-circle.gif) no-repeat 50% 50%;
 }

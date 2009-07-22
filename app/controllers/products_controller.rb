@@ -3,8 +3,8 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @search = Product.new_search(params[:search])
-    @products, @products_count = @search.all, @search.count
+    @search = Product.search(params[:search])
+    @products = @search.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,13 +1,24 @@
 =render :partial => 'products/top'
-#product-backlog.span-24.last
-  %h2= t('app.product.backlog')
-  %ul.cards
+
+%table
+  %caption
+    %h3= "#{t('app.story.listing')} - #{t('system.found_registries', :count => @stories.count)}"
+  %thead
+    %tr
+      %th= order @search, :by => :priority, :as => t('activerecord.attributes.story.priority')
+      %th= order @search, :by => :name, :as => t('activerecord.models.story')
+      %th= order @search, :by => :estimative, :as => t('activerecord.attributes.story.estimative')
+      %th= order @search, :by => :updated_at, :as => t('activerecord.attributes._all.updated_at')
+      %th
+      %th
+      %th
+  %tbody
     - @stories.each do |story|
-      %li
-        %ul.details-small
-          %li.id= story.id
-          %li.story= story.name
-          %li.notes= story.description
-          %li.priority= story.priority
-          %li.estimative= story.estimative
+      %tr
+        %td= story.priority
+        %td= story.name
+        %td= story.estimative
+        %td= h story.updated_at.to_formatted_s(:short)
+        %td= link_to icon(:page_edit), edit_product_story_path(@product, story), :alt => t('system.edit'), :title => t('system.edit')
+        %td= link_to icon(:page_delete), product_story_path(@product, story), :confirm => t('system.confirm'), :method => :delete, :alt => t('system.destroy'), :title => t('system.destroy')
 

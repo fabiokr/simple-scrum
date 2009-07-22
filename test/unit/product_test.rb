@@ -12,9 +12,6 @@ class ProductTest < ActiveSupport::TestCase
     should_ensure_length_in_range :name, (1..60)
     should_ensure_length_in_range :owner, (1..60)
 
-    should_have_many(:sprints)
-    should_have_many(:stories)
-
   end
 end
 

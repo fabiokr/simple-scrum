@@ -9,7 +9,8 @@ class StoriesController < ApplicationController
   # GET /products/1/stories
   # GET /products/1/stories.json
   def index
-    @stories = @product.stories
+    @search = Story.search(:product_id_equals => @product.id)
+    @stories = @search.all
 
     respond_to do |format|
       format.html # index.html.erb

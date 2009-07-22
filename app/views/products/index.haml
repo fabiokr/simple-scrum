@@ -16,13 +16,13 @@
 
 %table
   %caption
-    %h3= "#{t('app.product.listing')} - #{t('system.found_registries', :count => @products_count)}"
+    %h3= "#{t('app.product.listing')} - #{t('system.found_registries', :count => @products.total_entries)}"
   %thead
     %tr
-      %th= order_by_link(:name, :text => t('activerecord.attributes._all.name'))
-      %th= order_by_link(:owner, :text => t('activerecord.attributes.product.owner'))
-      %th= order_by_link(:created_at, :text => t('activerecord.attributes._all.created_at'))
-      %th= order_by_link(:updated_at, :text => t('activerecord.attributes._all.updated_at'))
+      %th= order @search, :by => :name, :as => t('activerecord.attributes._all.name')
+      %th= order @search, :by => :owner, :as => t('activerecord.attributes.product.owner')
+      %th= order @search, :by => :created_at, :as => t('activerecord.attributes._all.created_at')
+      %th= order @search, :by => :updated_at, :as => t('activerecord.attributes._all.updated_at')
       %th
       %th
       %th
@@ -36,6 +36,5 @@
         %td= link_to icon(:page), product_path(product), :alt => t('system.show'), :title => t('system.show')
         %td= link_to icon(:page_edit), edit_product_path(product), :alt => t('system.edit'), :title => t('system.edit')
         %td= link_to icon(:page_delete), product_path(product), :confirm => t('system.confirm'), :method => :delete, :alt => t('system.destroy'), :title => t('system.destroy')
-- if @search.page_count > 0
-  .pagination= page_links :prev => t('system.previous_label'), :next => t('system.next_label')
+= will_paginate @products
 
