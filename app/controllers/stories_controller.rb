@@ -9,7 +9,7 @@ class StoriesController < ApplicationController
   # GET /products/1/stories
   # GET /products/1/stories.json
   def index
-    @search = Story.search(:product_id_equals => @product.id)
+    @search = Story.search({:product_id_equals => @product.id}.merge(params[:search] || {}))
     @stories = @search.all
 
     respond_to do |format|
