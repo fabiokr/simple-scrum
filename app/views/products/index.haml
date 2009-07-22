@@ -27,7 +27,7 @@
       %th
   %tbody
     - for product in @products
-      %tr
+      %tr{:id => product.id}
         %td= h product.name
         %td= h product.owner
         %td= h product.created_at.to_formatted_s(:short)

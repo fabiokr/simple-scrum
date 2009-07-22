@@ -5,6 +5,8 @@ ActionController::Routing::Routes.draw do |map|
     product.resources :sprints
   end
 
+  map.javascript_named_routes
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
