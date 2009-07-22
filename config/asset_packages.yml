@@ -4,6 +4,7 @@ javascripts:
   - jquery
   - jquery-ui
   - jrails
+  - named_routes
 stylesheets:
 - base_screen:
   - blueprint/screen
