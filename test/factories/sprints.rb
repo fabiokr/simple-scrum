@@ -1,4 +1,4 @@
-Factory.define :sprint, :default_strategy => :build do |u|
+Factory.define :sprint do |u|
   u.add_attribute(:id) {|a| Factory.next(:id)}
   u.name 'Admin Module Sprint'
   u.start Time.now

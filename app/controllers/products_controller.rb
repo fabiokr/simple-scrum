@@ -47,7 +47,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.product'))
-        format.html { redirect_to(product_url(@product)) }
+        format.html { redirect_to(products_url) }
         format.json  { render :json => @product, :status => :created, :location => @product }
       else
         format.html { render :action => "new" }
@@ -64,7 +64,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.update_attributes(params[:product])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.product'))
-        format.html { redirect_to(product_url(@product)) }
+        format.html { redirect_to(products_url) }
         format.json  { head :ok }
       else
         format.html { render :action => "edit" }

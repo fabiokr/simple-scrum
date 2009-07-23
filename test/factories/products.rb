@@ -1,4 +1,4 @@
-Factory.define :product, :default_strategy => :build do |u|
+Factory.define :product do |u|
   u.add_attribute(:id) {|a| Factory.next(:id)}
   u.name 'My Project'
   u.owner 'The Owner'

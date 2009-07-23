@@ -193,5 +193,7 @@ en-US:
         change: "Change product"
         backlog: 'Product backlog'
     story:
+        new: "New Story"
+        editing: "Editing Story"
         listing: "Stories"
 

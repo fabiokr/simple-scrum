@@ -1,4 +1,4 @@
-Factory.define :story, :default_strategy => :build do |u|
+Factory.define :story do |u|
   u.add_attribute(:id) {|a| Factory.next(:id)}
   u.name 'As a user I want to do something'
   u.description 'Here goes some aceptance tests descriptions'
