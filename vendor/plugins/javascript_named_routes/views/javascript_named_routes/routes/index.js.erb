@@ -1,6 +1,6 @@
 var Routes = (function() {
   var _ = {};
-
+  
   var route = function(segments, keys) {
     return function() {
       // build params object from arguments
@@ -18,23 +18,28 @@ var Routes = (function() {
       for (var i = 0; i < n; i++) {
         params[keys[i]] = arguments[i];
       }
-
+      
       var path = [];
-
+      
       // build path component of URI from route segments
       var pi = 0;
       for (var i = 0; i < segments.length; i++) {
         if (segments[i] == _) {
           var k = keys[pi++];
-          if(params[k]) {
-            path.push(encodeURIComponent(params[k]));
-          }
+          path.push(encodeURIComponent(params[k]));
           delete params[k];
         } else {
           path.push(segments[i]);
         }
       }
-
+      
+      // add the format, if provided
+      if (params.format) {
+        path.push('.');
+        path.push(params.format);
+        delete params.format;
+      }
+      
       // put any extra params in the query string
       var separator = '?';
       for (var k in params) {
@@ -46,11 +51,11 @@ var Routes = (function() {
           separator = '&';
         }
       }
-
+      
       return path.join('');
     };
   };
-
+  
   return {
   <% separator = '' -%>
   <% for name, segments, keys in @route_data %>
@@ -58,4 +63,3 @@ var Routes = (function() {
   <% end %>
   };
 }());
-
