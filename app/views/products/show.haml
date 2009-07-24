@@ -1,2 +1,5 @@
-=render :partial => 'products/top'
+.span-10
+  %h2= "#{@product.name} - #{@product.owner}"
+.span-6
+  =link_to(t('app.product.backlog'), product_stories_path(@product))
 

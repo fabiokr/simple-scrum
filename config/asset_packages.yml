@@ -1,10 +1,13 @@
 ---
 javascripts:
 - base:
-  - jquery
-  - jquery-ui
-  - jrails
+  - prototype
+  - effects
+  - dragdrop
+  - controls
+  - lowpro
   - routes
+  - application
 stylesheets:
 - base_screen:
   - blueprint/screen
