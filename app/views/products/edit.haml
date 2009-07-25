@@ -4,6 +4,3 @@
     = render :partial => 'products/form', :locals => { :f => f }
     %p= button_tag t('system.update'), :accept, :class => 'positive'
 
-= link_to t('system.show'), product_path(@product)
-= link_to t('system.back'), products_path
-

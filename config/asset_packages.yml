@@ -1,11 +1,8 @@
 ---
 javascripts:
 - base:
-  - prototype
-  - effects
-  - dragdrop
-  - controls
-  - lowpro
+  - jquery-1.3.2
+  - jquery-ui-1.7.2.min
   - routes
   - application
 stylesheets:
@@ -14,6 +11,7 @@ stylesheets:
   - blueprint/ie
   - blueprint/buttons/screen
   - blueprint/fancy-type/screen
+  - jquery-ui-1.7.2
 - base_print:
   - blueprint/print
 

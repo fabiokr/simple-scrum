@@ -1,6 +1,4 @@
-Event.addBehavior({
-  'table tbody tr:click' : function() {
-    window.location = Routes.productPath(this.readAttribute('id'));
-  }
+$('table tbody tr:click').click(function() {
+   window.location = Routes.productPath($(this).attr('id'));
 });
 

@@ -1,0 +1,11 @@
+.container
+  #message.span-16
+    - if !flash[:notice].nil?
+      .notice= flash[:notice]
+    - if !flash[:message].nil?
+      .success= flash[:message]
+  .span-8.last
+
+  .span-24
+    = yield
+
