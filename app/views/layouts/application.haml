@@ -26,12 +26,12 @@
           .success= flash[:message]
       .span-8.last
 
-      .span-24
+      #inner-content.span-24
         = yield
-        / External javascripts
-        = javascript_include_merged :base
-        / Application javascrips
-        = javascripts
 
       = render :partial => 'layouts/footer'
+      / External javascripts
+      = javascript_include_merged :base
+      / Application javascrips
+      = javascripts
 
