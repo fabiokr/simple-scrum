@@ -2,3 +2,4 @@ log
 *.sqlite3
 db/schema.rb
 tmp
+public/stylesheets/compiled
