@@ -14,6 +14,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json  { render :json => @stories }
+      format.js { render :layout => false}
     end
   end
 
@@ -33,13 +34,16 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json  { render :json => @story }
     end
   end
 
   # GET /products/1/stories/1/edit
   def edit
     @story = @product.stories.find(params[:id])
+
+    respond_to do |format|
+      format.html # edit.html.erb
+    end
   end
 
   # POST /products/1/stories
@@ -50,10 +54,8 @@ class StoriesController < ApplicationController
       if @story.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.story'))
         format.html { redirect_to(product_stories_url(@product)) }
-        format.json  { render :json => @story, :status => :created, :location => @story }
       else
         format.html { render :action => "new" }
-        format.json  { render :json => @story.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -66,10 +68,8 @@ class StoriesController < ApplicationController
       if @story.update_attributes(params[:story])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.story'))
         format.html { redirect_to(product_stories_url(@product)) }
-        format.json  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.json  { render :json => @story.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -82,7 +82,6 @@ class StoriesController < ApplicationController
     respond_to do |format|
       flash[:message] = t('system.successfully_destroyed', :model => t('activerecord.models.story'))
       format.html { redirect_to(product_stories_url(@product)) }
-      format.json  { head :ok }
     end
   end
 

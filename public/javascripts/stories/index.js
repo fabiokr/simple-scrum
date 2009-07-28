@@ -1,12 +1,10 @@
 $('a#new-button').click(function(){
-  $.get($(this).attr('href'), function(data){
-    $(data).dialog({
-			bgiframe: true,
-			width: 600,
-			modal: true,
-			draggable: false
-		});
-  });
+  $('#inner-content').spin().load($(this).attr('href'), null, addAjaxToForm);
   return false;
 });
+
+function addAjaxToForm() {
+  $('#inner-content').find('form').ajaxForm({target:'#inner-content', beforeSubmit: function(){$('#inner-content').find('form')}, success: addAjaxToForm});
+  $.Spinner.unspin();
+}
 
