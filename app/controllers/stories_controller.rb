@@ -8,13 +8,11 @@ class StoriesController < ApplicationController
 
   # GET /products/1/stories
   def index
-    @search = @product.stories.search(params[:search])
-    @stories = @search.all
+    @stories = @product.stories.search(params[:search])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json  { render :json => @stories }
-      format.js { render :layout => false}
+      format.json  { render :json => @stories.all }
     end
   end
 
@@ -53,7 +51,13 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.story'))
-        format.html { redirect_to(product_stories_url(@product)) }
+        format.html do
+          if request.xhr?
+            render :partial => 'stories/table', :locals => {:stories => @product.stories.search}
+          else
+            redirect_to(product_stories_url(@product))
+          end
+        end
       else
         format.html { render :action => "new" }
       end
@@ -67,7 +71,13 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story.update_attributes(params[:story])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.story'))
-        format.html { redirect_to(product_stories_url(@product)) }
+        format.html do
+          if request.xhr?
+            render :partial => 'stories/table', :locals => {:stories => @product.stories.search}
+          else
+            redirect_to(product_stories_url(@product))
+          end
+        end
       else
         format.html { render :action => "edit" }
       end
