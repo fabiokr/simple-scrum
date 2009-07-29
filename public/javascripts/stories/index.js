@@ -3,13 +3,14 @@ $(document).ready(function() {
 });
 
 function addListBehaviour() {
-  $('a#new-button').click(function(){
+  $('a#new-button').live('click', function(){
     $('#inner-content').spin()
       .load($(this)
       .attr('href'), null, addAjaxToForm);
     return false;
   });
-  $('table.dataList tbody tr').click(function() {
+
+  $('table.dataList tbody tr').live('click', function(){
     $('#inner-content').spin()
       .load($(this)
       .find('a.editLink')
@@ -21,14 +22,9 @@ function addListBehaviour() {
 function addAjaxToForm() {
   $('#inner-content').find('form')
     .ajaxForm({target:'#inner-content', beforeSubmit: function(){
-      $('#inner-content').find('form')}, success: afterFormSubmit
+      $('#inner-content').find('form')}, success: addAjaxToForm
     }
   );
   $.Spinner.unspin();
-}
-
-function afterFormSubmit() {
-  addListBehaviour();
-  addAjaxToForm();
 }
 
