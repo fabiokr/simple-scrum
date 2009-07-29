@@ -53,7 +53,8 @@ class StoriesController < ApplicationController
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.story'))
         format.html do
           if request.xhr?
-            render :partial => 'stories/table', :locals => {:stories => @product.stories.search}
+            @stories = @product.stories.search
+            render :action => 'index'
           else
             redirect_to(product_stories_url(@product))
           end
@@ -73,7 +74,8 @@ class StoriesController < ApplicationController
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.story'))
         format.html do
           if request.xhr?
-            render :partial => 'stories/table', :locals => {:stories => @product.stories.search}
+            @stories = @product.stories.search
+            render :action => 'index'
           else
             redirect_to(product_stories_url(@product))
           end
@@ -91,7 +93,14 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       flash[:message] = t('system.successfully_destroyed', :model => t('activerecord.models.story'))
-      format.html { redirect_to(product_stories_url(@product)) }
+      format.html do
+        if request.xhr?
+          @stories = @product.stories.search
+          render :action => 'index'
+        else
+          redirect_to(product_stories_url(@product))
+        end
+      end
     end
   end
 
