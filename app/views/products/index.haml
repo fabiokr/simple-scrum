@@ -14,7 +14,7 @@
 %br
 %br
 
-%table
+%table.dataList
   %caption
     %h3= "#{t('app.product.listing')} - #{t('system.found_registries', :count => @products.total_entries)}"
   %thead
@@ -25,14 +25,16 @@
       %th= order @search, :by => :updated_at, :as => t('activerecord.attributes._all.updated_at')
       %th
       %th
+      %th
   %tbody
     - for product in @products
-      %tr{:id => product.id}
+      %tr{:product_id => product.id}
         %td= h product.name
         %td= h product.owner
         %td= h product.created_at.to_formatted_s(:short)
         %td= h product.updated_at.to_formatted_s(:short)
-        %td= link_to icon(:page_edit), edit_product_path(product), :alt => t('system.edit'), :title => t('system.edit')
-        %td= link_to icon(:page_delete), product_path(product), :confirm => t('system.confirm'), :method => :delete, :alt => t('system.destroy'), :title => t('system.destroy')
+        %td= show_link product_path(product)
+        %td= edit_link edit_product_path(product)
+        %td= delete_link product_path(product)
 = will_paginate @products
 

@@ -11,5 +11,17 @@ module ApplicationHelper
     t(t) + ':'
   end
 
+  def show_link(path)
+    link_to icon(:page), path, :alt => t('system.show'), :title => t('system.show'), :class => 'showLink'
+  end
+
+  def edit_link(path)
+    link_to icon(:page_edit), path, :alt => t('system.edit'), :title => t('system.edit'), :class => 'editLink'
+  end
+
+  def delete_link(path)
+    link_to icon(:page_delete), path, :confirm => t('system.confirm'), :method => :delete, :alt => t('system.destroy'), :title => t('system.destroy'), :class => 'deleteLink'
+  end
+
 end
 

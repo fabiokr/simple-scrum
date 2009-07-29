@@ -1,6 +1,12 @@
-$('a#new-button').click(function(){
-  $('#inner-content').spin().load($(this).attr('href'), null, addAjaxToForm);
-  return false;
+$(document).ready(function() {
+  $('a#new-button').click(function(){
+    $('#inner-content').spin().load($(this).attr('href'), null, addAjaxToForm);
+    return false;
+  });
+  $('table.dataList tbody tr').click(function() {
+    $('#inner-content').spin().load($(this).find('a.editLink').attr('href'), null, addAjaxToForm);
+    return false;
+  });
 });
 
 function addAjaxToForm() {

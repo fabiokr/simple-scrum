@@ -1,4 +1,6 @@
-$('table tbody tr:click').click(function() {
-   window.location = Routes.productPath($(this).attr('id'));
+$(document).ready(function() {
+  $('table.dataList tbody tr').click(function() {
+     window.location = $(this).find('a.showLink').attr('href');
+  });
 });
 

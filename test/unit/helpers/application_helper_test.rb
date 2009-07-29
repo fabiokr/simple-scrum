@@ -24,5 +24,45 @@ class ApplicationHelperTest < ActionView::TestCase
     end
   end
 
+  context 'A call to show_link' do
+    setup do
+      self.stubs(:icon).returns('icon')
+    end
+
+    should 'print valid link' do
+      result = show_link('/link');
+      assert result.match(/<a.*>icon<\/a>/)
+      assert result.match(/.*class="showLink".*/)
+      assert result.match(/.*href="\/link".*/)
+    end
+  end
+
+  context 'A call to edit_link' do
+    setup do
+      self.stubs(:icon).returns('icon')
+    end
+
+    should 'print valid link' do
+      result = edit_link('/link');
+      assert result.match(/<a.*>icon<\/a>/)
+      assert result.match(/.*class="editLink".*/)
+      assert result.match(/.*href="\/link".*/)
+    end
+  end
+
+  context 'A call to delete_link' do
+    setup do
+      self.stubs(:icon).returns('icon')
+      self.stubs(:protect_against_forgery?).returns(false)
+    end
+
+    should 'print valid link' do
+      result = delete_link('/link');
+      assert result.match(/<a.*>icon<\/a>/)
+      assert result.match(/.*class="deleteLink".*/)
+      assert result.match(/.*href="\/link".*/)
+    end
+  end
+
 end
 
