@@ -1,4 +1,4 @@
-%table.dataList
+%table#dataList
   %caption
     %h3= "#{t('app.story.listing')} - #{t('system.found_registries', :count => stories.count)}"
   %thead
@@ -20,4 +20,6 @@
         %td= show_link product_story_path(@product, story)
         %td= edit_link edit_product_story_path(@product, story)
         %td= delete_link product_story_path(@product, story)
+
+%p= link_to icon(:page_edit), '/teste', :alt => t('system.edit'), :title => t('system.edit'), :class => 'editLink', :method => :delete
 

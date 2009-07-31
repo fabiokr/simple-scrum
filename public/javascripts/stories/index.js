@@ -10,7 +10,7 @@ function addListBehaviour() {
     return false;
   });
 
-  $('table.dataList tbody tr').live('click', function(){
+  $('table#dataList tbody tr').live('click', function(){
     $('#inner-content').spin()
       .load($(this)
       .find('a.editLink')

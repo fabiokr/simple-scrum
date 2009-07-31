@@ -20,7 +20,14 @@ module ApplicationHelper
   end
 
   def delete_link(path)
-    link_to icon(:page_delete), path, :confirm => t('system.confirm'), :method => :delete, :alt => t('system.destroy'), :title => t('system.destroy'), :class => 'deleteLink'
+    html_options = html_options_for_form(path,{})
+
+    form = content_tag('form', :action => html_options['action'], :method => 'post', :class => 'deleteLink') do
+      content = ''
+      content << hidden_field_tag('_method', 'delete')
+      content << hidden_field_tag(request_forgery_protection_token.to_s, form_authenticity_token)
+      content << image_submit_tag("#{Icons::IMG_SRC}#{Icons.current_set}/page_delete.png")
+    end
   end
 
 end
