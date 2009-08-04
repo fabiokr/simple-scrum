@@ -2,11 +2,10 @@
   - form_for @search do |f|
     %fieldset
       %legend= t('system.search_legend')
-      - f.fields_for @search.conditions do |products|
-        %p
-          = products.label :name_keywords, t('activerecord.attributes._all.name')
-          %br
-          = products.text_field :name_keywords, :class => 'text'
+      %p
+        = f.label :name_keywords, t('activerecord.attributes._all.name')
+        %br
+        = f.text_field :name_like, :class => 'text'
 
       = button_tag t('system.search'), :find, :class => 'search'
 
