@@ -1,4 +1,4 @@
-- form_for(@product) do |f|
+- form_for(@product, :html => {:class => 'dataForm'}) do |f|
   %fieldset
     %legend= t('app.product.new')
     = render :partial => 'products/form', :locals => { :f => f }

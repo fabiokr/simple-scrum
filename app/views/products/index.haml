@@ -9,7 +9,7 @@
 
       = button_tag t('system.search'), :find, :class => 'search'
 
-= link_to "#{icon(:page_add)}#{t('app.product.new')}", new_product_path, :class => 'button'
+= new_link(new_product_path, t('app.product.new'))
 %br
 %br
 

@@ -24,6 +24,19 @@ class ApplicationHelperTest < ActionView::TestCase
     end
   end
 
+  context 'A call to new_link' do
+    setup do
+      self.stubs(:icon).returns('icon')
+    end
+
+    should 'print valid link' do
+      result = new_link('/link', 'text');
+      assert result.match(/<a.*>icontext<\/a>/)
+      assert result.match(/.*class="button newLink".*/)
+      assert result.match(/.*href="\/link".*/)
+    end
+  end
+
   context 'A call to show_link' do
     setup do
       self.stubs(:icon).returns('icon')
@@ -57,12 +70,11 @@ class ApplicationHelperTest < ActionView::TestCase
 
     should 'print valid link' do
       result = delete_link('/link');
-      puts result
       assert result.match(/<form.*>.*<\/form>/)
       assert result.match(/.*class="deleteLink".*/)
       assert result.match(/<input id="_method" name="_method" type="hidden" value="delete" \/>/)
       assert result.match(/<input id="authenticity_token" name="authenticity_token" type="hidden" value="12345" \/>/)
-      assert result.match(/<input src=".*" type="image" \/>/)
+      assert result.match(/<input alt="delete" src=".*" title="delete" type="image" \/>/)
     end
   end
 

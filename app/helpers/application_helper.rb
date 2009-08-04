@@ -11,6 +11,10 @@ module ApplicationHelper
     t(t) + ':'
   end
 
+  def new_link(path, text)
+    link_to "#{icon(:page_add)}#{text}", path, :class => 'button newLink'
+  end
+
   def show_link(path)
     link_to icon(:page), path, :alt => t('system.show'), :title => t('system.show'), :class => 'showLink'
   end
