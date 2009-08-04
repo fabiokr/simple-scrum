@@ -26,7 +26,7 @@ module ApplicationHelper
       content = ''
       content << hidden_field_tag('_method', 'delete')
       content << hidden_field_tag(request_forgery_protection_token.to_s, form_authenticity_token)
-      content << image_submit_tag("#{Icons::IMG_SRC}#{Icons.current_set}/page_delete.png")
+      content << image_submit_tag("#{Icons::IMG_SRC}#{Icons.current_set}/page_delete.png", :alt => t('system.destroy'), :title => t('system.destroy'))
     end
   end
 
