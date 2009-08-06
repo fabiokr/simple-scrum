@@ -8,7 +8,7 @@ $(document).ready(function() {
 function replaceDestroyForms() {
   $('form.deleteLink').toggleClass('hide');
   $('a.deleteLink').toggleClass('hide').live('click', function() {
-    if(confirm('Are you sure?')) {
+    if(confirm(i18n.confirm_destroy)) {
       $('#inner-content').spin();
       $(this).prev('form').ajaxSubmit({target:'#inner-content', success: function(){
         $('form.deleteLink').toggleClass('hide');
