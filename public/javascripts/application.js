@@ -39,8 +39,12 @@ function addAjaxToForm() {
 function addAjaxToDataTable() {
   $('table#dataList tbody tr td a').live('click', function(){
     $('#inner-content').spin()
-      .load($(this)
-      .attr('href'), null, addAjaxToForm);
+      .load($(this).attr('href'), null, addAjaxToForm);
+      return false;
+  });
+  $('table#dataList tbody tr').live('click', function(){
+    $('#inner-content').spin()
+      .load($(this).find('a.showLink').attr('href'), null, addAjaxToForm);
       return false;
   });
 }
