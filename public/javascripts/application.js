@@ -1,3 +1,19 @@
+$(document).ready(function() {
+  //addAlertOnDestroy();
+
+  //Test only
+  $("body").addGrid({img_path: '/images/',margin:"1.5em auto"});
+});
+
+/*function addAlertOnDestroy() {
+  $('form.deleteLink').click(function(){
+    if(confirm('Are you sure?')) {
+      $(this).trigger('submit');
+    }
+    return false;
+  });
+}*/
+
 function addAjaxToPagination() {
   $('div.pagination a').live('click', function(){
     $('#inner-content').spin()
@@ -14,19 +30,7 @@ function addAjaxToForm() {
   $.Spinner.unspin();
 }
 
-function addAjaxToDestroyForm() {
-  $('form.deleteLink').ajaxForm({target:'#inner-content', success: addAjaxToForm});
-}
-
 function addAjaxToDataTable() {
-  $('table#dataList tbody tr').live('click', function(){
-    $('#inner-content').spin()
-      .load($(this)
-      .find('a.editLink')
-      .attr('href'), null, addAjaxToForm);
-      return false;
-  });
-
   $('table#dataList tbody tr td a').live('click', function(){
     $('#inner-content').spin()
       .load($(this)
