@@ -65,7 +65,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
   context 'A call to delete_link' do
     setup do
-      self.stubs(:request_forgery_protection_token => 'authenticity_token', :form_authenticity_token => '12345')
+      self.stubs(:request_forgery_protection_token => 'authenticity_token', :form_authenticity_token => '12345', :icon => 'icon')
     end
 
     should 'print valid link' do
@@ -74,7 +74,8 @@ class ApplicationHelperTest < ActionView::TestCase
       assert result.match(/.*class="deleteLink".*/)
       assert result.match(/<input id="_method" name="_method" type="hidden" value="delete" \/>/)
       assert result.match(/<input id="authenticity_token" name="authenticity_token" type="hidden" value="12345" \/>/)
-      assert result.match(/<input alt="delete" src=".*" title="delete" type="image" \/>/)
+      assert result.match(/<input alt=".*" src=".*" title=".*" type="image" \/>/)
+      assert result.match(/<a href=".*" alt=".*" class="deleteLink hide" title=".*">icon<\/a>/)
     end
   end
 

@@ -1,18 +1,24 @@
 $(document).ready(function() {
-  //addAlertOnDestroy();
+  replaceDestroyForms();
 
   //Test only
   $("body").addGrid({img_path: '/images/',margin:"1.5em auto"});
 });
 
-/*function addAlertOnDestroy() {
-  $('form.deleteLink').click(function(){
+function replaceDestroyForms() {
+  $('form.deleteLink').toggleClass('hide');
+  $('a.deleteLink').toggleClass('hide').live('click', function() {
     if(confirm('Are you sure?')) {
-      $(this).trigger('submit');
+      $('#inner-content').spin();
+      $(this).prev('form').ajaxSubmit({target:'#inner-content', success: function(){
+        $('form.deleteLink').toggleClass('hide');
+        $('a.deleteLink').toggleClass('hide')
+        $.Spinner.unspin();
+      }});
     }
     return false;
   });
-}*/
+}
 
 function addAjaxToPagination() {
   $('div.pagination a').live('click', function(){
