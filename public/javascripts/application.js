@@ -3,6 +3,16 @@ $(document).ready(function() {
   $("body").addGrid({img_path: '/images/',margin:"1.5em auto"});
 });
 
+function addQuestionToDestroyForms() {
+  $('form.deleteLink').toggleClass('hide');
+  $('a.deleteLink').toggleClass('hide').live('click', function() {
+    if(confirm(i18n.confirm_destroy)) {
+      $(this).prev('form').trigger('submit');
+    }
+    return false;
+  });
+}
+
 function addAjaxToDestroyForms() {
   $('form.deleteLink').toggleClass('hide');
   $('a.deleteLink').toggleClass('hide').live('click', function() {
