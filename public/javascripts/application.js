@@ -1,11 +1,9 @@
 $(document).ready(function() {
-  replaceDestroyForms();
-
   //Test only
   $("body").addGrid({img_path: '/images/',margin:"1.5em auto"});
 });
 
-function replaceDestroyForms() {
+function addAjaxToDestroyForms() {
   $('form.deleteLink').toggleClass('hide');
   $('a.deleteLink').toggleClass('hide').live('click', function() {
     if(confirm(i18n.confirm_destroy)) {
