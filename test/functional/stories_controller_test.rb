@@ -66,6 +66,7 @@ class StoriesControllerTest < ActionController::TestCase
       should_respond_with :success
       should_assign_to(:product) {@product}
       should_assign_to :stories
+      should_set_the_flash_to /.*/
       should 'create story' do
         assert_equal 1, Story.count
         assert_equal @product, Story.all.first.product
