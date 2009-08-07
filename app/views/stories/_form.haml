@@ -2,15 +2,15 @@
 %p
   = f.label :name
   %br
-  = f.text_field :name, :class => 'text'
+  = f.text_field :name, :class => 'validate[required,length[0,100]] text'
 %p
   = f.label :priority
   %br
-  = f.text_field :priority, :class => 'text'
+  = f.text_field :priority, :class => 'validate[custom[onlyInteger]] text'
 %p
   = f.label :estimative
   %br
-  = f.text_field :estimative, :class => 'text'
+  = f.text_field :estimative, :class => 'validate[custom[anyNumber]] text'
 %p
   = f.label :description
   %br

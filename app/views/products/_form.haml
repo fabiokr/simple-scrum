@@ -2,9 +2,9 @@
 %p
   = f.label :name
   %br
-  = f.text_field :name, :class => 'text'
+  = f.text_field :name, :class => 'validate[required,length[0,60]] text'
 %p
   = f.label :owner
   %br
-  = f.text_field :owner, :class => 'text'
+  = f.text_field :owner, :class => 'validate[required,length[0,60]] text'
 

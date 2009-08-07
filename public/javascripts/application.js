@@ -32,7 +32,12 @@ function addAjaxToPagination() {
 }
 
 function addAjaxToForm() {
-  $('div#inner-content form.dataForm').ajaxForm({target:'#inner-content', success: addAjaxToForm});
+  $("[class^=validate]").validationEngine({
+		success :  function() {
+		  $('form.dataForm').ajaxSubmit({target:'#inner-content', success: addAjaxToForm});
+		},
+		failure : function() {}
+	})
   $.Spinner.unspin();
 }
 

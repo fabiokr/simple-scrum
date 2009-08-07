@@ -6,6 +6,7 @@ javascripts:
   - jquery.form
   - jquery.spinner
   - jquery.blueprint.showgrid
+  - jquery.validationEngine
   - routes
   - application.en-US
 stylesheets:
@@ -15,6 +16,7 @@ stylesheets:
   - blueprint/buttons/screen
   - blueprint/fancy-type/screen
   - jquery-ui-1.7.2
+  - validationEngine.jquery
   - spinner
 - base_print:
   - blueprint/print
