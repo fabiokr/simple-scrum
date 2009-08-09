@@ -1,6 +1,6 @@
 %table#dataList
   %caption
-    %h3= "#{t('app.story.listing')} - #{t('system.found_registries', :count => stories.count)}"
+    ="#{t('app.story.listing')} - #{t('system.found_registries', :count => stories.count)}"
   %thead
     %tr
       %th= order stories, :by => :priority, :as => t('activerecord.attributes.story.priority')
