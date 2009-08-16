@@ -3,38 +3,43 @@ $(document).ready(function() {
   $("body").addGrid({img_path: '/images/',margin:"1.5em auto"});
 });
 
-function addQuestionToDestroyForms() {
-  $('form.deleteLink').toggleClass('hide');
-  $('a.deleteLink').toggleClass('hide').live('click', function() {
-    if(confirm(i18n.confirm_destroy)) {
-      $(this).prev('form').trigger('submit');
-    }
+function addAjaxToNewButton() {
+  $('a.newLink').live('click', function(){
+    $('#inner-content').spin()
+      .load($(this)
+      .attr('href'), null, addAjaxToForm);
     return false;
   });
 }
 
-function addAjaxToDestroyForms() {
-  $('form.deleteLink').toggleClass('hide');
-  $('a.deleteLink').toggleClass('hide').live('click', function() {
-    if(confirm(i18n.confirm_destroy)) {
-      $('#inner-content').spin();
-      $(this).prev('form').ajaxSubmit({target:'#inner-content', success: function(){
-        $('form.deleteLink').toggleClass('hide');
-        $('a.deleteLink').toggleClass('hide')
-        $.Spinner.unspin();
-      }});
-    }
-    return false;
-  });
-}
-
-function addAjaxToPagination() {
+function addAjaxToDataTable() {
+  //pagination ajax
   $('div.pagination a').live('click', function(){
     $('#inner-content').spin()
       .load($(this)
       .attr('href'), null, function(){
         $.Spinner.unspin();
       })
+    return false;
+  });
+
+  //edit link ajax
+  $('table#dataList tbody tr td a.editLink').live('click', function(){
+    $('#inner-content').spin().load($(this).attr('href'), null, addAjaxToForm);
+      return false;
+  });
+
+  //destroy link ajax
+  $('table#dataList tbody tr td form.deleteLink').hide();
+  $('table#dataList tbody tr td a.deleteLink').show().unbind().live('click', function() {
+    if(confirm(i18n.confirm_destroy)) {
+      $('#inner-content').spin();
+      $(this).prev('form').ajaxSubmit({target:'#inner-content', success: function(){
+        $('table#dataList tbody tr td form.deleteLink').hide();
+        $('table#dataList tbody tr td a.deleteLink').show();
+        $.Spinner.unspin();
+      }});
+    }
     return false;
   });
 }
@@ -49,25 +54,35 @@ function addAjaxToForm() {
   $.Spinner.unspin();
 }
 
-function addAjaxToDataTable() {
-  $('table#dataList tbody tr td a').live('click', function(){
-    $('#inner-content').spin()
-      .load($(this).attr('href'), null, addAjaxToForm);
-      return false;
-  });
-  $('table#dataList tbody tr').live('click', function(){
-    $('#inner-content').spin()
-      .load($(this).find('a.showLink').attr('href'), null, addAjaxToForm);
-      return false;
-  });
-}
+/** TEMP BEFORE NEXT JQUERY VERSION **/
+/*
+ * jQuery UI fade effect, based on pulsate
+ *
+ * Dual licensed under the MIT (MIT-LICENSE.txt)
+ * and GPL (GPL-LICENSE.txt) licenses.
+ *
+ * Depends:
+ * effects.core.js
+ */
+(function($) {
+$.effects.fade = function(o) {
+  return this.queue(function() {
+    // Create element
+    var el = $(this);
 
-function addAjaxToNewButton() {
-  $('a.newLink').live('click', function(){
-    $('#inner-content').spin()
-      .load($(this)
-      .attr('href'), null, addAjaxToForm);
-    return false;
+    // Set options
+    var speed = o.options.speed || 400;
+    var mode = o.options.mode || 'show'; // Set Mode
+
+    // Animate
+    if (mode == 'show') {
+      el.fadeIn(speed);
+    } else {
+      el.fadeOut(speed);
+    };
+    el.queue('fx', function() { el.dequeue(); });
+    el.dequeue();
   });
-}
+};
+})(jQuery);
 
