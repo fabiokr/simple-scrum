@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: sprints
+#
+#  id         :integer         not null, primary key
+#  name       :string(255)
+#  velocity   :float
+#  start      :datetime
+#  end        :datetime
+#  product_id :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'test_helper'
 
 class SprintTest < ActiveSupport::TestCase

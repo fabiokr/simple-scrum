@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: stories
+#
+#  id          :integer         not null, primary key
+#  name        :string(255)
+#  description :text
+#  estimative  :float
+#  priority    :integer
+#  product_id  :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 require 'test_helper'
 
 class StoryTest < ActiveSupport::TestCase
