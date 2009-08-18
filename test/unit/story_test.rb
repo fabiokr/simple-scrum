@@ -5,7 +5,7 @@
 #  id          :integer         not null, primary key
 #  name        :string(255)
 #  description :text
-#  estimative  :float
+#  estimative  :integer
 #  priority    :integer
 #  product_id  :integer
 #  created_at  :datetime
