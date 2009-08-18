@@ -51,8 +51,12 @@ function addAjaxToForm() {
 		},
 		failure : function() {}
 	})
+	pageFormSpecifics();
   $.Spinner.unspin();
 }
+
+//overwrite this to add specific behaviours to the form
+function pageFormSpecifics(){}
 
 /** TEMP BEFORE NEXT JQUERY VERSION **/
 /*
