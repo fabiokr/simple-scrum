@@ -1,18 +1,18 @@
 $(document).ready(function() {
   addAjaxToNewButton();
   addAjaxToDataTable();
-  $('table#dataList tbody tr').live('click', showPostit);
+  $('table#dataList tbody tr').live('click', showDetails);
 });
 
-function showPostit() {
+function showDetails() {
   $('#inner-content').spin();
   $.get($(this).find('a.showLink').attr('href'), function(data) {
     $.Spinner.unspin();
     $(data).dialog({
       title:i18n.product_backlog_dialog_title,
       modal:true,
-      height:400,
-      width:450,
+      height:500,
+      width:710,
       resizable:false,
       show:'fade',
       hide:'fade'

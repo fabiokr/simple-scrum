@@ -1,2 +1,11 @@
-#storyData
+#story-data
+  %h3 #{@story.name}
+  %b #{t('activerecord.attributes.story.estimative')}:
+  #{@story.estimative}
+  &nbsp;
+  %b #{t('activerecord.attributes.story.priority')}:
+  #{@story.priority}
+  %br
+  %br
+  %p #{@story.description}
 
