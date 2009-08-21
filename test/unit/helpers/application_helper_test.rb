@@ -69,13 +69,13 @@ class ApplicationHelperTest < ActionView::TestCase
     end
 
     should 'print valid link' do
-      result = delete_link('/link');
+      result = delete_link('/link')
       assert result.match(/<form.*>.*<\/form>/)
       assert result.match(/.*class="deleteLink".*/)
-      assert result.match(/<input id="_method" name="_method" type="hidden" value="delete" \/>/)
-      assert result.match(/<input id="authenticity_token" name="authenticity_token" type="hidden" value="12345" \/>/)
+      assert result.match(/<input name="_method" type="hidden" value="delete" \/>/)
+      assert result.match(/<input name="authenticity_token" type="hidden" value="12345" \/>/)
       assert result.match(/<input alt=".*" src=".*" title=".*" type="image" \/>/)
-      assert result.match(/<a href=".*" alt=".*" class="deleteLink hide" title=".*">icon<\/a>/)
+      assert result.match(/<a href=".*" class="deleteLink hide" title=".*">icon<\/a>/)
     end
   end
 
