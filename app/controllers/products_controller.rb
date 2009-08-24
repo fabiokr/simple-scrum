@@ -30,7 +30,6 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json  { render :json => @product }
     end
   end
 
@@ -48,10 +47,8 @@ class ProductsController < ApplicationController
       if @product.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.product'))
         format.html { redirect_to(products_url) }
-        format.json  { render :json => @product, :status => :created, :location => @product }
       else
         format.html { render :action => "new" }
-        format.json  { render :json => @product.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -65,10 +62,8 @@ class ProductsController < ApplicationController
       if @product.update_attributes(params[:product])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.product'))
         format.html { redirect_to(products_url) }
-        format.json  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.json  { render :json => @product.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -82,7 +77,6 @@ class ProductsController < ApplicationController
     respond_to do |format|
       flash[:message] = t('system.successfully_destroyed', :model => t('activerecord.models.product'))
       format.html { redirect_to(products_url) }
-      format.json  { head :ok }
     end
   end
 

@@ -75,7 +75,6 @@ class ApplicationHelperTest < ActionView::TestCase
       assert result.match(/<input name="_method" type="hidden" value="delete" \/>/)
       assert result.match(/<input name="authenticity_token" type="hidden" value="12345" \/>/)
       assert result.match(/<input alt=".*" src=".*" title=".*" type="image" \/>/)
-      assert result.match(/<a href=".*" class="deleteLink hide" title=".*">icon<\/a>/)
     end
   end
 

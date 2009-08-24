@@ -32,8 +32,6 @@ module ApplicationHelper
       content << hidden_field_tag(request_forgery_protection_token.to_s, form_authenticity_token, :id => nil)
       content << image_submit_tag("#{Icons::IMG_SRC}#{Icons.current_set}/page_delete.png", :alt => t('system.destroy'), :title => t('system.destroy'))
     end
-
-    form << link_to(icon(:page_delete, :alt => t('system.destroy')), path, :title => t('system.destroy'), :class => 'deleteLink hide')
   end
 
 end

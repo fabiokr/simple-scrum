@@ -1,62 +1,15 @@
 $(document).ready(function() {
+  addConfirmToDestoyForm();
+
   //Test only
   $("body").addGrid({img_path: '/images/',margin:"1.5em auto"});
 });
 
-function addAjaxToNewButton() {
-  $('a.newLink').live('click', function(){
-    $('#inner-content').spin()
-      .load($(this)
-      .attr('href'), null, addAjaxToForm);
-    return false;
+function addConfirmToDestoyForm() {
+  $('table#dataList tbody tr td form.deleteLink').click(function() {
+    return confirm(i18n.confirm_destroy);
   });
 }
-
-function addAjaxToDataTable() {
-  //pagination ajax
-  $('div.pagination a').live('click', function(){
-    $('#inner-content').spin()
-      .load($(this)
-      .attr('href'), null, function(){
-        $.Spinner.unspin();
-      })
-    return false;
-  });
-
-  //edit link ajax
-  $('table#dataList tbody tr td a.editLink').live('click', function(){
-    $('#inner-content').spin().load($(this).attr('href'), null, addAjaxToForm);
-      return false;
-  });
-
-  //destroy link ajax
-  $('table#dataList tbody tr td form.deleteLink').hide();
-  $('table#dataList tbody tr td a.deleteLink').show().unbind().live('click', function() {
-    if(confirm(i18n.confirm_destroy)) {
-      $('#inner-content').spin();
-      $(this).prev('form').ajaxSubmit({target:'#inner-content', success: function(){
-        $('table#dataList tbody tr td form.deleteLink').hide();
-        $('table#dataList tbody tr td a.deleteLink').show();
-        $.Spinner.unspin();
-      }});
-    }
-    return false;
-  });
-}
-
-function addAjaxToForm() {
-  $("[class^=validate]").validationEngine({
-		success :  function() {
-		  $('form.dataForm').ajaxSubmit({target:'#inner-content', success: addAjaxToForm});
-		},
-		failure : function() {}
-	})
-	pageFormSpecifics();
-  $.Spinner.unspin();
-}
-
-//overwrite this to add specific behaviours to the form
-function pageFormSpecifics(){}
 
 /** TEMP BEFORE NEXT JQUERY VERSION **/
 /*

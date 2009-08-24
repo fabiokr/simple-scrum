@@ -56,23 +56,6 @@ class StoriesControllerTest < ActionController::TestCase
       end
     end
 
-    context "on POST as xhr to :create" do
-      setup do
-        @story = Factory.build(:story)
-        @product = Factory(:product)
-        xhr :post, :create, {:product_id => @product.id, :story => @story.attributes}
-      end
-
-      should_respond_with :success
-      should_assign_to(:product) {@product}
-      should_assign_to :stories
-      should_set_the_flash_to /.*/
-      should 'create story' do
-        assert_equal 1, Story.count
-        assert_equal @product, Story.all.first.product
-      end
-    end
-
     context "on POST to :create with invalid records" do
       setup do
         @story = Story.new
@@ -110,20 +93,6 @@ class StoriesControllerTest < ActionController::TestCase
       end
     end
 
-    context "on POST as xhr to :update" do
-      setup do
-        @story = Factory(:story)
-        xhr :post, :update, {:product_id => @story.product.id, :id => @story.id, :story => {:name => 'New name'}}
-      end
-
-      should_respond_with :success
-      should_assign_to(:product) {@product}
-      should_assign_to :stories
-      should 'update story' do
-        assert_equal 'New name', Story.find(@story.id).name
-      end
-    end
-
     context "on POST to :update with invalid records" do
       setup do
         @story = Factory(:story)
@@ -145,20 +114,6 @@ class StoriesControllerTest < ActionController::TestCase
 
       should_redirect_to('index') {product_stories_path(@story.product)}
       should_set_the_flash_to /.*/
-      should 'destroy story' do
-        assert_equal 0, Story.count
-      end
-    end
-
-    context "on DELETE as xhr to :destroy" do
-      setup do
-        @story = Factory(:story)
-        xhr :delete, :destroy, {:product_id => @story.product.id, :id => @story.id}
-      end
-
-      should_respond_with :success
-      should_assign_to(:product) {@product}
-      should_assign_to :stories
       should 'destroy story' do
         assert_equal 0, Story.count
       end
