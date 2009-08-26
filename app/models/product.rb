@@ -17,9 +17,5 @@ class Product < ActiveRecord::Base
   has_many :stories
   has_many :sprints
 
-  def self.per_page
-    10
-  end
-
 end
 

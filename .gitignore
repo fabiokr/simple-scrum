@@ -3,3 +3,5 @@ log
 db/schema.rb
 tmp
 public/stylesheets/compiled
+coverage
+
