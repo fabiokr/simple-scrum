@@ -44,7 +44,6 @@ describe ApplicationHelper do
     self.should_receive(:form_authenticity_token).and_return('authenticity_token')
 
     result = delete_link('/link')
-    puts result
     assert result.match(/<form.*>.*<\/form>/)
     assert result.match(/.*class="deleteLink".*/)
     assert result.match(/<input name="_method" type="hidden" value="delete" \/>/)
