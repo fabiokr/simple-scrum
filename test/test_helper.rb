@@ -1,8 +1,6 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
-require 'redgreen' #colored test results
-require 'i18n'
 
 require "webrat"
 Webrat.configure do |config|
