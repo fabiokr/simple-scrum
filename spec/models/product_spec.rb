@@ -9,9 +9,8 @@ describe Product do
     @product.should be_valid
   end
 
-  it { should validate_length_of(:name, :within => 1..60) }
-  it { should validate_length_of(:owner, :within => 1..60) }
-  it { should have_many :stories }
-  it { should have_many :sprints }
+  it { should have_db_columns :id, :name, :owner, :created_at, :updated_at }
+  it { should validate_length_of(:name, :owner, :within => 1..60) }
+  it { should have_many :stories, :sprints }
 end
 
