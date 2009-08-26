@@ -7,6 +7,7 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 require 'tasks/rails'
+require 'metric_fu'
 
 namespace :db do
   desc 'Provide a base load of randomly generated (but valid) data for development'
