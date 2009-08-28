@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
 
-  layout proc { |controller| controller.request.xhr? ? 'ajax' : 'application' }
+  layout proc { |controller| controller.params[:format] == 'js' ? false : 'application' }
 end
 
