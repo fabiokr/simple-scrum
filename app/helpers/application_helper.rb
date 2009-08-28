@@ -1,6 +1,14 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def title()
+    controller = @controller.controller_name
+    action = @controller.action_name
+    title = "#{I18n.t('app.name')} &raquo; #{I18n.t("app.#{controller}.index")}"
+    title <<  " &raquo; #{I18n.t("app.#{controller}.#{action}")}" if action != 'index'
+    title
+  end
+
   #returns the :class value form form_errors
   def form_errors_class
     {:class => 'error'}

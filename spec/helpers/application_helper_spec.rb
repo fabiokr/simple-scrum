@@ -4,6 +4,20 @@ describe ApplicationHelper do
 
   include ApplicationHelper
 
+  it "should return a title containing the app name - controller - action" do
+    @controller.should_receive(:controller_name).and_return('products')
+    @controller.should_receive(:action_name).and_return('new')
+
+    assert_equal "#{I18n.t('app.name')} &raquo; #{I18n.t('app.products.index')} &raquo; #{I18n.t('app.products.new')}", title
+  end
+
+  it "should return a title containing the app name - controller if it is the index action" do
+    @controller.should_receive(:controller_name).and_return('products')
+    @controller.should_receive(:action_name).and_return('index')
+
+    assert_equal "#{I18n.t('app.name')} &raquo; #{I18n.t('app.products.index')}", title
+  end
+
   it "should return the default form error class" do
     assert_equal 'error', form_errors_class[:class]
   end
