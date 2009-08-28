@@ -188,14 +188,11 @@ en-US:
         sprints: "Sprints"
         storys: "Storys"
     products:
-        title: 'Products'
+        index: "Products"
         new: "New Product"
-        editing: "Editing Product"
-        listing: "Products"
-        change: "Change product"
+        edit: "Editing Product"
     stories:
-        title: 'Product Backlog'
+        index: "Product Backlog"
         new: "New Story"
-        editing: "Editing Story"
-        listing: "Stories"
+        edit: "Editing Story"
 
