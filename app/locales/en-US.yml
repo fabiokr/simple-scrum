@@ -182,17 +182,19 @@ en-US:
     previous_label: '&laquo; Previous'
     next_label: 'Next &raquo;'
   app:
+    name: 'Personal SCRUM'
     menu:
         products: "Products"
         sprints: "Sprints"
         storys: "Storys"
-    product:
+    products:
+        title: 'Products'
         new: "New Product"
         editing: "Editing Product"
         listing: "Products"
         change: "Change product"
-        backlog: 'Product backlog'
-    story:
+    stories:
+        title: 'Product Backlog'
         new: "New Story"
         editing: "Editing Story"
         listing: "Stories"

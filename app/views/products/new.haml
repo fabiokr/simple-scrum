@@ -1,6 +1,6 @@
 - form_for(@product, :html => {:class => 'dataForm'}) do |f|
   %fieldset
-    %legend= t('app.product.new')
+    %legend= t('app.products.new')
     = render :partial => 'products/form', :locals => { :f => f }
     %p= button_tag t('system.create'), :accept, :class => 'positive'
 

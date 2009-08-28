@@ -9,13 +9,13 @@
 
       = button_tag t('system.search'), :find, :class => 'search'
 
-= new_link(new_product_path, t('app.product.new'))
+= new_link(new_product_path, t('app.products.new'))
 %br
 %br
 
 %table#dataList
   %caption
-    ="#{t('app.product.listing')} - #{t('system.found_registries', :count => @products.total_entries)}"
+    ="#{t('app.products.listing')} - #{t('system.found_registries', :count => @products.total_entries)}"
   %thead
     %tr
       %th= order @search, :by => :name, :as => t('activerecord.attributes._all.name')
