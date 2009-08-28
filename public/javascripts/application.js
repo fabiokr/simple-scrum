@@ -1,5 +1,6 @@
 $(document).ready(function() {
   addConfirmToDestoyForm();
+  $("form.dataForm").validationEngine();
 
   //Test only
   $("body").addGrid({img_path: '/images/',margin:"1.5em auto"});
