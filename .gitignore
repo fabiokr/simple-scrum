@@ -3,5 +3,7 @@ log
 db/schema.rb
 tmp
 public/stylesheets/compiled
+public/stylesheets/*packaged*
+public/javascripts/*packaged*
 coverage
 
