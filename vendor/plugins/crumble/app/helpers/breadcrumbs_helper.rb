@@ -9,16 +9,20 @@ module BreadcrumbsHelper
     end
     ""
   end
-
+  
   def calculate_breadcrumb_trail(trail)
     breadcrumb_trail = []
     trail.each do |crummy|
       crumb = Breadcrumb.instance.crumbs[crummy]
-      breadcrumb_trail << link_to(eval(%Q{"#{crumb.title}"}), fetch_crumb_url(crumb))
+      if Breadcrumb.instance.last_crumb_linked? and crummy == trail.last
+        breadcrumb_trail << eval(%Q{"#{crumb.title}"})
+      else
+        breadcrumb_trail << link_to(eval(%Q{"#{crumb.title}"}), fetch_crumb_url(crumb))
+      end
     end
     breadcrumb_trail.join(Breadcrumb.instance.delimiter)
   end
-
+  
   def fetch_parameterized_crumb_url(crumb)
     case crumb.params
     when Hash
@@ -44,7 +48,7 @@ module BreadcrumbsHelper
       end
     end
   end
-
+  
   def fetch_crumb_url(crumb)
     if crumb.params
       fetch_parameterized_crumb_url(crumb)
@@ -52,7 +56,7 @@ module BreadcrumbsHelper
       send(crumb.url)
     end
   end
-
+  
   def fetch_parameters_recursive(params_hash, parent = nil)
     parameters = {}
     case params_hash
@@ -70,7 +74,7 @@ module BreadcrumbsHelper
     end
     parameters
   end
-
+  
   def assemble_crumb_url_parameter(params)
     result = []
     params.to_a.flatten.collect do |step|
@@ -83,4 +87,3 @@ module BreadcrumbsHelper
     result
   end
 end
-

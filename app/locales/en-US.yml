@@ -189,10 +189,12 @@ en-US:
         storys: "Storys"
     products:
         index: "Products"
+        show: "Product Dashboard"
         new: "New Product"
         edit: "Editing Product"
     stories:
         index: "Product Backlog"
+        show: "Story"
         new: "New Story"
         edit: "Editing Story"
 
