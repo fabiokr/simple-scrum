@@ -46,5 +46,12 @@ module ApplicationHelper
     content_tag('button', "#{icon(icon) if !icon.nil?}#{name if !name.nil?}", html_options)
   end
 
+  #Specific breadcumbs helper implementation to add ul and li
+  def breadcrumbs
+    home = link_to(image_tag('home.png', :class => 'home'), '/', :title => t('app.home'))
+    breadcrumbs = [home] + crumbs.split(Breadcrumb.instance.delimiter)
+    content_tag(:ul, breadcrumbs.map { |trail| content_tag(:li, trail) }, :id => 'breadcrumb')
+  end
+
 end
 

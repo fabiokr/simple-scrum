@@ -31,7 +31,7 @@ Breadcrumb.configure do
     trail :stories, :edit,  backlog + [:story_edit]
   end
 
-  delimit_with " &raquo; "
+  delimit_with "|"
   dont_link_last_crumb
 end
 

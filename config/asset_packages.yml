@@ -17,6 +17,7 @@ stylesheets:
   - jquery-ui-1.7.2
   - validationEngine.jquery
   - spinner
+  - compiled/breadcrumb
 - base_print:
   - blueprint/print
 

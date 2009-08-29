@@ -183,6 +183,7 @@ en-US:
     next_label: 'Next &raquo;'
   app:
     name: 'Personal SCRUM'
+    home: 'Home'
     menu:
         products: "Products"
         sprints: "Sprints"

@@ -72,5 +72,14 @@ describe ApplicationHelper do
     assert result.match(/<button>.*<\/button>/)
   end
 
+  it "should print breadcrumbs with ul and li" do
+    self.should_receive(:link_to).and_return('one')
+    self.should_receive(:crumbs).and_return("two#{Breadcrumb.instance.delimiter}three")
+
+    result = breadcrumbs
+    assert result.match(/<ul id="breadcrumb">.*<\/ul>/)
+    assert result.match(/.*<li>one<\/li><li>two<\/li><li>three<\/li>.*/)
+  end
+
 end
 
