@@ -15,7 +15,7 @@
 class Sprint < ActiveRecord::Base
   belongs_to :product
 
-  validates_presence_of :name, :product_id
+  validates_presence_of :product_id
   validates_length_of :name, :in => 1..60
   validates_numericality_of :velocity
 end
