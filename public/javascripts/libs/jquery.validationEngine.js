@@ -36,11 +36,11 @@
 						"regex":"/^[a-zA-Z0-9_\.\-]+\@([a-zA-Z0-9\-]+\.)+[a-zA-Z0-9]{2,4}$/",
 						"alertText":"* Invalid email address"},
 					"date":{
-                         "regex":"/^[0-9]{4}\-\[0-9]{1,2}\-\[0-9]{1,2}$/",
-                         "alertText":"* Invalid date, must be in YYYY-MM-DD format"},
+            "regex":"/^[0-9]{4}\-\[0-9]{1,2}\-\[0-9]{1,2}$/",
+            "alertText":"* Invalid date, must be in YYYY-MM-DD format"},
           "onlyInteger":{
-							"regex":"/^[0-9]+$/",
-							"alertText":"* Integers only"},
+						"regex":"/^[0-9]+$/",
+						"alertText":"* Integers only"},
 					"onlyNumber":{
 						"regex":"/^[0-9\ ]+$/",
 						"alertText":"* Numbers only"},

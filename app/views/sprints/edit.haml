@@ -1,0 +1,6 @@
+- form_for([@product, @sprint], :html => {:class => 'dataForm'}) do |f|
+  %fieldset
+    %legend= t('app.sprint.edit')
+    = render :partial => 'sprints/form', :locals => { :f => f }
+    %p= button_tag t('system.update'), :accept, :class => 'positive'
+

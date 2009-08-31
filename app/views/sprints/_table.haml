@@ -1,0 +1,23 @@
+%table#dataList
+  %caption
+    ="#{t('app.sprints.index')} - #{t('system.found_registries', :count => sprints.count)}"
+  %thead
+    %tr
+      %th= order sprints, :by => :name, :as => t('activerecord.models.sprint')
+      %th= order sprints, :by => :start, :as => t('activerecord.attributes.sprint.start')
+      %th= order sprints, :by => :end, :as => t('activerecord.attributes.sprint.end')
+      %th= order sprints, :by => :updated_at, :as => t('activerecord.attributes._all.updated_at')
+      %th
+      %th
+      %th
+  %tbody
+    - sprints.all.each do |sprint|
+      %tr
+        %td= sprint.name
+        %td= h sprint.start.to_formatted_s(:short)
+        %td= h sprint.end.to_formatted_s(:short)
+        %td= h sprint.updated_at.to_formatted_s(:short)
+        %td= show_link product_sprint_path(@product, sprint)
+        %td= edit_link edit_product_sprint_path(@product, sprint)
+        %td= delete_link product_sprint_path(@product, sprint)
+

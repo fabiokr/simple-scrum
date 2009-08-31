@@ -1,0 +1,14 @@
+= f.error_messages form_errors_class
+= f.label :name
+%br
+= f.text_field :name, :class => 'validate[required,length[0,100]] title'
+%br
+= f.label :start
+%br
+= f.text_field :start, :class => 'validate[date] title'
+%br
+= f.label :end
+%br
+= f.text_field :end, :class => 'validate[date] title'
+%br
+
