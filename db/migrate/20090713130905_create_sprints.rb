@@ -3,8 +3,8 @@ class CreateSprints < ActiveRecord::Migration
     create_table :sprints do |t|
       t.string :name
       t.float :velocity
-      t.timestamp :start
-      t.timestamp :end
+      t.date :start
+      t.date :end
       t.references :product
 
       t.timestamps
