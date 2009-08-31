@@ -198,4 +198,9 @@ en-US:
         show: "Story"
         new: "New Story"
         edit: "Editing Story"
+    sprints:
+        index: "Sprints Planning"
+        show: "Sprint"
+        new: "New Sprint"
+        edit: "Editing Sprint"
 

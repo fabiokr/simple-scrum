@@ -17,6 +17,6 @@ class Sprint < ActiveRecord::Base
 
   validates_presence_of :product_id
   validates_length_of :name, :in => 1..60
-  validates_numericality_of :velocity
+  validates_numericality_of :velocity, :allow_nil => true
 end
 
