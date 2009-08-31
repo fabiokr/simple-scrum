@@ -1,13 +1,9 @@
 #search
   - form_for @search do |f|
     %fieldset
-      %legend= t('system.search_legend')
       %p
-        = f.label :name_keywords, t('activerecord.attributes._all.name')
-        %br
-        = f.text_field :name_like, :class => 'text'
-
-      = button_tag t('system.search'), :find, :class => 'search'
+        = f.text_field :name_like_or_owner_like, :class => 'text'
+        = button_tag t('system.search'), :find, :class => 'search'
 
 = new_link(new_product_path, t('app.products.new'))
 %br
