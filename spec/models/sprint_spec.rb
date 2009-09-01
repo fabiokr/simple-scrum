@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: sprints
+#
+#  id         :integer         not null, primary key
+#  name       :string(255)
+#  velocity   :float
+#  start      :date
+#  end        :date
+#  product_id :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Sprint do

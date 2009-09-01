@@ -5,8 +5,8 @@
 #  id         :integer         not null, primary key
 #  name       :string(255)
 #  velocity   :float
-#  start      :datetime
-#  end        :datetime
+#  start      :date
+#  end        :date
 #  product_id :integer
 #  created_at :datetime
 #  updated_at :datetime

@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: stories
+#
+#  id          :integer         not null, primary key
+#  name        :string(255)
+#  description :text
+#  estimative  :integer
+#  priority    :integer
+#  product_id  :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Story do
