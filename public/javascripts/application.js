@@ -1,5 +1,6 @@
 $(document).ready(function() {
   addConfirmToDestoyForm();
+  $('a.showLink').hide();
   $("form.dataForm").validationEngine();
 
   //Test only
