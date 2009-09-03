@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: sprint_tasks
+# Table name: tasks
 #
 #  id          :integer         not null, primary key
 #  name        :string(255)
@@ -13,9 +13,9 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe SprintTask do
+describe Taskk do
   before(:each) do
-    @task = Factory.create(:sprint_task)
+    @task = Factory.create(:task)
   end
 
   it 'should be valid' do
@@ -28,24 +28,24 @@ describe SprintTask do
 
   it { should validate_presence_of(:story, :sprint) }
   it { should validate_length_of(:name, :within => 1..200) }
-  it { should validate_inclusion_of(:status, :in => SprintTask::STATUS) }
+  it { should validate_inclusion_of(:status, :in => Taskk::STATUS) }
 
   it 'should set status to "not_started" before save if not status is not defined' do
-    task = Factory.build(:sprint_task, :id => nil, :status => nil)
+    task = Factory.build(:task, :id => nil, :status => nil)
     task.save!
-    assert_equal SprintTask::STATUS[0], task.status
+    assert_equal Taskk::STATUS[0], task.status
 
-    task = Factory.build(:sprint_task, :id => nil, :status => SprintTask::STATUS[2])
+    task = Factory.build(:task, :id => nil, :status => Taskk::STATUS[2])
     task.save!
-    assert_equal SprintTask::STATUS[2], task.status
+    assert_equal Taskk::STATUS[2], task.status
 
-    task = Factory(:sprint_task, :status => nil)
+    task = Factory(:task, :status => nil)
     task.save!
-    assert_equal SprintTask::STATUS[0], task.status
+    assert_equal Taskk::STATUS[0], task.status
 
-    task = Factory(:sprint_task, :status => SprintTask::STATUS[1])
+    task = Factory(:task, :status => Taskk::STATUS[1])
     task.save!
-    assert_equal SprintTask::STATUS[1], task.status
+    assert_equal Taskk::STATUS[1], task.status
   end
 
 end

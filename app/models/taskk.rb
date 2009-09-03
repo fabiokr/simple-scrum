@@ -11,7 +11,9 @@
 #  updated_at  :datetime
 #
 
-class SprintTask < ActiveRecord::Base
+class Taskk < ActiveRecord::Base
+
+  set_table_name 'tasks'
 
   STATUS = %w( not_started in_progress completed )
 
