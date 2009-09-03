@@ -15,6 +15,8 @@
 class Sprint < ActiveRecord::Base
   belongs_to :product
 
+  has_many :taskks
+
   validates_presence_of :product_id
   validates_length_of :name, :in => 1..60
   validates_numericality_of :velocity, :allow_nil => true

@@ -16,6 +16,8 @@ class Story < ActiveRecord::Base
 
   belongs_to :product
 
+  has_many :taskks
+
   validates_presence_of :product_id
   validates_length_of :name, :in => 1..200
 

@@ -27,6 +27,7 @@ describe Story do
   it { should validate_presence_of(:product_id) }
   it { should validate_length_of(:name, :within => 1..200) }
   it { should belong_to :product }
+  it { should have_many :taskks }
   it { should validate_numericality_of :estimative, :priority }
 end
 
