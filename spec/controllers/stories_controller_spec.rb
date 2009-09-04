@@ -22,8 +22,6 @@ describe StoriesController, 'on index' do
 
   integrate_views
 
-  should_route :get, '/products/1/stories/2', :controller => :stories, :action => :show, :product_id => 1, :id => 2
-
   it "should list a product stories" do
     @stories = [Factory(:story), Factory(:story)]
 

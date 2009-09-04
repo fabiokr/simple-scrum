@@ -22,8 +22,6 @@ describe SprintsController, 'on index' do
 
   integrate_views
 
-  should_route :get, '/products/1/sprints/2', :controller => :sprints, :action => :show, :product_id => 1, :id => 2
-
   it "should list a product sprints" do
     @sprints = [Factory(:sprint), Factory(:sprint)]
 
