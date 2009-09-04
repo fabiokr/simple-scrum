@@ -1,5 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe ProductsController do
+  should_route :get, '/products', :controller => :products, :action => :index
+  should_route :get, '/products/1', :controller => :products, :action => :show, :id => 1
+  should_route :get, '/products/new', :controller => :products, :action => :new
+  should_route :get, '/products/1/edit', :controller => :products, :action => :edit, :id => 1
+  should_route :post, '/products', :controller => :products, :action => :create
+  should_route :put, '/products/1', :controller => :products, :action => :update, :id => 1
+  should_route :delete, '/products/1', :controller => :products, :action => :destroy, :id => 1
+end
+
 describe ProductsController, 'on index' do
 
   integrate_views

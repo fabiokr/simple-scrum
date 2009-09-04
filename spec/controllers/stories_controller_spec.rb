@@ -8,9 +8,21 @@ def prepare_product_and_stories
   @product.should_receive(:stories).and_return(@stories)
 end
 
+describe SprintsController do
+  should_route :get, '/products/1/stories', :controller => :stories, :action => :index, :product_id => 1
+  should_route :get, '/products/1/stories/1', :controller => :stories, :action => :show, :id => 1, :product_id => 1
+  should_route :get, '/products/1/stories/new', :controller => :stories, :action => :new, :product_id => 1
+  should_route :get, '/products/1/stories/1/edit', :controller => :stories, :action => :edit, :id => 1, :product_id => 1
+  should_route :post, '/products/1/stories', :controller => :stories, :action => :create, :product_id => 1
+  should_route :put, '/products/1/stories/1', :controller => :stories, :action => :update, :id => 1, :product_id => 1
+  should_route :delete, '/products/1/stories/1', :controller => :stories, :action => :destroy, :id => 1, :product_id => 1
+end
+
 describe StoriesController, 'on index' do
 
   integrate_views
+
+  should_route :get, '/products/1/stories/2', :controller => :stories, :action => :show, :product_id => 1, :id => 2
 
   it "should list a product stories" do
     @stories = [Factory(:story), Factory(:story)]

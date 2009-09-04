@@ -8,9 +8,21 @@ def prepare_data
   @product.should_receive(:sprints).and_return(@sprints)
 end
 
+describe SprintsController do
+  should_route :get, '/products/1/sprints', :controller => :sprints, :action => :index, :product_id => 1
+  should_route :get, '/products/1/sprints/1', :controller => :sprints, :action => :show, :id => 1, :product_id => 1
+  should_route :get, '/products/1/sprints/new', :controller => :sprints, :action => :new, :product_id => 1
+  should_route :get, '/products/1/sprints/1/edit', :controller => :sprints, :action => :edit, :id => 1, :product_id => 1
+  should_route :post, '/products/1/sprints', :controller => :sprints, :action => :create, :product_id => 1
+  should_route :put, '/products/1/sprints/1', :controller => :sprints, :action => :update, :id => 1, :product_id => 1
+  should_route :delete, '/products/1/sprints/1', :controller => :sprints, :action => :destroy, :id => 1, :product_id => 1
+end
+
 describe SprintsController, 'on index' do
 
   integrate_views
+
+  should_route :get, '/products/1/sprints/2', :controller => :sprints, :action => :show, :product_id => 1, :id => 2
 
   it "should list a product sprints" do
     @sprints = [Factory(:sprint), Factory(:sprint)]
