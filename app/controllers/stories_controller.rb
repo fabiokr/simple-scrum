@@ -2,10 +2,6 @@ class StoriesController < ApplicationController
 
   before_filter :get_product
 
-  def get_product
-    @product = Product.find(params[:product_id])
-  end
-
   # GET /products/1/stories
   def index
     params[:search] = {} if params[:search].nil?
@@ -84,6 +80,12 @@ class StoriesController < ApplicationController
       flash[:message] = t('system.successfully_destroyed', :model => t('activerecord.models.story'))
       format.html { redirect_to(product_stories_url(@product)) }
     end
+  end
+
+  private
+
+  def get_product
+    @product = Product.find(params[:product_id])
   end
 
 end

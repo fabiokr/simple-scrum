@@ -2,10 +2,6 @@ class SprintsController < ApplicationController
 
   before_filter :get_product
 
-  def get_product
-    @product = Product.find(params[:product_id])
-  end
-
   # GET /products/1/sprints
   def index
     params[:search] = {} if params[:search].nil?
@@ -84,6 +80,12 @@ class SprintsController < ApplicationController
       flash[:message] = t('system.successfully_destroyed', :model => t('activerecord.models.sprint'))
       format.html { redirect_to(product_sprints_url(@product)) }
     end
+  end
+
+  private
+
+  def get_product
+    @product = Product.find(params[:product_id])
   end
 
 end
