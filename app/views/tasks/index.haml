@@ -1,0 +1,6 @@
+= new_link(new_product_sprint_task_path(@product, @sprint), t('app.tasks.new'))
+%br
+%br
+
+= render :partial => 'tasks/table', :locals => { :search => @search, :tasks => @tasks }
+

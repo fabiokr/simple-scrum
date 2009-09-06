@@ -2,7 +2,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :products do |product|
     product.resources :stories
-    product.resources :sprints
+    product.resources :sprints do |sprint|
+      sprint.resources :tasks
+    end
   end
 
   map.javascript_named_routes
