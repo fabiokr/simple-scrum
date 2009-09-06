@@ -5,7 +5,7 @@ class SprintsController < ApplicationController
   # GET /products/1/sprints
   def index
     @search = @product.sprints.search(params[:search])
-    @sprints = @search.paginate(:page => params[:page])
+    @sprints = @search.all
 
     respond_to do |format|
       format.html # index.html.erb

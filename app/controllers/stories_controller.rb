@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
   # GET /products/1/stories
   def index
     @search = @product.stories.search(params[:search])
-    @stories = @search.paginate(:page => params[:page])
+    @stories = @search.all
 
     respond_to do |format|
       format.html # index.html.erb
