@@ -15,7 +15,7 @@
 class Sprint < ActiveRecord::Base
   belongs_to :product
 
-  has_many :taskks
+  has_many :tasks, :class_name => 'Taskk'
 
   validates_presence_of :product_id
   validates_length_of :name, :in => 1..60

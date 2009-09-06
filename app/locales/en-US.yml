@@ -154,6 +154,7 @@ en-US:
         created_at: "Created at"
         updated_at: "Updated at"
         name: 'Name'
+        description: "Description"
       product:
         owner: 'Owner'
       sprint:
@@ -161,7 +162,6 @@ en-US:
         end: "End"
       story:
         priority: "Priority"
-        description: "Description"
         estimative: "Estimative"
         father: 'Father'
   system:
