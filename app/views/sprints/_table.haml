@@ -3,15 +3,15 @@
     ="#{t('app.sprints.index')} - #{t('system.found_registries', :count => sprints.count)}"
   %thead
     %tr
-      %th= order sprints, :by => :name, :as => t('activerecord.models.sprint')
-      %th= order sprints, :by => :start, :as => t('activerecord.attributes.sprint.start')
-      %th= order sprints, :by => :end, :as => t('activerecord.attributes.sprint.end')
-      %th= order sprints, :by => :updated_at, :as => t('activerecord.attributes._all.updated_at')
+      %th= order search, :by => :name, :as => t('activerecord.models.sprint')
+      %th= order search, :by => :start, :as => t('activerecord.attributes.sprint.start')
+      %th= order search, :by => :end, :as => t('activerecord.attributes.sprint.end')
+      %th= order search, :by => :updated_at, :as => t('activerecord.attributes._all.updated_at')
       %th
       %th
       %th
   %tbody
-    - sprints.all.each do |sprint|
+    - sprints.each do |sprint|
       %tr
         %td= sprint.name
         %td= h sprint.start.to_formatted_s(:short) unless sprint.start.nil?

@@ -4,10 +4,8 @@ class SprintsController < ApplicationController
 
   # GET /products/1/sprints
   def index
-    params[:search] = {} if params[:search].nil?
-    params[:search][:order] = 'descend_by_priority' if params[:search][:order].nil?
-
-    @sprints = @product.sprints.search(params[:search])
+    @search = @product.sprints.search(params[:search])
+    @sprints = @search.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

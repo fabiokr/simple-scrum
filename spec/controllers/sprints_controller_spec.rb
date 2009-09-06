@@ -1,14 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-def prepare_data
-  @product = Factory.build(:product)
-  Product.should_receive(:find).with(@product.id.to_s).and_return(@product)
-  @sprints = [Factory.build(:sprint, :product => @product)]
-  @sprint = @sprints.first
-  @product.should_receive(:sprints).and_return(@sprints)
-end
-
-describe SprintsController do
+describe SprintsController, 'routes' do
   should_route :get, '/products/1/sprints', :controller => :sprints, :action => :index, :product_id => 1
   should_route :get, '/products/1/sprints/1', :controller => :sprints, :action => :show, :id => 1, :product_id => 1
   should_route :get, '/products/1/sprints/new', :controller => :sprints, :action => :new, :product_id => 1
@@ -18,142 +10,82 @@ describe SprintsController do
   should_route :delete, '/products/1/sprints/1', :controller => :sprints, :action => :destroy, :id => 1, :product_id => 1
 end
 
-describe SprintsController, 'on index' do
+describe SprintsController do
 
   integrate_views
 
-  it "should list a product sprints" do
-    @sprints = [Factory(:sprint), Factory(:sprint)]
-
-    get :index, :product_id => @sprints.first.product.id
-
-    assigns(:product)
-    assert_equal 1, assigns(:sprints).count
+  before :each do
+    @product = Factory(:product)
+    @sprint = Factory(:sprint, :product => @product)
   end
 
-end
+  after :each do
+    assigns(:product).should_not be_nil
+  end
 
-describe SprintsController, 'on show' do
+  it "should list sprints on :index" do
+    get :index, :product_id => @product.id
 
-  integrate_views
+    assigns(:search).should_not be_nil
+    assigns(:sprints).should include(@sprint)
+  end
 
-  it "should show product sprint" do
-    prepare_data
-    @sprints.should_receive(:find).with(@sprint.id.to_s).and_return(@sprint)
-
+  it "should assign sprint on :show" do
     get :show, :product_id => @product.id, :id => @sprint.id
 
-    assert_equal @product, assigns(:product)
-    assert_equal @sprint, assigns(:sprint)
+    assigns(:sprint).should == @sprint
   end
 
-end
-
-describe SprintsController, 'on new' do
-
-  integrate_views
-
-  it "should edit new product sprint" do
-    prepare_data
-    @sprints.should_receive(:new).and_return(@sprint)
-
+  it "should assign a new sprint on :new" do
     get :new, :product_id => @product.id
 
-    assert_equal @product, assigns(:product)
-    assert_equal @sprint, assigns(:sprint)
+    assigns(:sprint).should be_new_record
   end
 
-end
-
-describe SprintsController, 'on edit' do
-
-  integrate_views
-
-  it "should edit existing product sprint" do
-    prepare_data
-    @sprints.should_receive(:find).with(@sprint.id.to_s).and_return(@sprint)
-
+  it "should assign sprint on :edit" do
     get :edit, :product_id => @product.id, :id => @sprint.id
 
-    assert_equal @product, assigns(:product)
-    assert_equal @sprint, assigns(:sprint)
+    assigns(:sprint).should == @sprint
   end
 
-end
-
-describe SprintsController, 'on create' do
-
-  integrate_views
-
-  before(:each) do
-    prepare_data
-    @sprints.should_receive(:new).with(@sprint.attributes).and_return(@sprint)
-  end
-
-  it "should redirect to index with notice when valid" do
-    @sprint.should_receive(:save).and_return(true)
-
+  it "should add new sprint on :create" do
+    @sprint = Factory.build(:sprint)
     post :create, :product_id => @product.id, :sprint => @sprint.attributes
 
-    assert_equal @sprint, assigns(:sprint)
-    flash[:message].should_not be_nil
+    assigns(:sprint).should == Sprint.find(assigns(:sprint).id)
     response.should redirect_to(product_sprints_path(@product))
+    flash[:message].should_not be_nil
   end
 
-  it "should re-render new when invalid" do
-    @sprint.should_receive(:save).and_return(false)
-
+  it "should re-render new when invalid on :create" do
+    @sprint = Factory.build(:sprint, :name => nil)
     post :create, :product_id => @product.id, :sprint => @sprint.attributes
 
-    assert_equal @product, assigns(:product)
     response.should render_template('new')
   end
 
-end
-
-describe SprintsController, 'on update' do
-
-  integrate_views
-
-  before(:each) do
-    prepare_data
-    @sprints.should_receive(:find).with(@sprint.id.to_s).and_return(@sprint)
-  end
-
-  it "should redirect to index with notice when valid" do
-    @sprint.should_receive(:update_attributes).and_return(true)
-
+  it "should save sprint on :update" do
+    @sprint.name = 'new name'
     post :update, :product_id => @product.id, :id => @sprint.id, :sprint => @sprint.attributes
 
-    assert_equal @sprint, assigns(:sprint)
-    flash[:message].should_not be_nil
+    Sprint.find(assigns(:sprint).id).name.should == @sprint.name
     response.should redirect_to(product_sprints_path(@product))
+    flash[:message].should_not be_nil
   end
 
-  it "should re-render new when invalid" do
-    @sprint.should_receive(:update_attributes).and_return(false)
-
+  it "should re-render edit when invalid on :update" do
+    @sprint.name = nil
     post :update, :product_id => @product.id, :id => @sprint.id, :sprint => @sprint.attributes
 
-    assert_equal @product, assigns(:product)
     response.should render_template('edit')
   end
 
-end
-
-describe SprintsController, 'on destroy' do
-
-  integrate_views
-
-  it "should redirect to index" do
-    prepare_data
-    @sprints.should_receive(:find).with(@sprint.id.to_s).and_return(@sprint)
-    @sprint.should_receive(:destroy).and_return(true)
-
+  it "should delete sprint on :destroy" do
     get :destroy, :product_id => @product.id, :id => @sprint.id
 
-    flash[:message].should_not be_nil
+    lambda { Sprint.find(@sprint.id) }.should raise_error
     response.should redirect_to(product_sprints_path(@product))
+    flash[:message].should_not be_nil
   end
 
 end

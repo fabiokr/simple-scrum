@@ -3,15 +3,15 @@
     ="#{t('app.stories.index')} - #{t('system.found_registries', :count => stories.count)}"
   %thead
     %tr
-      %th= order stories, :by => :priority, :as => t('activerecord.attributes.story.priority')
-      %th= order stories, :by => :name, :as => t('activerecord.models.story')
-      %th= order stories, :by => :estimative, :as => t('activerecord.attributes.story.estimative')
-      %th= order stories, :by => :updated_at, :as => t('activerecord.attributes._all.updated_at')
+      %th= order search, :by => :priority, :as => t('activerecord.attributes.story.priority')
+      %th= order search, :by => :name, :as => t('activerecord.models.story')
+      %th= order search, :by => :estimative, :as => t('activerecord.attributes.story.estimative')
+      %th= order search, :by => :updated_at, :as => t('activerecord.attributes._all.updated_at')
       %th
       %th
       %th
   %tbody
-    - stories.all.each do |story|
+    - stories.each do |story|
       %tr
         %td= story.priority
         %td= story.name

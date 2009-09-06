@@ -1,9 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe ProductsController do
-
-  integrate_views
-
+describe ProductsController, 'routes' do
   should_route :get, '/products', :controller => :products, :action => :index
   should_route :get, '/products/1', :controller => :products, :action => :show, :id => 1
   should_route :get, '/products/new', :controller => :products, :action => :new
@@ -11,17 +8,25 @@ describe ProductsController do
   should_route :post, '/products', :controller => :products, :action => :create
   should_route :put, '/products/1', :controller => :products, :action => :update, :id => 1
   should_route :delete, '/products/1', :controller => :products, :action => :destroy, :id => 1
+end
+
+describe ProductsController do
+
+  integrate_views
+
+  before :each do
+    @product = Factory(:product)
+  end
 
   it "should list products on :index" do
-    @product = Factory(:product, :name => 'test')
-    get :index, :page => 1, :search => {:name_like => 'test'}
+
+    get :index
 
     assigns(:search).should_not be_nil
     assigns(:products).should include(@product)
   end
 
   it "should assign product on :show" do
-    @product = Factory(:product)
     get :show, :id => @product.id
 
     assigns(:product).should == @product
@@ -34,7 +39,6 @@ describe ProductsController do
   end
 
   it "should assign product on :edit" do
-    @product = Factory(:product)
     get :edit, :id => @product.id
 
     assigns(:product).should == @product
@@ -50,14 +54,13 @@ describe ProductsController do
   end
 
   it "should re-render new when invalid on :create" do
-    @product = Factory.build(:product, :id => nil, :name => nil)
+    @product = Factory.build(:product, :name => nil)
     post :create, :product => @product.attributes
 
     response.should render_template('new')
   end
 
   it "should save product on :update" do
-    @product = Factory(:product)
     @product.name = 'new name'
     post :update, :id => @product.id, :product => @product.attributes
 
@@ -67,7 +70,6 @@ describe ProductsController do
   end
 
   it "should re-render edit when invalid on :update" do
-    @product = Factory(:product)
     @product.name = nil
     post :update, :id => @product.id, :product => @product.attributes
 
@@ -75,7 +77,6 @@ describe ProductsController do
   end
 
   it "should delete product on :destroy" do
-    @product = Factory(:product)
     get :destroy, :id => @product.id
 
     lambda { Product.find(@product.id) }.should raise_error

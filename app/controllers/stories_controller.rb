@@ -4,10 +4,8 @@ class StoriesController < ApplicationController
 
   # GET /products/1/stories
   def index
-    params[:search] = {} if params[:search].nil?
-    params[:search][:order] = 'descend_by_priority' if params[:search][:order].nil?
-
-    @stories = @product.stories.search(params[:search])
+    @search = @product.stories.search(params[:search])
+    @stories = @search.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
