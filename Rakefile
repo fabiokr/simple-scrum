@@ -9,21 +9,3 @@ require 'rake/rdoctask'
 require 'tasks/rails'
 require 'metric_fu'
 
-namespace :db do
-  desc 'Provide a base load of randomly generated (but valid) data for development'
-  task :seed => [:reset, 'fixtures:load'] do
-
-    #generate products
-    products = []
-    25.times { products << Factory(:product)}
-
-    #generate stories
-    stories = []
-    200.times { stories << Factory(:story, :product => products.rand)}
-
-    # results
-    puts "#{products.size} products created"
-    puts "#{stories.size} stories created"
-  end
-end
-
