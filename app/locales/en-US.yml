@@ -203,4 +203,6 @@ en-US:
         show: "Sprint"
         new: "New Sprint"
         edit: "Editing Sprint"
+    tasks:
+        new: "Add task"
 

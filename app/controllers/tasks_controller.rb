@@ -23,6 +23,7 @@ class TasksController < ApplicationController
 
   def new
     @task = @sprint.tasks.new
+    @task.story_id = params[:story_id] unless params[:story_id].nil?
 
     respond_to do |format|
       format.html # new.html.erb

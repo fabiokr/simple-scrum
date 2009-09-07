@@ -1,8 +1,11 @@
 = f.error_messages form_errors_class
+= f.label :story_id
+%br
+= f.select(:story_id, @product.stories.all.collect {|s| [ s.name, s.id ] }, { :include_blank => true })
+%br
 = f.label :name
 %br
 = f.text_field :name, :class => 'validate[required,length[0,100]] title'
-%br
 %br
 = f.label :description
 %br

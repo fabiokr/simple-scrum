@@ -1,6 +1,6 @@
-- form_for([@product, @sprint], :html => {:class => 'dataForm'}) do |f|
+- form_for(@task, :url => new_product_sprint_task_path(@product, @sprint, @task), :html => {:class => 'dataForm'}) do |f|
   %fieldset
     %legend= t('app.sprints.new')
-    = render :partial => 'sprints/form', :locals => { :f => f }
+    = render :partial => 'tasks/form', :locals => { :f => f }
     %p= button_tag t('system.create'), :accept, :class => 'positive'
 
