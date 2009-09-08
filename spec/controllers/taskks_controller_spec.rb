@@ -52,7 +52,7 @@ describe TaskksController do
 
   it "should add new task on :create" do
     @task = Factory.build(:task)
-    post :create, :product_id => @product.id, :sprint_id => @sprint.id, :task => @task.attributes
+    post :create, :product_id => @product.id, :sprint_id => @sprint.id, :taskk => @task.attributes
 
     assigns(:task).should == Taskk.find(assigns(:task).id)
     response.should redirect_to(product_sprint_taskks_path(@product, @sprint))
@@ -61,14 +61,14 @@ describe TaskksController do
 
   it "should re-render new when invalid on :create" do
     @task = Factory.build(:task, :name => nil)
-    post :create, :product_id => @product.id, :sprint_id => @sprint.id, :task => @task.attributes
+    post :create, :product_id => @product.id, :sprint_id => @sprint.id, :taskk => @task.attributes
 
     response.should render_template('new')
   end
 
   it "should save task on :update" do
     @task.name = 'new name'
-    post :update, :product_id => @product.id, :sprint_id => @sprint.id, :id => @task.id, :task => @task.attributes
+    post :update, :product_id => @product.id, :sprint_id => @sprint.id, :id => @task.id, :taskk => @task.attributes
 
     Taskk.find(@task.id).name.should == @task.name
     response.should redirect_to(product_sprint_taskks_path(@product, @sprint))
@@ -77,7 +77,7 @@ describe TaskksController do
 
   it "should re-render edit when invalid on :update" do
     @task.name = nil
-    post :update, :product_id => @product.id, :sprint_id => @sprint.id, :id => @task.id, :task => @task.attributes
+    post :update, :product_id => @product.id, :sprint_id => @sprint.id, :id => @task.id, :taskk => @task.attributes
 
     response.should render_template('edit')
   end

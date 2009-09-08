@@ -1,9 +1,9 @@
 %table#dataList
   %caption
-    ="#{t('app.tasks.index')} - #{t('system.found_registries', :count => tasks.count)}"
+    ="#{t('app.taskks.index')} - #{t('system.found_registries', :count => tasks.count)}"
   %thead
     %tr
-      %th= order search, :by => :name, :as => t('activerecord.models.task')
+      %th= order search, :by => :name, :as => t('activerecord.models.taskk')
       %th= order search, :by => :story_id, :as => t('activerecord.models.story')
       %th= order search, :by => :updated_at, :as => t('activerecord.attributes._all.updated_at')
       %th

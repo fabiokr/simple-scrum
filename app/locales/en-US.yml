@@ -149,6 +149,7 @@ en-US:
       product: 'Product'
       sprint: 'Sprint'
       story: 'Story'
+      taskk: 'Task'
     attributes:
       _all:
         created_at: "Created at"
@@ -203,7 +204,7 @@ en-US:
         show: "Sprint"
         new: "New Sprint"
         edit: "Editing Sprint"
-    tasks:
+    taskks:
         index: "Tasks"
         show: "Task"
         new: "New Task"
