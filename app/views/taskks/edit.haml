@@ -1,0 +1,6 @@
+- form_for([@product, @sprint, @task], :html => {:class => 'dataForm'}) do |f|
+  %fieldset
+    %legend= t('app.tasks.edit')
+    = render :partial => 'taskks/form', :locals => { :f => f }
+    %p= button_tag t('system.update'), :accept, :class => 'positive'
+

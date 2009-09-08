@@ -1,16 +1,16 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe TasksController, 'routes' do
-  should_route :get, '/products/1/sprints/1/tasks', :controller => :tasks, :action => :index, :product_id => 1, :sprint_id => 1
-  should_route :get, '/products/1/sprints/1/tasks/1', :controller => :tasks, :action => :show, :id => 1, :product_id => 1, :sprint_id => 1
-  should_route :get, '/products/1/sprints/1/tasks/new', :controller => :tasks, :action => :new, :product_id => 1, :sprint_id => 1
-  should_route :get, '/products/1/sprints/1/tasks/1/edit', :controller => :tasks, :action => :edit, :id => 1, :product_id => 1, :sprint_id => 1
-  should_route :post, '/products/1/sprints/1/tasks', :controller => :tasks, :action => :create, :product_id => 1, :sprint_id => 1
-  should_route :put, '/products/1/sprints/1/tasks/1', :controller => :tasks, :action => :update, :id => 1, :product_id => 1, :sprint_id => 1
-  should_route :delete, '/products/1/sprints/1/tasks/1', :controller => :tasks, :action => :destroy, :id => 1, :product_id => 1, :sprint_id => 1
+describe TaskksController, 'routes' do
+  should_route :get, '/products/1/sprints/1/taskks', :controller => :taskks, :action => :index, :product_id => 1, :sprint_id => 1
+  should_route :get, '/products/1/sprints/1/taskks/1', :controller => :taskks, :action => :show, :id => 1, :product_id => 1, :sprint_id => 1
+  should_route :get, '/products/1/sprints/1/taskks/new', :controller => :taskks, :action => :new, :product_id => 1, :sprint_id => 1
+  should_route :get, '/products/1/sprints/1/taskks/1/edit', :controller => :taskks, :action => :edit, :id => 1, :product_id => 1, :sprint_id => 1
+  should_route :post, '/products/1/sprints/1/taskks', :controller => :taskks, :action => :create, :product_id => 1, :sprint_id => 1
+  should_route :put, '/products/1/sprints/1/taskks/1', :controller => :taskks, :action => :update, :id => 1, :product_id => 1, :sprint_id => 1
+  should_route :delete, '/products/1/sprints/1/taskks/1', :controller => :taskks, :action => :destroy, :id => 1, :product_id => 1, :sprint_id => 1
 end
 
-describe TasksController do
+describe TaskksController do
 
   integrate_views
 
@@ -55,7 +55,7 @@ describe TasksController do
     post :create, :product_id => @product.id, :sprint_id => @sprint.id, :task => @task.attributes
 
     assigns(:task).should == Taskk.find(assigns(:task).id)
-    response.should redirect_to(product_sprint_tasks_path(@product, @sprint))
+    response.should redirect_to(product_sprint_taskks_path(@product, @sprint))
     flash[:message].should_not be_nil
   end
 
@@ -71,7 +71,7 @@ describe TasksController do
     post :update, :product_id => @product.id, :sprint_id => @sprint.id, :id => @task.id, :task => @task.attributes
 
     Taskk.find(@task.id).name.should == @task.name
-    response.should redirect_to(product_sprint_tasks_path(@product, @sprint))
+    response.should redirect_to(product_sprint_taskks_path(@product, @sprint))
     flash[:message].should_not be_nil
   end
 
@@ -86,7 +86,7 @@ describe TasksController do
     get :destroy, :product_id => @product.id, :sprint_id => @sprint.id, :id => @task.id
 
     lambda { Taskk.find(@task.id) }.should raise_error
-    response.should redirect_to(product_sprint_tasks_path(@product, @sprint))
+    response.should redirect_to(product_sprint_taskks_path(@product, @sprint))
     flash[:message].should_not be_nil
   end
 
