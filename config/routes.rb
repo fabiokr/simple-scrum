@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :products do |product|
     product.resources :stories
     product.resources :sprints do |sprint|
-      sprint.resources :taskks
+      sprint.resources :taskks, :except => :index
     end
   end
 

@@ -2,16 +2,6 @@ class TaskksController < ApplicationController
 
   before_filter :get_product_and_sprint
 
-  def index
-    @search = @sprint.tasks.search(params[:search])
-    @tasks = @search.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json  { render :json => @tasks.all }
-    end
-  end
-
   def show
     @task = @sprint.tasks.find(params[:id])
 

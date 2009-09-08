@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe TaskksController, 'routes' do
-  should_route :get, '/products/1/sprints/1/taskks', :controller => :taskks, :action => :index, :product_id => 1, :sprint_id => 1
   should_route :get, '/products/1/sprints/1/taskks/1', :controller => :taskks, :action => :show, :id => 1, :product_id => 1, :sprint_id => 1
   should_route :get, '/products/1/sprints/1/taskks/new', :controller => :taskks, :action => :new, :product_id => 1, :sprint_id => 1
   should_route :get, '/products/1/sprints/1/taskks/1/edit', :controller => :taskks, :action => :edit, :id => 1, :product_id => 1, :sprint_id => 1
@@ -23,13 +22,6 @@ describe TaskksController do
   after :each do
     assigns(:product).should_not be_nil
     assigns(:sprint).should_not be_nil
-  end
-
-  it "should list tasks on :index" do
-    get :index, :product_id => @product.id, :sprint_id => @sprint.id
-
-    assigns(:search).should_not be_nil
-    assigns(:tasks).should include(@task)
   end
 
   it "should assign task on :show" do
