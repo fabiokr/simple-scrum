@@ -24,6 +24,7 @@ Rails::Initializer.run do |config|
   config.gem "remarkable_rails", :lib => false
   config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => "http://gems.github.com"
   config.gem 'webrat', :source => 'http://gems.github.com'
+  config.gem 'faker'
 
   config.gem 'haml'
   config.gem 'jscruggs-metric_fu', :lib => 'metric_fu', :source => 'http://gems.github.com'

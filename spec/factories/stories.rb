@@ -1,7 +1,7 @@
 Factory.define :story do |u|
   u.add_attribute(:id) {|a| Factory.next(:id)}
-  u.name 'As a user I want to do something'
-  u.description 'Here goes some aceptance tests descriptions'
+  u.name {|a| Faker::Company.catch_phrase}
+  u.description {|a| Faker::Lorem.paragraph}
   u.estimative { rand(100) }
   u.priority { rand(100) }
   u.product {|a| a.association(:product) }

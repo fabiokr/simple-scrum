@@ -1,6 +1,6 @@
 Factory.define :sprint do |u|
   u.add_attribute(:id) {|a| Factory.next(:id)}
-  u.name 'Admin Module Sprint'
+  u.name {|a| Faker::Company.catch_phrase}
   u.start Time.now
   u.end Time.now
   u.velocity 0
