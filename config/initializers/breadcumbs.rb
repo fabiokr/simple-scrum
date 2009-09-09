@@ -16,6 +16,10 @@ Breadcrumb.configure do
   crumb :sprint_new, '#{t("app.sprints.new")}', :new_product_sprint_url, :product
   crumb :sprint_edit, '#{t("app.sprints.edit")}', :edit_product_sprint_url, :product, :sprint
 
+  crumb :task_show, '#{t("app.taskks.show")}', :product_sprint_taskk_url, :product, :sprint, :task
+  crumb :task_new, '#{t("app.taskks.new")}', :new_product_sprint_taskk_url, :product, :sprint
+  crumb :task_edit, '#{t("app.taskks.edit")}', :edit_product_sprint_taskk_url, :product, :sprint, :task
+
   #Trails
 
   root = [:product_index]
@@ -43,6 +47,14 @@ Breadcrumb.configure do
     trail :sprints, :show,  controller_root + [:sprint_show]
     trail :sprints, :new,   controller_root + [:sprint_new]
     trail :sprints, :edit,  controller_root + [:sprint_edit]
+  end
+
+  context 'taskks controller' do
+    controller_root = root + [:product_show, :sprint_index, :sprint_show]
+
+    trail :taskks, :show,  controller_root + [:task_show]
+    trail :taskks, :new,   controller_root + [:task_new]
+    trail :taskks, :edit,  controller_root + [:task_edit]
   end
 
   delimit_with "|"
