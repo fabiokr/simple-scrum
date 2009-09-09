@@ -15,7 +15,7 @@ class Taskk < ActiveRecord::Base
 
   set_table_name 'tasks'
 
-  STATUS = %w( not_started in_progress completed )
+  STATUS = %w( todo doing done )
 
   belongs_to :story
   belongs_to :sprint

@@ -3,6 +3,10 @@
 %br
 = f.select(:story_id, @product.stories.all.collect {|s| [ s.name, s.id ] }, { :include_blank => true })
 %br
+= f.label :status
+%br
+= f.select(:status, Taskk::STATUS.collect {|s| [ t("app.sprints.#{s}"), s ] })
+%br
 = f.label :name
 %br
 = f.text_field :name, :class => 'validate[required,length[0,100]] title'

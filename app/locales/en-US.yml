@@ -156,6 +156,7 @@ en-US:
         updated_at: "Updated at"
         name: 'Name'
         description: "Description"
+        status: "Status"
       product:
         owner: 'Owner'
       sprint:
@@ -204,6 +205,10 @@ en-US:
         show: "Sprint"
         new: "New Sprint"
         edit: "Editing Sprint"
+        backlog: "Sprint Backlog"
+        todo: "To-do"
+        doing: "Doing"
+        done: "Done"
     taskks:
         index: "Tasks"
         show: "Task"

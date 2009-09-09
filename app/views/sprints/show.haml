@@ -3,4 +3,5 @@
     = label_tag 'story_id', t('activerecord.models.story')
     = select_tag 'story_id', options_for_select(@product.stories.all.collect {|s| [ s.name, s.id ] })
     = button_tag t('app.taskks.new'), 'add', :class => 'inline'
+= render :partial => 'sprints/backlog'
 
