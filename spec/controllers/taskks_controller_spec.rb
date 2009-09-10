@@ -47,7 +47,7 @@ describe TaskksController do
     post :create, :product_id => @product.id, :sprint_id => @sprint.id, :taskk => @task.attributes
 
     assigns(:task).should == Taskk.find(assigns(:task).id)
-    response.should redirect_to(product_sprint_path(@product, @sprint))
+    response.should redirect_to(product_sprint_path(@product, @sprint, :story_id => @task.story.id))
     flash[:message].should_not be_nil
   end
 
@@ -63,7 +63,7 @@ describe TaskksController do
     post :update, :product_id => @product.id, :sprint_id => @sprint.id, :id => @task.id, :taskk => @task.attributes
 
     Taskk.find(@task.id).name.should == @task.name
-    response.should redirect_to(product_sprint_path(@product, @sprint))
+    response.should redirect_to(product_sprint_path(@product, @sprint, :story_id => @task.story.id))
     flash[:message].should_not be_nil
   end
 

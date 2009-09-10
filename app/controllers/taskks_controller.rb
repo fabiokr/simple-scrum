@@ -34,7 +34,7 @@ class TaskksController < ApplicationController
     respond_to do |format|
       if @task.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.taskk'))
-        format.html { redirect_to(product_sprint_url(@product, @sprint)) }
+        format.html { redirect_to(product_sprint_url(@product, @sprint, :story_id => @task.story.id)) }
       else
         format.html { render :action => "new" }
       end
@@ -47,7 +47,7 @@ class TaskksController < ApplicationController
     respond_to do |format|
       if @task.update_attributes(params[:taskk])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.taskk'))
-        format.html { redirect_to(product_sprint_url(@product, @sprint)) }
+        format.html { redirect_to(product_sprint_url(@product, @sprint, :story_id => @task.story.id)) }
       else
         format.html { render :action => "edit" }
       end
