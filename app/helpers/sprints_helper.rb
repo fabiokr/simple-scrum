@@ -47,14 +47,14 @@ module SprintsHelper
   def change_state_form(task, status, label, icon)
     html_options = html_options_for_form(product_sprint_taskk_path(task.sprint.product, task.sprint, task),{})
     form = ''
-    form = content_tag('form', :action => html_options['action'], :method => 'post', :class => 'editLink') do
+    form = content_tag('form', :action => html_options['action'], :method => 'post', :class => 'changeState') do
       content = ''
       content << hidden_field_tag('_method', 'put', :id => nil)
       content << hidden_field_tag(request_forgery_protection_token.to_s, form_authenticity_token, :id => nil)
       content << hidden_field_tag('taskk[status]', status)
       content << image_submit_tag(icon, :alt => label, :title => label)
     end
-    form
+    content_tag 'div', form, :class => 'changeState'
   end
 
 end
