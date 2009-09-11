@@ -209,6 +209,8 @@ en-US:
         todo: "To-do"
         doing: "Doing"
         done: "Done"
+        previous_state: "Previous state"
+        next_state: "Next state"
     taskks:
         index: "Tasks"
         show: "Task"
