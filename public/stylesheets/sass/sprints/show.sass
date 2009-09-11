@@ -1,6 +1,20 @@
 table#kanban
+  th
+    text-align: center
   td
     /border-bottom: 1px solid #CCCCCC
-  td:hover
-    background: #EEEEEE none repeat scroll 0 0
+    div.postit
+      text-align: center
+      border: 1px solid transparent
+      background: yellow none repeat scroll 0 0
+      float: left
+      width: 100%
+      .name
+        float: left
+        width: 80%
+      .links
+        float: right
+        width: 20%
+    div.postit:hover
+      border: 1px solid #EEEEEE
 

@@ -13,10 +13,8 @@ module SprintsHelper
     html = ''
     if task.status == expected_status
       task_html = ''
-      task_html << task.name
-      task_html << show_link(product_sprint_taskk_path(@product, @sprint, task))
-      task_html << edit_link(edit_product_sprint_taskk_path(@product, @sprint, task))
-      task_html << delete_link(product_sprint_taskk_path(@product, @sprint, task))
+      task_html << content_tag('div', task.name, :class => 'name')
+      task_html << content_tag('div', "#{show_link(product_sprint_taskk_path(@product, @sprint, task))}#{edit_link(edit_product_sprint_taskk_path(@product, @sprint, task))}#{delete_link(product_sprint_taskk_path(@product, @sprint, task))}", :class => 'links')
       html << postit(task_html)
     end
     html

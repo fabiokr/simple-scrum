@@ -1,6 +1,5 @@
 $(document).ready(function() {
-  $('table#dataList tbody tr td:not(:has(*))').click(showDetails);
-  $('table#dataList tbody tr td a.showLink').click(showDetails);
+  $('table#kanban tbody tr td div.name').click(showDetails);
 });
 
 function showDetails() {
