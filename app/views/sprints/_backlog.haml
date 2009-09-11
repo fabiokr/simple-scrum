@@ -1,4 +1,4 @@
-%table#dataList
+%table#kanban
   %caption
     = "#{t('app.sprints.backlog')}"
   %thead
@@ -13,9 +13,9 @@
       - tasks.each do |task|
         %tr
           - if printed_story == false
-            %td{:rowspan => tasks.size}= story.name
+            %td{:rowspan => tasks.size}= postit(story.name)
             - printed_story = true
-          %td= task.name if task.status == Taskk::STATUS[0]
-          %td= task.name if task.status == Taskk::STATUS[1]
-          %td= task.name if task.status == Taskk::STATUS[2]
+          %td= print_task(task, Taskk::STATUS[0])
+          %td= print_task(task, Taskk::STATUS[1])
+          %td= print_task(task, Taskk::STATUS[2])
 
