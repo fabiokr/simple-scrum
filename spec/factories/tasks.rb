@@ -5,6 +5,7 @@ Factory.define :task, :class => Taskk do |u|
   u.story {|a| a.association(:story) }
   u.sprint {|a| a.association(:sprint) }
   u.status {|a| Taskk::STATUS.rand}
+  u.estimative { rand(100) }
 
   u.created_at Time.now
   u.updated_at Time.now

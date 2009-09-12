@@ -4,6 +4,7 @@ class CreateTasks < ActiveRecord::Migration
       t.string :name
       t.string :status
       t.text :description
+      t.integer :estimative
       t.references :story
       t.references :sprint
 
@@ -14,6 +15,7 @@ class CreateTasks < ActiveRecord::Migration
     add_index :tasks, :status
     add_index :tasks, :story_id
     add_index :tasks, :sprint_id
+    add_index :tasks, :estimative
     add_index :tasks, :created_at
     add_index :tasks, :updated_at
   end

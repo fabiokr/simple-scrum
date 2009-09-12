@@ -1,5 +1,7 @@
 #card-data
   %h3 #{@task.name}
+  %b #{t('activerecord.attributes.story.estimative')}:
+  #{@task.estimative}
   %p
     %b #{t('activerecord.models.story')}:
     #{@task.story.name}

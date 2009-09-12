@@ -22,13 +22,14 @@ describe Taskk do
     @task.should be_valid
   end
 
-  it { should have_db_columns :id, :name, :description, :story_id, :sprint_id, :created_at, :updated_at }
+  it { should have_db_columns :id, :name, :description, :estimative, :story_id, :sprint_id, :created_at, :updated_at }
   it { should belong_to :story }
   it { should belong_to :sprint }
 
   it { should validate_presence_of(:story, :sprint) }
   it { should validate_length_of(:name, :within => 1..200) }
   it { should validate_inclusion_of(:status, :in => Taskk::STATUS) }
+  it { should validate_numericality_of :estimative }
 
   it 'should set status to "not_started" before save if not status is not defined' do
     task = Factory.build(:task, :id => nil, :status => nil)

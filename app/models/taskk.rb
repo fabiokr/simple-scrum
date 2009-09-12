@@ -23,6 +23,7 @@ class Taskk < ActiveRecord::Base
   validates_presence_of :story, :sprint
   validates_length_of :name, :in => 1..200
   validates_inclusion_of :status, :in => STATUS, :allow_nil => true
+  validates_numericality_of :estimative
 
   before_save :set_default_status
 

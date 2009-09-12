@@ -11,6 +11,10 @@
 %br
 = f.text_field :name, :class => 'validate[required,length[0,100]] title'
 %br
+= f.label :estimative
+%br
+= f.text_field :estimative, :class => 'validate[required,custom[onlyInteger]] text'
+%br
 = f.label :description
 %br
 = f.text_area :description, :class => 'text'
