@@ -2,7 +2,8 @@ class CreateSprints < ActiveRecord::Migration
   def self.up
     create_table :sprints do |t|
       t.string :name
-      t.float :velocity
+      t.integer :estimated_velocity
+      t.integer :velocity
       t.date :start
       t.date :end
       t.references :product
@@ -13,6 +14,7 @@ class CreateSprints < ActiveRecord::Migration
     add_index :sprints, :product_id
     add_index :sprints, :name
     add_index :sprints, :velocity
+    add_index :sprints, :estimated_velocity
     add_index :sprints, :start
     add_index :sprints, :end
     add_index :sprints, :created_at
