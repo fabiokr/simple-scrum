@@ -8,7 +8,7 @@ $(document).ready(function() {
 });
 
 function addConfirmToDestoyForm() {
-  $('table#dataList tbody tr td form.deleteLink').click(function() {
+  $('form.deleteLink').click(function() {
     return confirm(i18n.confirm_destroy);
   });
 }
