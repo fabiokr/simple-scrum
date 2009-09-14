@@ -9,6 +9,13 @@ module SprintsHelper
     stories
   end
 
+  def print_story(story)
+    html = ''
+    html << content_tag('div', story.name, :class => 'name')
+    html << content_tag('div', "#{show_link(product_story_path(@product, story))}#{edit_link(edit_product_story_path(@product, story))}#{delete_link(product_story_path(@product, story))}", :class => 'links')
+    postit(html, 'story')
+  end
+
   def print_task(task, expected_status)
     html = ''
     if task.status == expected_status
@@ -17,16 +24,17 @@ module SprintsHelper
       task_html << content_tag('div', task.name, :class => 'name')
       task_html << content_tag('div', "#{show_link(product_sprint_taskk_path(@product, @sprint, task))}#{edit_link(edit_product_sprint_taskk_path(@product, @sprint, task))}#{delete_link(product_sprint_taskk_path(@product, @sprint, task))}", :class => 'links')
       task_html << to_next_state(task)
-      html << postit(task_html)
+      html << postit(task_html, 'task')
     end
     html
   end
 
-  def postit(content)
-    content_tag 'div', content, :class => 'postit'
-  end
-
   private
+
+  def postit(content, html_class = nil)
+    html_class = "postit #{html_class}"
+    content_tag 'div', content, :class => html_class
+  end
 
   def to_previous_state(task)
     label = t('app.sprints.previous_state')

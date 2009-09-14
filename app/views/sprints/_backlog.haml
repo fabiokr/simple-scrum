@@ -13,7 +13,7 @@
       - tasks.each do |task|
         %tr
           - if printed_story == false
-            %td{:rowspan => tasks.size}= postit(story.name)
+            %td{:rowspan => tasks.size}= print_story(story)
             - printed_story = true
           %td= print_task(task, Taskk::STATUS[0])
           %td= print_task(task, Taskk::STATUS[1])
