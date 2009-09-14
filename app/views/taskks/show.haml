@@ -1,11 +1,9 @@
 #card-data
-  %h3 #{@task.name}
-  %b #{t('activerecord.attributes.story.estimative')}:
-  #{@task.estimative}
-  %p
-    %b #{t('activerecord.models.story')}:
-    #{@task.story.name}
-    %br
-    %br
-    #{@task.description}
+  .span-12
+    %h3 #{@task.name}
+  .span-4.last
+    %b #{t('activerecord.attributes.story.estimative')}:
+    #{@task.estimative}
+  .span-12.last
+    %p #{@task.description}
 

@@ -1,11 +1,12 @@
 #card-data
-  %h3 #{@story.name}
-  %b #{t('activerecord.attributes.story.estimative')}:
-  #{@story.estimative}
-  &nbsp;
-  %b #{t('activerecord.attributes.story.priority')}:
-  #{@story.priority}
-  %br
-  %br
-  %p #{@story.description}
+  .span-12
+    %h3 #{@story.name}
+  .span-4.last
+    %b #{t('activerecord.attributes.story.estimative')}:
+    #{@story.estimative}
+    %br
+    %b #{t('activerecord.attributes.story.priority')}:
+    #{@story.priority}
+  .span-12.last
+    %p #{@story.description}
 
