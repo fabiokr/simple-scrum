@@ -13,7 +13,7 @@ module SprintsHelper
     html = ''
     html << content_tag('div', story.name, :class => 'name')
     html << content_tag('div', "#{show_link(product_story_path(@product, story))}#{edit_link(edit_product_story_path(@product, story))}#{delete_link(product_story_path(@product, story))}", :class => 'links')
-    postit(html, 'story')
+    postit(html, 'story', story.color)
   end
 
   def print_task(task, expected_status)
@@ -24,16 +24,17 @@ module SprintsHelper
       task_html << content_tag('div', "#{task.name} (#{task.estimative})", :class => 'name')
       task_html << content_tag('div', "#{show_link(product_sprint_taskk_path(@product, @sprint, task))}#{edit_link(edit_product_sprint_taskk_path(@product, @sprint, task))}#{delete_link(product_sprint_taskk_path(@product, @sprint, task))}", :class => 'links')
       task_html << to_next_state(task)
-      html << postit(task_html, 'task')
+      html << postit(task_html, 'task', task.story.color)
     end
     html
   end
 
   private
 
-  def postit(content, html_class = nil)
+  def postit(content, html_class = nil, color = nil)
     html_class = "postit #{html_class}"
-    content_tag 'div', content, :class => html_class
+    style = "background-color:##{color}" unless color.nil?
+    content_tag 'div', content, :class => html_class, :style => style
   end
 
   def to_previous_state(task)

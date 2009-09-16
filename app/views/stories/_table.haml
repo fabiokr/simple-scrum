@@ -6,6 +6,7 @@
       %th= order search, :by => :priority, :as => t('activerecord.attributes.story.priority')
       %th= order search, :by => :name, :as => t('activerecord.models.story')
       %th= order search, :by => :estimative, :as => t('activerecord.attributes.story.estimative')
+      %th= order search, :by => :color, :as => t('activerecord.attributes.story.color')
       %th= order search, :by => :updated_at, :as => t('activerecord.attributes._all.updated_at')
       %th
       %th
@@ -16,6 +17,8 @@
         %td= story.priority
         %td= story.name
         %td= story.estimative
+        %td
+          #color{:style => "background-color:##{story.color}"}
         %td= h story.updated_at.to_formatted_s(:short)
         %td= show_link product_story_path(@product, story)
         %td= edit_link edit_product_story_path(@product, story)

@@ -10,6 +10,7 @@
 #  product_id  :integer
 #  created_at  :datetime
 #  updated_at  :datetime
+#  color       :string(255)
 #
 
 class Story < ActiveRecord::Base

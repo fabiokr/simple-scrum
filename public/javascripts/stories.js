@@ -1,9 +1,16 @@
+var estimativeInput, estimativeSlider, priorityInput, prioritySlider, colorInput;
+
 $(document).ready(function() {
   showPrioritySlider();
   showEstimativeSlider();
-});
 
-var estimativeInput, estimativeSlider, priorityInput, prioritySlider;
+  colorInput = $('input#story_color');
+  colorInput.ColorPicker({
+    onChange: function (hsb, hex, rgb) {
+		  colorInput.val(hex);
+	  }
+  });
+});
 
 function showPrioritySlider() {
   priorityInput = $('input#story_priority');

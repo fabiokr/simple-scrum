@@ -166,6 +166,7 @@ en-US:
         priority: "Priority"
         estimative: "Estimative"
         father: 'Father'
+        color: 'Color'
   system:
     create: 'new'
     update: 'update'
