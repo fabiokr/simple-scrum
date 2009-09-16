@@ -30,11 +30,23 @@ class Taskk < ActiveRecord::Base
   validates_numericality_of :estimative
 
   before_save :set_default_status
+  after_save :update_sprint_estimated_velocity
 
   private
 
     def set_default_status
       self.status = STATUS[0] if self.status.nil?
     end
+
+    def update_sprint_estimated_velocity
+      estimated_velocity = 0
+      sprint = self.sprint
+      sprint.tasks.each do |task|
+        estimated_velocity += task.estimative
+      end
+      sprint.estimated_velocity = estimated_velocity
+      sprint.save
+    end
+
 end
 

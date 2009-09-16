@@ -11,6 +11,10 @@ describe SprintsHelper, 'sprint backlog' do
     @doing = Factory(:task, :story => @story, :sprint => @sprint, :status => Taskk::STATUS[1])
     @done = Factory(:task, :story => @story, :sprint => @sprint, :status => Taskk::STATUS[2])
 
+    @sprint.reload
+    @story.reload
+    @product.reload
+
     class << helper; self; end
   end
 
@@ -22,11 +26,8 @@ describe SprintsHelper, 'sprint backlog' do
   it "should group by story and status" do
     stories = helper.group_tasks_by_story(@sprint)
 
-    expected = {
-      @story => [@todo, @doing, @done]
-    }
-
-    stories.should == expected
+    stories.should include(@story)
+    stories[@story].should include(@todo, @doing, @done)
   end
 
 end

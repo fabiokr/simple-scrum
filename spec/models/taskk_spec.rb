@@ -51,5 +51,22 @@ describe Taskk do
     assert_equal Taskk::STATUS[1], task.status
   end
 
+  it "should update sprint estimated_velocity after save" do
+    sprint = Factory(:sprint)
+    task1 = Factory(:task, :sprint => sprint)
+
+    sprint.reload
+    sprint.estimated_velocity.should == task1.estimative
+
+    task2 = Factory(:task, :sprint => sprint)
+
+    sprint.reload
+    sprint.estimated_velocity.should == (task1.estimative + task2.estimative)
+
+    task1.estimative = 20
+    task1.save!
+    sprint.estimated_velocity.should == (task1.estimative + task2.estimative)
+  end
+
 end
 
