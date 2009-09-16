@@ -22,6 +22,8 @@ class Taskk < ActiveRecord::Base
   belongs_to :story
   belongs_to :sprint
 
+  default_scope :order => 'estimative DESC'
+
   validates_presence_of :story, :sprint
   validates_length_of :name, :in => 1..200
   validates_inclusion_of :status, :in => STATUS, :allow_nil => true

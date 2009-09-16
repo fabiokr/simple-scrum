@@ -21,7 +21,7 @@ module SprintsHelper
     if task.status == expected_status
       task_html = ''
       task_html << to_previous_state(task)
-      task_html << content_tag('div', task.name, :class => 'name')
+      task_html << content_tag('div', "#{task.name} (#{task.estimative})", :class => 'name')
       task_html << content_tag('div', "#{show_link(product_sprint_taskk_path(@product, @sprint, task))}#{edit_link(edit_product_sprint_taskk_path(@product, @sprint, task))}#{delete_link(product_sprint_taskk_path(@product, @sprint, task))}", :class => 'links')
       task_html << to_next_state(task)
       html << postit(task_html, 'task')
