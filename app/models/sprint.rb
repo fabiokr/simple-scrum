@@ -2,14 +2,15 @@
 #
 # Table name: sprints
 #
-#  id         :integer         not null, primary key
-#  name       :string(255)
-#  velocity   :float
-#  start      :date
-#  end        :date
-#  product_id :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  id                 :integer         not null, primary key
+#  name               :string(255)
+#  estimated_velocity :integer
+#  velocity           :integer
+#  start              :date
+#  end                :date
+#  product_id         :integer
+#  created_at         :datetime
+#  updated_at         :datetime
 #
 
 class Sprint < ActiveRecord::Base

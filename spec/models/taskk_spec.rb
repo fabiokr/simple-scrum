@@ -4,7 +4,9 @@
 #
 #  id          :integer         not null, primary key
 #  name        :string(255)
+#  status      :string(255)
 #  description :text
+#  estimative  :integer
 #  story_id    :integer
 #  sprint_id   :integer
 #  created_at  :datetime
