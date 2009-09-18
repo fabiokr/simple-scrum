@@ -17,6 +17,9 @@ class SprintsController < ApplicationController
   def show
     @sprint = @product.sprints.find(params[:id])
 
+    @product_sprints = @product.sprints.end_less_than(@sprint.end).paginate(:page => 1, :per_page => 5, :order => 'end DESC')
+    @all_products_sprints = Sprint.end_less_than(@sprint.end).product_id_does_not_equal(@product.id).paginate(:page => 1, :per_page => 10, :order => 'end DESC')
+
     respond_to do |format|
       format.html # show.html.erb
       format.json  { render :json => @sprint }

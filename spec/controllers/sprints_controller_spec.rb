@@ -36,6 +36,20 @@ describe SprintsController do
     assigns(:sprint).should == @sprint
   end
 
+  it "should assign the last 5 sprints of this product and 10 sprints of all product on :show" do
+    15.times do |t|
+      Factory(:sprint, :product => @product, :end => t.days.ago)
+      Factory(:sprint, :end => t.days.ago)
+      Factory(:sprint, :product => @product, :end => t.days.since)
+      Factory(:sprint, :end => t.days.since)
+    end
+
+    get :show, :product_id => @product.id, :id => @sprint.id
+
+    assigns(:product_sprints).size.should == 5
+    assigns(:all_products_sprints).size.should == 10
+  end
+
   it "should assign a new sprint on :new" do
     get :new, :product_id => @product.id
 
