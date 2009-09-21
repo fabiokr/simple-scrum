@@ -1,11 +1,14 @@
 %table#kanban
   %caption
-    = "#{t('activerecord.models.sprint')}: #{@sprint.name}"
+    %b= "#{t('activerecord.models.sprint')}: "
+    = "#{@sprint.name}"
     %br
-    = "#{t('activerecord.attributes.sprint.velocity')}: #{@sprint.velocity}"
+    %b= "#{t('activerecord.attributes.sprint.velocity')}: "
+    = "#{@sprint.velocity}"
     %br
-    = "#{t('activerecord.attributes.sprint.estimated_velocity')}: #{@sprint.estimated_velocity}"
-    = "(#{t('app.sprints.previous_velocities')}:"
+    %b= "#{t('activerecord.attributes.sprint.estimated_velocity')}: "
+    = "#{@sprint.estimated_velocity}"
+    = "(#{t('app.sprints.previous_velocities', :product => @product.name)}:"
     = (@product_sprints.map {|sprint| sprint.velocity}).join(', ')
     )
     = "(#{t('app.sprints.previous_projects_velocities')}:"

@@ -216,8 +216,8 @@ en-US:
         done: "Done"
         previous_state: "Previous state"
         next_state: "Next state"
-        previous_velocities: "Previous velocities"
-        previous_projects_velocities: "Previous projects velocities"
+        previous_velocities: "Previous {{product}} velocities"
+        previous_projects_velocities: "Previous products velocities"
     taskks:
         index: "Tasks"
         show: "Task"
