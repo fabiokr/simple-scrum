@@ -40,17 +40,17 @@ module SprintsHelper
   def to_previous_state(task)
     label = t('app.sprints.previous_state')
     icon = "#{Icons::IMG_SRC}#{Icons.current_set}/arrow_left.png"
-    return '' if task.status == Taskk::STATUS[0]
-    return change_state_form(task, Taskk::STATUS[0], label, icon) if task.status == Taskk::STATUS[1]
-    return change_state_form(task, Taskk::STATUS[1], label, icon) if task.status == Taskk::STATUS[2]
+    return '' if task.status == Taskk::TODO
+    return change_state_form(task, Taskk::TODO, label, icon) if task.status == Taskk::DOING
+    return change_state_form(task, Taskk::DOING, label, icon) if task.status == Taskk::DONE
   end
 
   def to_next_state(task)
     label = t('app.sprints.next_state')
     icon = "#{Icons::IMG_SRC}#{Icons.current_set}/arrow_right.png"
-    return change_state_form(task, Taskk::STATUS[1], label, icon) if task.status == Taskk::STATUS[0]
-    return change_state_form(task, Taskk::STATUS[2], label, icon) if task.status == Taskk::STATUS[1]
-    return '' if task.status == Taskk::STATUS[2]
+    return change_state_form(task, Taskk::DOING, label, icon) if task.status == Taskk::TODO
+    return change_state_form(task, Taskk::DONE, label, icon) if task.status == Taskk::DOING
+    return '' if task.status == Taskk::DONE
   end
 
   def change_state_form(task, status, label, icon)

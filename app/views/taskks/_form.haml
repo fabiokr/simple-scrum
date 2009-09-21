@@ -5,7 +5,7 @@
 %br
 = f.label :status
 %br
-= f.select(:status, Taskk::STATUS.collect {|s| [ t("app.sprints.#{s}"), s ] })
+= f.select(:status, Taskk::STATUS.collect {|s| [ t("app.sprints.#{Taskk::STATUS_STR[s]}"), s ] })
 %br
 = f.check_box :unplanned
 = f.label :unplanned

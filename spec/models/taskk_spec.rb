@@ -36,19 +36,19 @@ describe Taskk do
   it 'should set status to "not_started" before save if not status is not defined' do
     task = Factory.build(:task, :id => nil, :status => nil)
     task.save!
-    assert_equal Taskk::STATUS[0], task.status
+    assert_equal Taskk::TODO, task.status
 
-    task = Factory.build(:task, :id => nil, :status => Taskk::STATUS[2])
+    task = Factory.build(:task, :id => nil, :status => Taskk::DONE)
     task.save!
-    assert_equal Taskk::STATUS[2], task.status
+    assert_equal Taskk::DONE, task.status
 
     task = Factory(:task, :status => nil)
     task.save!
-    assert_equal Taskk::STATUS[0], task.status
+    assert_equal Taskk::TODO, task.status
 
-    task = Factory(:task, :status => Taskk::STATUS[1])
+    task = Factory(:task, :status => Taskk::DOING)
     task.save!
-    assert_equal Taskk::STATUS[1], task.status
+    assert_equal Taskk::DOING, task.status
   end
 
   it "should update sprint estimated_velocity after save" do
@@ -74,36 +74,36 @@ describe Taskk do
 
     sprint = Factory(:sprint, :product => story1.product)
 
-    task1 = Factory(:task, :sprint => sprint, :story => story1, :status => Taskk::STATUS[0])
-    task2 = Factory(:task, :sprint => sprint, :story => story1, :status => Taskk::STATUS[0])
-    task3 = Factory(:task, :sprint => sprint, :story => story2, :status => Taskk::STATUS[0])
-    task4 = Factory(:task, :sprint => sprint, :story => story2, :status => Taskk::STATUS[0])
+    task1 = Factory(:task, :sprint => sprint, :story => story1, :status => Taskk::TODO)
+    task2 = Factory(:task, :sprint => sprint, :story => story1, :status => Taskk::TODO)
+    task3 = Factory(:task, :sprint => sprint, :story => story2, :status => Taskk::TODO)
+    task4 = Factory(:task, :sprint => sprint, :story => story2, :status => Taskk::TODO)
 
     sprint.reload
     sprint.velocity.should == 0
 
-    task1.status = Taskk::STATUS[2]
+    task1.status = Taskk::DONE
     task1.save!
 
     #as we still miss the task2 as done, the estimative should not yet be considered
     sprint.reload
     sprint.velocity.should == 0
 
-    task2.status = Taskk::STATUS[2]
+    task2.status = Taskk::DONE
     task2.save!
 
     #now it should!
     sprint.reload
     sprint.velocity.should == story1.estimative
 
-    task3.status = Taskk::STATUS[2]
+    task3.status = Taskk::DONE
     task3.save!
 
     #as we still miss the task4 as done, the estimative should not yet be considered
     sprint.reload
     sprint.velocity.should == story1.estimative
 
-    task4.status = Taskk::STATUS[2]
+    task4.status = Taskk::DONE
     task4.save!
 
     #now it should!

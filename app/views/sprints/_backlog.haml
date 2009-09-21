@@ -2,6 +2,8 @@
   %caption
     = "#{t('activerecord.models.sprint')}: #{@sprint.name}"
     %br
+    = "#{t('activerecord.attributes.sprint.velocity')}: #{@sprint.velocity}"
+    %br
     = "#{t('activerecord.attributes.sprint.estimated_velocity')}: #{@sprint.estimated_velocity}"
     = "(#{t('app.sprints.previous_velocities')}:"
     = (@product_sprints.map {|sprint| sprint.velocity}).join(', ')
@@ -23,7 +25,7 @@
           - if printed_story == false
             %td{:rowspan => tasks.size}= print_story(story)
             - printed_story = true
-          %td= print_task(task, Taskk::STATUS[0])
-          %td= print_task(task, Taskk::STATUS[1])
-          %td= print_task(task, Taskk::STATUS[2])
+          %td= print_task(task, Taskk::TODO)
+          %td= print_task(task, Taskk::DOING)
+          %td= print_task(task, Taskk::DONE)
 

@@ -162,6 +162,7 @@ en-US:
       sprint:
         start: "Start"
         end: "End"
+        velocity: "Velocity"
         estimated_velocity: "Estimated velocity"
       story:
         priority: "Priority"

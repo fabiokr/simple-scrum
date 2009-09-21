@@ -17,7 +17,11 @@ class Taskk < ActiveRecord::Base
 
   set_table_name 'tasks'
 
-  STATUS = %w( todo doing done )
+  STATUS = [
+    TODO = 1,
+    DOING = 2,
+    DONE = 3
+  ]
 
   belongs_to :story
   belongs_to :sprint
@@ -33,10 +37,20 @@ class Taskk < ActiveRecord::Base
   after_save :update_sprint_estimated_velocity
   after_save :update_sprint_velocity
 
+  def status_str
+    STATUS_STR[self.status]
+  end
+
+  STATUS_STR = {
+      TODO => "todo",
+      DOING => "doing",
+      DONE => "done"
+    }
+
   private
 
     def set_default_status
-      self.status = STATUS[0] if self.status.nil?
+      self.status = TODO if self.status.nil?
     end
 
     def update_sprint_estimated_velocity
@@ -63,7 +77,7 @@ class Taskk < ActiveRecord::Base
       #evaluates if all tasks of a story have been completed
       stories.each do |story, tasks|
         completed = true
-        tasks.each {|task| completed = false if task.status != Taskk::STATUS[2]}
+        tasks.each {|task| completed = false if task.status != DONE}
         velocity += story.estimative if completed
       end
 
