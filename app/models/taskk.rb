@@ -31,6 +31,7 @@ class Taskk < ActiveRecord::Base
 
   before_save :set_default_status
   after_save :update_sprint_estimated_velocity
+  after_save :update_sprint_velocity
 
   private
 
@@ -46,6 +47,28 @@ class Taskk < ActiveRecord::Base
       end
       sprint.estimated_velocity = estimated_velocity
       sprint.save
+    end
+
+    def update_sprint_velocity
+      velocity = 0
+      sprint = self.sprint
+
+      #separates the sprint tasks into groups of story
+      stories = {}
+      sprint.tasks.each do |task|
+        stories[task.story] = [] unless stories.has_key? task.story
+        stories[task.story] << task
+      end
+
+      #evaluates if all tasks of a story have been completed
+      stories.each do |story, tasks|
+        completed = true
+        tasks.each {|task| completed = false if task.status != Taskk::STATUS[2]}
+        velocity += story.estimative if completed
+      end
+
+      sprint.velocity = velocity
+      sprint.save!
     end
 
 end

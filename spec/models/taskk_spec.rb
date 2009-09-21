@@ -68,5 +68,48 @@ describe Taskk do
     sprint.estimated_velocity.should == (task1.estimative + task2.estimative)
   end
 
+  it "should update sprint velocity after save" do
+    story1 = Factory(:story)
+    story2 = Factory(:story)
+
+    sprint = Factory(:sprint, :product => story1.product)
+
+    task1 = Factory(:task, :sprint => sprint, :story => story1, :status => Taskk::STATUS[0])
+    task2 = Factory(:task, :sprint => sprint, :story => story1, :status => Taskk::STATUS[0])
+    task3 = Factory(:task, :sprint => sprint, :story => story2, :status => Taskk::STATUS[0])
+    task4 = Factory(:task, :sprint => sprint, :story => story2, :status => Taskk::STATUS[0])
+
+    sprint.reload
+    sprint.velocity.should == 0
+
+    task1.status = Taskk::STATUS[2]
+    task1.save!
+
+    #as we still miss the task2 as done, the estimative should not yet be considered
+    sprint.reload
+    sprint.velocity.should == 0
+
+    task2.status = Taskk::STATUS[2]
+    task2.save!
+
+    #now it should!
+    sprint.reload
+    sprint.velocity.should == story1.estimative
+
+    task3.status = Taskk::STATUS[2]
+    task3.save!
+
+    #as we still miss the task4 as done, the estimative should not yet be considered
+    sprint.reload
+    sprint.velocity.should == story1.estimative
+
+    task4.status = Taskk::STATUS[2]
+    task4.save!
+
+    #now it should!
+    sprint.reload
+    sprint.velocity.should == story1.estimative + story2.estimative
+  end
+
 end
 
