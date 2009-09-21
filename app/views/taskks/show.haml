@@ -1,6 +1,9 @@
 #card-data
   .span-12
-    %h3 #{@task.name}
+    %h3
+      #{@task.name}
+      - if @task.unplanned?
+        = " (#{t('activerecord.attributes.taskk.unplanned')})"
   .span-4.last
     %b #{t('activerecord.attributes.story.estimative')}:
     #{@task.estimative}

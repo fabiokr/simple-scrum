@@ -22,7 +22,7 @@ class Taskk < ActiveRecord::Base
   belongs_to :story
   belongs_to :sprint
 
-  default_scope :order => 'estimative DESC'
+  default_scope :order => 'unplanned ASC, estimative DESC'
 
   validates_presence_of :story, :sprint
   validates_length_of :name, :in => 1..200

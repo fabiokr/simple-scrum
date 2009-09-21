@@ -168,6 +168,8 @@ en-US:
         estimative: "Estimative"
         father: 'Father'
         color: 'Color'
+      taskk:
+        unplanned: 'Unplanned'
   system:
     create: 'new'
     update: 'update'

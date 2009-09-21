@@ -7,6 +7,9 @@
 %br
 = f.select(:status, Taskk::STATUS.collect {|s| [ t("app.sprints.#{s}"), s ] })
 %br
+= f.check_box :unplanned
+= f.label :unplanned
+%br
 = f.label :name
 %br
 = f.text_field :name, :class => 'title validate[required,length[0,100]]'
