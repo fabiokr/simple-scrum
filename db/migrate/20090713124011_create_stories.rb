@@ -2,6 +2,7 @@ class CreateStories < ActiveRecord::Migration
   def self.up
     create_table :stories do |t|
       t.string :name
+      t.string :color
       t.text :description
       t.integer :estimative
       t.integer :priority
@@ -13,6 +14,7 @@ class CreateStories < ActiveRecord::Migration
 
     add_index :stories, :product_id
     add_index :stories, :name
+    add_index :stories, :color
     add_index :stories, :estimative
     add_index :stories, :priority
     add_index :stories, :created_at

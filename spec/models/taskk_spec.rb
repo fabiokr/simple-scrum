@@ -66,6 +66,7 @@ describe Taskk do
 
     story.estimative = 20
     story.save!
+    task1.save!
 
     sprint.reload
     sprint.estimated_velocity.should == 20
