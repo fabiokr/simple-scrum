@@ -24,7 +24,7 @@ describe Taskk do
     @task.should be_valid
   end
 
-  it { should have_db_columns :id, :name, :description, :estimative, :unplanned, :story_id, :sprint_id, :created_at, :updated_at }
+  it { should have_db_columns :id, :name, :description, :estimative, :unplanned, :status, :status_changed_at, :story_id, :sprint_id, :created_at, :updated_at }
   it { should belong_to :story }
   it { should belong_to :sprint }
 
@@ -49,6 +49,16 @@ describe Taskk do
     task = Factory(:task, :status => Taskk::DOING)
     task.save!
     assert_equal Taskk::DOING, task.status
+  end
+
+  it "should update status_change before save if the status has changed" do
+    task1 = Factory.build(:task)
+
+    task1.status_changed_at = nil
+    task1.status = Taskk::DONE
+    task1.save!
+
+    task1.status_changed_at.should_not be_nil
   end
 
   it "should update sprint estimated_velocity after save" do

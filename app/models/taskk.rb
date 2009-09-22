@@ -34,6 +34,7 @@ class Taskk < ActiveRecord::Base
   validates_numericality_of :estimative
 
   before_save :set_default_status
+  before_save :set_status_changed_at
   after_save :update_sprint_estimated_velocity
   after_save :update_sprint_velocity
 
@@ -51,6 +52,10 @@ class Taskk < ActiveRecord::Base
 
     def set_default_status
       self.status = TODO if self.status.nil?
+    end
+
+    def set_status_changed_at
+      self.status_changed_at = Time.current if self.status_changed?
     end
 
     def update_sprint_estimated_velocity

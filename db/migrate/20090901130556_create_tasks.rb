@@ -8,6 +8,7 @@ class CreateTasks < ActiveRecord::Migration
       t.references :story
       t.references :sprint
       t.boolean :unplanned
+      t.timestamp :status_changed_at
 
       t.timestamps
     end
@@ -18,6 +19,7 @@ class CreateTasks < ActiveRecord::Migration
     add_index :tasks, :story_id
     add_index :tasks, :sprint_id
     add_index :tasks, :estimative
+    add_index :tasks, :status_changed_at
     add_index :tasks, :created_at
     add_index :tasks, :updated_at
   end
