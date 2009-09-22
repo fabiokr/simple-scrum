@@ -53,19 +53,22 @@ describe Taskk do
 
   it "should update sprint estimated_velocity after save" do
     sprint = Factory(:sprint)
-    task1 = Factory(:task, :sprint => sprint)
+    story = Factory(:story)
+    task1 = Factory(:task, :sprint => sprint, :story => story)
 
     sprint.reload
-    sprint.estimated_velocity.should == task1.estimative
+    sprint.estimated_velocity.should == story.estimative
 
-    task2 = Factory(:task, :sprint => sprint)
+    task2 = Factory(:task, :sprint => sprint, :story => story)
 
     sprint.reload
-    sprint.estimated_velocity.should == (task1.estimative + task2.estimative)
+    sprint.estimated_velocity.should == story.estimative
 
-    task1.estimative = 20
-    task1.save!
-    sprint.estimated_velocity.should == (task1.estimative + task2.estimative)
+    story.estimative = 20
+    story.save!
+
+    sprint.reload
+    sprint.estimated_velocity.should == 20
   end
 
   it "should update sprint velocity after save" do

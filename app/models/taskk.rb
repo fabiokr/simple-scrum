@@ -55,9 +55,13 @@ class Taskk < ActiveRecord::Base
 
     def update_sprint_estimated_velocity
       estimated_velocity = 0
+      stories = []
       sprint = self.sprint
       sprint.tasks.each do |task|
-        estimated_velocity += task.estimative
+        if !stories.include? task.story
+          estimated_velocity += task.story.estimative
+          stories << task.story
+        end
       end
       sprint.estimated_velocity = estimated_velocity
       sprint.save
