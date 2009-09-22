@@ -11,7 +11,7 @@ module SprintsHelper
 
   def print_story(story)
     html = ''
-    html << content_tag('div', story.name, :class => 'name')
+    html << content_tag('div', "#{story.name} (#{story.estimative})", :class => 'name')
     html << content_tag('div', "#{show_link(product_story_path(@product, story))}#{edit_link(edit_product_story_path(@product, story))}#{delete_link(product_story_path(@product, story))}", :class => 'links')
     postit(html, 'story', story.color)
   end
