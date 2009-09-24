@@ -23,12 +23,5 @@ describe SprintsHelper, 'sprint backlog' do
     included_modules.should include(SprintsHelper)
   end
 
-  it "should group by story and status" do
-    stories = helper.group_tasks_by_story(@sprint)
-
-    stories.should include(@story)
-    stories[@story].should include(@todo, @doing, @done)
-  end
-
 end
 
