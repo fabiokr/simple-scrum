@@ -43,10 +43,10 @@ class Taskk < ActiveRecord::Base
   end
 
   STATUS_STR = {
-      TODO => "todo",
-      DOING => "doing",
-      DONE => "done"
-    }
+    TODO => "todo",
+    DOING => "doing",
+    DONE => "done"
+  }
 
   private
 
