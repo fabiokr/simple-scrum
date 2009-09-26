@@ -31,6 +31,43 @@ describe Sprint do
   it { should have_many :tasks }
   it { should validate_numericality_of :velocity, :estimated_velocity }
 
+  it "should verify if end date is after start date" do
+    @sprint.start = nil
+    @sprint.end = nil
+    @sprint.save
+
+    @sprint.errors.invalid?(:start).should be_false
+    @sprint.errors.invalid?(:end).should be_false
+
+    @sprint.start = Date.current
+    @sprint.end = Date.current
+    @sprint.save
+
+    @sprint.errors.invalid?(:start).should be_false
+    @sprint.errors.invalid?(:end).should be_true
+
+    @sprint.end = 1.day.ago
+    @sprint.save
+
+    @sprint.errors.invalid?(:start).should be_false
+    @sprint.errors.invalid?(:end).should be_true
+
+    @sprint.end = 1.day.since
+    @sprint.save
+
+    @sprint.errors.invalid?(:start).should be_false
+    @sprint.errors.invalid?(:end).should be_false
+  end
+
+  it "should set velocity and estimated_velocity to 0 if nil" do
+    @sprint.velocity = nil
+    @sprint.estimated_velocity = nil
+    @sprint.save!
+
+    @sprint.velocity.should == 0
+    @sprint.estimated_velocity.should == 0
+  end
+
   it "should group by story" do
     @product = Factory(:product)
     @story = Factory(:story, :product => @product)
@@ -48,6 +85,19 @@ describe Sprint do
 
     stories.should include(@story)
     stories[@story].should include(@todo, @doing, @done)
+  end
+
+  it "should plot empty burndown where there is no data" do
+    @sprint.start = nil
+    @sprint.end = nil
+    @sprint.save!
+
+    plot = @sprint.burndown_plot
+
+    plot[:expected][:x].should be_empty
+    plot[:expected][:y].should be_empty
+    plot[:current][:x].should be_empty
+    plot[:current][:y].should be_empty
   end
 
   it "should plot burndown correctly" do
@@ -77,16 +127,25 @@ describe Sprint do
     task4.save!
     @sprint.reload
 
-    Date.stub!(:today).and_return(Date.civil(2009,10,7))
+    Date.stub!(:current).and_return(Date.civil(2009,10,7))
 
     plot = @sprint.burndown_plot
 
-    plot[:expected].should_not be_nil
-    plot[:expected][:x].should == [Date.civil(2009,9,15),Date.civil(2009,9,16),Date.civil(2009,9,17),Date.civil(2009,9,18),Date.civil(2009,9,21),Date.civil(2009,9,22),Date.civil(2009,9,23),Date.civil(2009,9,24),Date.civil(2009,9,25),Date.civil(2009,9,28),Date.civil(2009,9,29),Date.civil(2009,9,30),Date.civil(2009,10,1),Date.civil(2009,10,2),Date.civil(2009,10,5),Date.civil(2009,10,6),Date.civil(2009,10,7),Date.civil(2009,10,8),Date.civil(2009,10,9),Date.civil(2009,10,12),Date.civil(2009,10,13),Date.civil(2009,10,14),Date.civil(2009,10,15)]
+    date_format = "%d/%m"
+
+    expected_dates = [Date.civil(2009,9,15),Date.civil(2009,9,16),Date.civil(2009,9,17),Date.civil(2009,9,18),Date.civil(2009,9,21),Date.civil(2009,9,22),Date.civil(2009,9,23),Date.civil(2009,9,24),Date.civil(2009,9,25),Date.civil(2009,9,28),Date.civil(2009,9,29),Date.civil(2009,9,30),Date.civil(2009,10,1),Date.civil(2009,10,2),Date.civil(2009,10,5),Date.civil(2009,10,6),Date.civil(2009,10,7),Date.civil(2009,10,8),Date.civil(2009,10,9),Date.civil(2009,10,12),Date.civil(2009,10,13),Date.civil(2009,10,14),Date.civil(2009,10,15)]
+
+    expected_dates_values = []
+    expected_dates.each {|date| expected_dates_values << date.strftime(date_format)}
+
+    plot[:expected][:x].should == expected_dates_values
     plot[:expected][:y].should == [30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 
+    expected_dates_values.clear
+    expected_dates.each {|date| expected_dates_values << date.strftime(date_format)}
+
     plot[:current].should_not be_nil
-    plot[:current][:x].should == [Date.civil(2009,9,15),Date.civil(2009,9,16),Date.civil(2009,9,17),Date.civil(2009,9,18),Date.civil(2009,9,21),Date.civil(2009,9,22),Date.civil(2009,9,23),Date.civil(2009,9,24),Date.civil(2009,9,25),Date.civil(2009,9,28),Date.civil(2009,9,29),Date.civil(2009,9,30),Date.civil(2009,10,1),Date.civil(2009,10,2),Date.civil(2009,10,5),Date.civil(2009,10,6),Date.civil(2009,10,7)]
+    plot[:current][:x].should == expected_dates_values
     plot[:current][:y].should == [30, 30, 30, 30, 30, 30, 30, 30, 16, 16, 16, 16, 16, 16, 0, 0, 0]
   end
 end

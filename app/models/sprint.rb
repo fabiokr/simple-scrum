@@ -15,6 +15,11 @@
 #require 'gchart'
 
 class Sprint < ActiveRecord::Base
+
+  PLOT_DATE_FORMAT = "%d/%m"
+
+  before_save :set_velocity_and_estimated_velocity
+
   belongs_to :product
   has_many :tasks, :class_name => 'Taskk'
 
@@ -22,6 +27,7 @@ class Sprint < ActiveRecord::Base
   validates_length_of :name, :in => 1..60
   validates_numericality_of :velocity, :allow_nil => true
   validates_numericality_of :estimated_velocity, :allow_nil => true
+  validate :end_cannot_be_greater_than_or_equal_start
 
   def group_tasks_by_story
     stories = {}
@@ -38,19 +44,44 @@ class Sprint < ActiveRecord::Base
     plot[:current] = {}
 
     plot[:expected][:x] = []
-    plot[:expected][:y] = (0..self.estimated_velocity).to_a.reverse
-
+    plot[:expected][:y] = []
     plot[:current][:x] = []
     plot[:current][:y] = []
 
-    current_date = self.start
+    return plot if self.start.nil? || self.end.nil? || self.tasks.empty?
+
+    plot[:expected][:y] = (0..self.estimated_velocity).to_a.reverse
+    plot[:expected][:x] = calculate_expected_x
+    plot[:current][:y] = calculate_current_y
+    plot[:current][:x] = plot[:expected][:x]
+
+    plot
+  end
+
+  private
+
+  def set_velocity_and_estimated_velocity
+    self.velocity = 0 if self.velocity.nil?
+    self.estimated_velocity = 0 if self.estimated_velocity.nil?
+  end
+
+  def end_cannot_be_greater_than_or_equal_start
+    errors.add(:end, "greater_than", {:count => 'activerecord.attributes.sprint.start'}) if !self.end.nil? && !self.start.nil? && self.end <= self.start
+  end
+
+  #plot methods
+  def calculate_expected_x
+    dates, current_date = [], self.start
 
     until current_date > self.end
-      plot[:expected][:x] << current_date if current_date.weekday?
+      dates << current_date.strftime(PLOT_DATE_FORMAT) if current_date.weekday?
       current_date = current_date.next
     end
+    dates
+  end
 
-    today, current_date, points, stories_end = Date.today, self.start, self.estimated_velocity, {}
+  def calculate_current_y
+    values, today, current_date, points, stories_end = [], Date.current, self.start, self.estimated_velocity, {}
 
     #organizes the dates that the stories ended
     self.group_tasks_by_story.each do |story, tasks|
@@ -66,14 +97,12 @@ class Sprint < ActiveRecord::Base
 
     until current_date > today
       if current_date.weekday?
-        plot[:current][:x] << current_date
         stories_end[current_date].each {|story| points -= story.estimative} if stories_end.has_key? current_date
-        plot[:current][:y] << points
+        values << points
       end
       current_date = current_date.next
     end
-
-    plot
+    values
   end
 end
 
