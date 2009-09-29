@@ -133,14 +133,16 @@ describe Sprint do
 
     plot = @sprint.burndown_plot
 
-    date_format = "%d/%m"
+    date_format = "%e/%m"
 
-    plot[:expected][:x].should == [0, 22]
-    plot[:expected][:y].should == [30, 0]
+    plot[:expected][:x].should == [0, 100]
+    plot[:expected][:y].should == [100, 0]
+
 
     plot[:current].should_not be_nil
-    plot[:current][:x].should == (0..16).to_a
-    plot[:current][:y].should == [30, 30, 30, 30, 30, 30, 30, 30, 16, 16, 16, 16, 16, 16, 0, 0, 0]
+    plot[:current][:x].should == [BigDecimal.new("0.0"), BigDecimal.new("4.3"), BigDecimal.new("8.6"), BigDecimal.new("12.9"), BigDecimal.new("17.2"), BigDecimal.new("21.5"), BigDecimal.new("25.8"), BigDecimal.new("30.1"), BigDecimal.new("34.4"), BigDecimal.new("38.7"), BigDecimal.new("43.0"), BigDecimal.new("47.3"), BigDecimal.new("51.6"), BigDecimal.new("55.9"), BigDecimal.new("60.2"), BigDecimal.new("64.5"), BigDecimal.new("68.8")]
+
+    plot[:current][:y].should == [BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("0.0"), BigDecimal.new("0.0"), BigDecimal.new("0.0")]
 
     expected_dates = [Date.civil(2009,9,15),Date.civil(2009,9,16),Date.civil(2009,9,17),Date.civil(2009,9,18),Date.civil(2009,9,21),Date.civil(2009,9,22),Date.civil(2009,9,23),Date.civil(2009,9,24),Date.civil(2009,9,25),Date.civil(2009,9,28),Date.civil(2009,9,29),Date.civil(2009,9,30),Date.civil(2009,10,1),Date.civil(2009,10,2),Date.civil(2009,10,5),Date.civil(2009,10,6),Date.civil(2009,10,7),Date.civil(2009,10,8),Date.civil(2009,10,9),Date.civil(2009,10,12),Date.civil(2009,10,13),Date.civil(2009,10,14),Date.civil(2009,10,15)]
     expected_dates_labels = []

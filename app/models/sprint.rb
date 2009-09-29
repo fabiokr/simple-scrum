@@ -16,7 +16,7 @@
 
 class Sprint < ActiveRecord::Base
 
-  PLOT_DATE_FORMAT = "%d/%m"
+  PLOT_DATE_FORMAT = "%e/%m"
 
   before_save :set_velocity_and_estimated_velocity
 
@@ -58,10 +58,10 @@ class Sprint < ActiveRecord::Base
     plot[:current][:x] = result[:x]
 
     plot[:labels][:x] = result[:x_labels]
-    plot[:labels][:y] = (result[:y].min..result[:y].max).to_a
+    plot[:labels][:y] = (0..self.estimated_velocity).to_a
 
-    plot[:expected][:y] = [self.estimated_velocity, 0]
-    plot[:expected][:x] = [0, (result[:x_labels].size-1)]
+    plot[:expected][:y] = [100, 0]
+    plot[:expected][:x] = [0, 100]
 
     plot
   end
@@ -105,6 +105,13 @@ class Sprint < ActiveRecord::Base
       end
       current_date = current_date.next
     end
+
+    #distribute the data arround the max value of 100
+    factor_x, factor_y  = (100.0/x_labels.size).round_with_precision(1), (100.0/y.max).round_with_precision(1)
+
+    x.collect! {|v| BigDecimal.new((v*factor_x).to_s) }
+    y.collect! {|v| BigDecimal.new((v*factor_y).to_s) }
+
     {:x => x, :y => y, :x_labels => x_labels}
   end
 end
