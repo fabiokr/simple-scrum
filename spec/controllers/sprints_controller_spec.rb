@@ -38,10 +38,10 @@ describe SprintsController do
 
   it "should assign the last 5 sprints of this product and 10 sprints of all product on :show" do
     15.times do |t|
-      Factory(:sprint, :product => @product, :end => t.days.ago)
-      Factory(:sprint, :end => t.days.ago)
-      Factory(:sprint, :product => @product, :end => t.days.since)
-      Factory(:sprint, :end => t.days.since)
+      Factory(:sprint, :product => @product, :start => (t+1).days.ago.to_date, :end => t.days.ago.to_date)
+      Factory(:sprint, :start => (t+1).days.ago.to_date, :end => t.days.ago.to_date)
+      Factory(:sprint, :product => @product, :start => (t-1).days.since.to_date, :end => t.days.since.to_date)
+      Factory(:sprint, :start => (t-1).days.since.to_date, :end => t.days.since.to_date)
     end
 
     get :show, :product_id => @product.id, :id => @sprint.id

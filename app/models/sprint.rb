@@ -42,18 +42,26 @@ class Sprint < ActiveRecord::Base
     plot = {}
     plot[:expected] = {}
     plot[:current] = {}
+    plot[:labels] = {}
 
     plot[:expected][:x] = []
     plot[:expected][:y] = []
     plot[:current][:x] = []
     plot[:current][:y] = []
+    plot[:labels][:x] = []
+    plot[:labels][:y] = []
 
     return plot if self.start.nil? || self.end.nil? || self.tasks.empty?
 
-    plot[:expected][:y] = (0..self.estimated_velocity).to_a.reverse
-    plot[:expected][:x] = calculate_expected_x
-    plot[:current][:y] = calculate_current_y
-    plot[:current][:x] = plot[:expected][:x]
+    result = calculate_current
+    plot[:current][:y] = result[:y]
+    plot[:current][:x] = result[:x]
+
+    plot[:labels][:x] = result[:x_labels]
+    plot[:labels][:y] = (result[:y].min..result[:y].max).to_a
+
+    plot[:expected][:y] = [self.estimated_velocity, 0]
+    plot[:expected][:x] = [0, (result[:x_labels].size-1)]
 
     plot
   end
@@ -70,18 +78,8 @@ class Sprint < ActiveRecord::Base
   end
 
   #plot methods
-  def calculate_expected_x
-    dates, current_date = [], self.start
-
-    until current_date > self.end
-      dates << current_date.strftime(PLOT_DATE_FORMAT) if current_date.weekday?
-      current_date = current_date.next
-    end
-    dates
-  end
-
-  def calculate_current_y
-    values, today, current_date, points, stories_end = [], Date.current, self.start, self.estimated_velocity, {}
+  def calculate_current
+    y, x, x_labels, x_value, today, current_date, points, stories_end = [], [], [], 0, Date.current, self.start, self.estimated_velocity, {}
 
     #organizes the dates that the stories ended
     self.group_tasks_by_story.each do |story, tasks|
@@ -95,14 +93,19 @@ class Sprint < ActiveRecord::Base
       end
     end
 
-    until current_date > today
+    until current_date > self.end
       if current_date.weekday?
-        stories_end[current_date].each {|story| points -= story.estimative} if stories_end.has_key? current_date
-        values << points
+        x_labels << current_date.strftime(PLOT_DATE_FORMAT)
+        if current_date <= today
+          x << x_value
+          x_value += 1
+          stories_end[current_date].each {|story| points -= story.estimative} if stories_end.has_key? current_date
+          y << points
+        end
       end
       current_date = current_date.next
     end
-    values
+    {:x => x, :y => y, :x_labels => x_labels}
   end
 end
 

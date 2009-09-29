@@ -218,6 +218,8 @@ en-US:
         next_state: "Next state"
         previous_velocities: "Previous {{product}} velocities"
         previous_projects_velocities: "Previous products velocities"
+        burndown_chart: "Burndown Chart"
+        burndown_chart_not_enought: "Not enought data to plot the Burndow Chart"
     taskks:
         index: "Tasks"
         show: "Task"

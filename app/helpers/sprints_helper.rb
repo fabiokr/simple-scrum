@@ -1,14 +1,5 @@
 module SprintsHelper
 
-  def group_tasks_by_story(sprint)
-    stories = {}
-    sprint.tasks.each do |task|
-      stories[task.story] = [] if stories[task.story].nil?
-      stories[task.story] << task
-    end
-    stories
-  end
-
   def print_story(story)
     html = ''
     html << content_tag('div', "#{story.name} (#{story.estimative})", :class => 'name')
@@ -27,6 +18,28 @@ module SprintsHelper
       html << postit(task_html, 'task', task.story.color)
     end
     html
+  end
+
+  def burndown_chart(sprint)
+    plot = sprint.burndown_plot
+
+    return t('app.sprints.burndown_chart_not_enought') if plot[:expected][:x].empty? || plot[:expected][:y].empty? || plot[:current][:x].empty? || plot[:current][:y].empty?
+
+    image_tag(
+      Gchart.line_xy(
+        :size => '500x350',
+        :title => t('app.sprints.burndown_chart'),
+        :bg => 'efefef',
+        :legend => ['expected', 'current'],
+        :axis_with_labels => ['x', 'y'],
+        :bar_colors => ['FF0000','00FF00'],
+        :custom => 'chls=3,6,3|3,6,0',
+        :data => [plot[:expected][:x], plot[:expected][:y], plot[:current][:x], plot[:current][:y]],
+        :axis_labels => [plot[:labels][:x], plot[:labels][:y]]
+      ),
+      :alt => t('app.sprints.burndown_chart')
+    )
+
   end
 
   private

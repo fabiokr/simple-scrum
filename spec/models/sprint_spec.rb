@@ -98,6 +98,8 @@ describe Sprint do
     plot[:expected][:y].should be_empty
     plot[:current][:x].should be_empty
     plot[:current][:y].should be_empty
+    plot[:labels][:x].should be_empty
+    plot[:labels][:y].should be_empty
   end
 
   it "should plot burndown correctly" do
@@ -133,20 +135,19 @@ describe Sprint do
 
     date_format = "%d/%m"
 
-    expected_dates = [Date.civil(2009,9,15),Date.civil(2009,9,16),Date.civil(2009,9,17),Date.civil(2009,9,18),Date.civil(2009,9,21),Date.civil(2009,9,22),Date.civil(2009,9,23),Date.civil(2009,9,24),Date.civil(2009,9,25),Date.civil(2009,9,28),Date.civil(2009,9,29),Date.civil(2009,9,30),Date.civil(2009,10,1),Date.civil(2009,10,2),Date.civil(2009,10,5),Date.civil(2009,10,6),Date.civil(2009,10,7),Date.civil(2009,10,8),Date.civil(2009,10,9),Date.civil(2009,10,12),Date.civil(2009,10,13),Date.civil(2009,10,14),Date.civil(2009,10,15)]
-
-    expected_dates_values = []
-    expected_dates.each {|date| expected_dates_values << date.strftime(date_format)}
-
-    plot[:expected][:x].should == expected_dates_values
-    plot[:expected][:y].should == [30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-
-    expected_dates_values.clear
-    expected_dates.each {|date| expected_dates_values << date.strftime(date_format)}
+    plot[:expected][:x].should == [0, 22]
+    plot[:expected][:y].should == [30, 0]
 
     plot[:current].should_not be_nil
-    plot[:current][:x].should == expected_dates_values
+    plot[:current][:x].should == (0..16).to_a
     plot[:current][:y].should == [30, 30, 30, 30, 30, 30, 30, 30, 16, 16, 16, 16, 16, 16, 0, 0, 0]
+
+    expected_dates = [Date.civil(2009,9,15),Date.civil(2009,9,16),Date.civil(2009,9,17),Date.civil(2009,9,18),Date.civil(2009,9,21),Date.civil(2009,9,22),Date.civil(2009,9,23),Date.civil(2009,9,24),Date.civil(2009,9,25),Date.civil(2009,9,28),Date.civil(2009,9,29),Date.civil(2009,9,30),Date.civil(2009,10,1),Date.civil(2009,10,2),Date.civil(2009,10,5),Date.civil(2009,10,6),Date.civil(2009,10,7),Date.civil(2009,10,8),Date.civil(2009,10,9),Date.civil(2009,10,12),Date.civil(2009,10,13),Date.civil(2009,10,14),Date.civil(2009,10,15)]
+    expected_dates_labels = []
+    expected_dates.each {|date| expected_dates_labels << date.strftime(date_format)}
+
+    plot[:labels][:x].should == expected_dates_labels
+    plot[:labels][:y].should == (0..30).to_a
   end
 end
 
