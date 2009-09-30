@@ -144,12 +144,13 @@ describe Sprint do
 
     plot[:current][:y].should == [BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("0.0"), BigDecimal.new("0.0"), BigDecimal.new("0.0")]
 
-    expected_dates = [Date.civil(2009,9,15),Date.civil(2009,9,16),Date.civil(2009,9,17),Date.civil(2009,9,18),Date.civil(2009,9,21),Date.civil(2009,9,22),Date.civil(2009,9,23),Date.civil(2009,9,24),Date.civil(2009,9,25),Date.civil(2009,9,28),Date.civil(2009,9,29),Date.civil(2009,9,30),Date.civil(2009,10,1),Date.civil(2009,10,2),Date.civil(2009,10,5),Date.civil(2009,10,6),Date.civil(2009,10,7),Date.civil(2009,10,8),Date.civil(2009,10,9),Date.civil(2009,10,12),Date.civil(2009,10,13),Date.civil(2009,10,14),Date.civil(2009,10,15)]
-    expected_dates_labels = []
-    expected_dates.each {|date| expected_dates_labels << date.strftime(date_format)}
+    expected_dates = [Date.civil(2009,9,15),Date.civil(2009,9,17),Date.civil(2009,9,21),Date.civil(2009,9,23),Date.civil(2009,9,25),Date.civil(2009,9,29),Date.civil(2009,10,1),Date.civil(2009,10,5),Date.civil(2009,10,7),Date.civil(2009,10,9),Date.civil(2009,10,13),Date.civil(2009,10,15)]
+    expected_dates.collect! {|date| date.strftime(date_format)}
 
-    plot[:labels][:x].should == expected_dates_labels
-    plot[:labels][:y].should == (0..30).to_a
+    plot[:labels][:x].should == expected_dates
+
+    #should distribute the labels
+    plot[:labels][:y].should == [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
   end
 end
 

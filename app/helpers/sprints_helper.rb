@@ -27,13 +27,13 @@ module SprintsHelper
 
     image_tag(
       Gchart.line_xy(
-        :size => '500x350',
+        :size => '550x400',
         :title => t('app.sprints.burndown_chart'),
-        :bg => 'efefef',
+        #:bg => 'efefef',
         :legend => [t('app.sprints.burndown_chart_expected_line'), t('app.sprints.burndown_chart_current_line')],
         :axis_with_labels => ['x', 'y'],
         :bar_colors => ['FF0000','00FF00'],
-        :custom => 'chls=3,6,3|3,6,0',
+        :custom => 'chls=3,6,3|3,6,0&chg=10,10,1,5',
         :data => [plot[:expected][:x], plot[:expected][:y], plot[:current][:x], plot[:current][:y]],
         :axis_labels => [plot[:labels][:x], plot[:labels][:y]]
       ),

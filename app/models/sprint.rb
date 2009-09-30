@@ -57,8 +57,8 @@ class Sprint < ActiveRecord::Base
     plot[:current][:y] = result[:y]
     plot[:current][:x] = result[:x]
 
-    plot[:labels][:x] = result[:x_labels]
-    plot[:labels][:y] = (0..self.estimated_velocity).to_a
+    plot[:labels][:x] = distribute_labels(result[:x_labels], 15.0)
+    plot[:labels][:y] = distribute_labels((0..self.estimated_velocity).to_a, 20.0)
 
     plot[:expected][:y] = [100, 0]
     plot[:expected][:x] = [0, 100]
@@ -113,6 +113,14 @@ class Sprint < ActiveRecord::Base
     y.collect! {|v| BigDecimal.new((v*factor_y).to_s) }
 
     {:x => x, :y => y, :x_labels => x_labels}
+  end
+
+  def distribute_labels(values, max = 20.0)
+    factor, labels = (values.size/max).ceil, []
+    factor = 1 unless factor > 0
+    values.each_index {|i| labels << values[i] if (i%factor) == 0 }
+    labels << values.last if labels.last != values.last #adds the last one when it is odd
+    labels
   end
 end
 
