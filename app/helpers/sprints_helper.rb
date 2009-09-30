@@ -30,7 +30,7 @@ module SprintsHelper
         :size => '500x350',
         :title => t('app.sprints.burndown_chart'),
         :bg => 'efefef',
-        :legend => ['expected', 'current'],
+        :legend => [t('app.sprints.burndown_chart_expected_line'), t('app.sprints.burndown_chart_current_line')],
         :axis_with_labels => ['x', 'y'],
         :bar_colors => ['FF0000','00FF00'],
         :custom => 'chls=3,6,3|3,6,0',
