@@ -31,7 +31,7 @@ describe ApplicationHelper do
 
     result = new_link('/link', 'text');
     assert result.match(/<a.*>icontext<\/a>/)
-    assert result.match(/.*class="button newLink".*/)
+    assert result.match(/.*class="button newLink inline".*/)
     assert result.match(/.*href="\/link".*/)
   end
 
@@ -59,7 +59,7 @@ describe ApplicationHelper do
 
     result = delete_link('/link')
     assert result.match(/<form.*>.*<\/form>/)
-    assert result.match(/.*class="deleteLink".*/)
+    assert result.match(/.*class="deleteLink inline".*/)
     assert result.match(/<input name="_method" type="hidden" value="delete" \/>/)
     assert result.match(/<input name="forgery_token" type="hidden" value="authenticity_token" \/>/)
     assert result.match(/<input alt=".*" src=".*" title=".*" type="image" \/>/)

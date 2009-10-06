@@ -1,10 +1,10 @@
 $(document).ready(function() {
-  $('table#dataList tbody tr td:not(:has(*))').click(showDetails);
-  $('table#dataList tbody tr td a.showLink').click(showDetails);
+  $('.dataList tbody tr td:not(:has(*))').click(showDetails);
+  $('.dataList tbody tr td a.showLink').click(showDetails);
 });
 
 function showDetails() {
-  $('#inner-content').spin();
+  $('#content').spin();
   $.get($(this).parent().find('a.showLink').attr('href'), function(data) {
     $.Spinner.unspin();
     $(data).dialog({

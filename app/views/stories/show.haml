@@ -1,4 +1,4 @@
-#card-data
+%div{:class => 'card-data'}
   .span-12
     %h3 #{@story.name}
   .span-4.last
@@ -7,6 +7,8 @@
     %br
     %b #{t('activerecord.attributes.story.priority')}:
     #{@story.priority}
+    %br
+    %div{:class => 'color', :style => "background-color:##{@story.color}"}
   .span-12.last
     %p #{@story.description}
 

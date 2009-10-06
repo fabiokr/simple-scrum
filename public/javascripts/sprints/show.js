@@ -3,7 +3,7 @@ $(document).ready(function() {
 });
 
 function showDetails() {
-  $('#inner-content').spin();
+  $('#content').spin();
 
   var title = null;
   if($(this).parents('div.postit').hasClass('story')) {

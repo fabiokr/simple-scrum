@@ -8,6 +8,7 @@ $(document).ready(function() {
   colorInput.ColorPicker({
     onChange: function (hsb, hex, rgb) {
 		  colorInput.val(hex);
+		  $('.color').css('background-color', '#'+hex);
 	  }
   });
 });

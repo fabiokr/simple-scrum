@@ -1,6 +1,6 @@
 $(document).ready(function() {
   addConfirmToDestoyForm();
-  $('a.showLink').hide();
+  $('.showLink').hide();
   $("form.dataForm").validationEngine();
 
   //Test only
@@ -8,7 +8,7 @@ $(document).ready(function() {
 });
 
 function addConfirmToDestoyForm() {
-  $('form.deleteLink').click(function() {
+  $('.deleteLink').click(function() {
     return confirm(i18n.confirm_destroy);
   });
 }

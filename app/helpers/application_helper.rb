@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def new_link(path, text)
-    link_to "#{icon(:page_add, :alt => text)}#{text}", path, :class => 'button newLink'
+    link_to "#{icon(:page_add, :alt => text)}#{text}", path, :class => 'button newLink inline'
   end
 
   def show_link(path)
@@ -34,7 +34,7 @@ module ApplicationHelper
   def delete_link(path)
     html_options = html_options_for_form(path,{})
 
-    form = content_tag('form', :action => html_options['action'], :method => 'post', :class => 'deleteLink') do
+    form = content_tag('form', :action => html_options['action'], :method => 'post', :class => 'deleteLink inline') do
       content = ''
       content << hidden_field_tag('_method', 'delete', :id => nil)
       content << hidden_field_tag(request_forgery_protection_token.to_s, form_authenticity_token, :id => nil)

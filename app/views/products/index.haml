@@ -1,15 +1,13 @@
-#search
-  - form_for @search do |f|
-    %fieldset
-      %p
-        = f.text_field :name_like_or_owner_like, :class => 'text'
-        = button_tag t('system.search'), :find, :class => 'search'
+- form_for @search, :html => {:class => 'search'} do |f|
+  %fieldset
+    = f.text_field :name_like_or_owner_like, :class => 'text'
+    = button_tag t('system.search'), :find, :class => 'search'
 
 = new_link(new_product_path, t('app.products.new'))
 %br
 %br
 
-%table#dataList
+%table.dataList
   %caption
     ="#{t('app.products.index')} - #{t('system.found_registries', :count => @products.total_entries)}"
   %thead
