@@ -13,8 +13,7 @@
 %br
 = f.label :color
 %br
-= f.text_field :color, :class => 'text smallInput'
-%div{:class => 'color', :style => "background-color:##{@story.color}"}
+= f.text_field :color, :class => 'text smallInput', :style => "color:##{@story.color}"
 %br
 = f.label :description
 %br

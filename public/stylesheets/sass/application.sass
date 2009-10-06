@@ -6,8 +6,8 @@ textarea
 input.smallInput
   width: 150px
 
-.slider
-  width: 300px
+table
+  border-spacing: 0
 
 // Common Classes
 .inline
@@ -27,7 +27,6 @@ input.smallInput
     border: none
   button
     padding: 1px 10px 3px 7px
-    display: inline
 
 .dataList
   td
@@ -38,7 +37,7 @@ input.smallInput
 .card-data
   text-align: left
 
-  .fieldWithErrors
+.fieldWithErrors
   input.text, input.title, textarea, select, span.slider
     border: 1px solid #8A1F11
   label
@@ -62,13 +61,42 @@ input.smallInput
     font-weight: bold
     background: transparent url(/images/pagination-circle.gif) no-repeat 50% 50%
 
+.slider
+  width: 300px
+  display: block
+
+.newLink
+  width: 100px
+
 // Specific Selector
 div.color
   height: 20px
   width: 20px
 
-// Template Layout
+// Page Template (thanks to http://csseasy.com)
+body
+  width: 960px
+  margin: 0 auto
+  margin-top: 30px
+
+#header
+  width: 960px
+  height: 100px
+
+#navigation
+  width: 960px
+  height: 40px
+  margin-top: 10px
+
+#content
+  width: 960px
+  min-height: 450px /* for modern browsers */
+  height: auto !important /* for modern browsers */
+  height: 450px /* for IE5.x and IE6 */
+  margin-top: 10px
 
 #footer
-  text-align: center
+  width: 960px
+  height: 100px
+  margin-top: 10px
 

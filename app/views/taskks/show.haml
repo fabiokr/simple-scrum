@@ -1,12 +1,12 @@
 %div{:class => 'card-data'}
-  .span-12
-    %h3
-      #{@task.name}
-      - if @task.unplanned?
-        = " (#{t('activerecord.attributes.taskk.unplanned')})"
-  .span-4.last
+  %h3
+    #{@task.name}
+    - if @task.unplanned?
+      = " (#{t('activerecord.attributes.taskk.unplanned')})"
+  %p
     %b #{t('activerecord.attributes.story.estimative')}:
     #{@task.estimative}
-  .span-12.last
-    %p #{@task.description}
+  %br
+  %p
+    #{@task.description}
 

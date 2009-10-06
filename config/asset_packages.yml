@@ -11,8 +11,8 @@ javascripts:
   - application.en-US
 stylesheets:
 - base_screen:
-  - blueprint/screen
-  - blueprint/ie
+  - blueprint/typography
+  - blueprint/forms
   - blueprint/buttons/screen
   - blueprint/fancy-type/screen
   - jquery-ui-1.7.2

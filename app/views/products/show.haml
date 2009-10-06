@@ -1,5 +1,4 @@
-.span-24
-  %h2= "#{@product.name} - #{@product.owner}"
-  =link_to(t('app.stories.index'), product_stories_path(@product))
-  =link_to(t('app.sprints.index'), product_sprints_path(@product))
+%h2= "#{@product.name} - #{@product.owner}"
+=link_to(t('app.stories.index'), product_stories_path(@product))
+=link_to(t('app.sprints.index'), product_sprints_path(@product))
 

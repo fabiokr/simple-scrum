@@ -7,8 +7,7 @@ $(document).ready(function() {
   colorInput = $('input#story_color');
   colorInput.ColorPicker({
     onChange: function (hsb, hex, rgb) {
-		  colorInput.val(hex);
-		  $('.color').css('background-color', '#'+hex);
+		  colorInput.val(hex).css('color', '#'+hex);
 	  }
   });
 });
