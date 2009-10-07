@@ -1,8 +1,3 @@
-- form_for @search, :html => {:class => 'search inline'} do |f|
-  %fieldset
-    = f.text_field :name_like_or_owner_like, :class => 'text'
-    = button_tag t('system.search'), :find, :class => 'search inline'
-
 = new_link(new_product_path, t('app.products.new'))
 
 %table.dataList

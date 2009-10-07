@@ -8,6 +8,7 @@ javascripts:
   - libs/jquery.blueprint.showgrid
   - libs/jquery.validationEngine
   - libs/jquery.colorpicker
+  - libs/jquery.inputHint
   - application.en-US
 stylesheets:
 - base_screen:

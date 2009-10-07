@@ -1,0 +1,42 @@
+%h2= t('app.searches.result')
+
+%table.dataList
+  %thead
+    %tr
+      %th
+        = t('app.products.index')
+  %tbody
+    - @products.each do |product|
+      %tr
+        %td= link_to product.name, product_path(product)
+
+%table.dataList
+  %thead
+    %tr
+      %th
+        = t('app.stories.index')
+  %tbody
+    - @stories.each do |story|
+      %tr
+        %td= link_to story.name, product_story_path(story.product, story)
+
+%table.dataList
+  %thead
+    %tr
+      %th
+        = t('app.sprints.index')
+  %tbody
+    - @sprints.each do |sprint|
+      %tr
+        %td= link_to sprint.name, product_sprint_path(sprint.product, sprint)
+
+%table.dataList
+  %thead
+    %tr
+      %th
+        = t('app.taskks.index')
+  %tbody
+    - @tasks.each do |task|
+      %tr
+        %td= link_to task.name, product_sprint_taskk_path(task.sprint.product, task.sprint, task)
+

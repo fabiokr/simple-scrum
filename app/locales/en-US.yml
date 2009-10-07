@@ -191,6 +191,7 @@ en-US:
   app:
     name: 'Personal SCRUM'
     home: 'Home'
+    search_hint: 'search query'
     menu:
         products: "Products"
         sprints: "Sprints"
@@ -206,7 +207,7 @@ en-US:
         new: "New Story"
         edit: "Editing Story"
     sprints:
-        index: "Sprints Planning"
+        index: "Sprints"
         show: "Sprint"
         new: "New Sprint"
         edit: "Editing Sprint"
@@ -227,4 +228,7 @@ en-US:
         show: "Task"
         new: "New Task"
         edit: "Editing Task"
+    searches:
+        result: "Search results"
+        insuficient_query: "The query value was to small (at least 3 characters required)"
 

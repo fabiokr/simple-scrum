@@ -2,6 +2,7 @@ $(document).ready(function() {
   addConfirmToDestoyForm();
   $('.showLink').hide();
   $("form.dataForm").validationEngine();
+  $('*[title]').inputHint();
 
   //Test only
   $("body").addGrid({img_path: '/images/',margin:"1.5em auto"});
