@@ -28,7 +28,7 @@ describe Sprint do
   it { should validate_presence_of(:product_id) }
   it { should validate_length_of(:name, :within => 1..60) }
   it { should belong_to :product }
-  it { should have_many :tasks }
+  it { should have_many :tasks, :dependent => :destroy }
   it { should validate_numericality_of :velocity, :estimated_velocity }
 
   it "should verify if end date is after start date" do

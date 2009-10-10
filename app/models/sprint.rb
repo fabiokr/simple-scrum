@@ -21,7 +21,7 @@ class Sprint < ActiveRecord::Base
   before_save :set_velocity_and_estimated_velocity
 
   belongs_to :product
-  has_many :tasks, :class_name => 'Taskk'
+  has_many :tasks, :class_name => 'Taskk', :dependent => :destroy
 
   validates_presence_of :product_id
   validates_length_of :name, :in => 1..60

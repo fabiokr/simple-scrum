@@ -16,7 +16,7 @@
 class Story < ActiveRecord::Base
 
   belongs_to :product
-  has_many :taskks
+  has_many :taskks, :dependent => :destroy
 
   default_scope :order => 'priority DESC'
 
