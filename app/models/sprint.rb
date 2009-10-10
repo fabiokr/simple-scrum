@@ -28,6 +28,7 @@ class Sprint < ActiveRecord::Base
   validates_numericality_of :velocity, :allow_nil => true
   validates_numericality_of :estimated_velocity, :allow_nil => true
   validate :end_cannot_be_greater_than_or_equal_start
+  validate :must_have_at_least_one_weekday_between_start_and_end
 
   def group_tasks_by_story
     stories = {}
@@ -75,6 +76,10 @@ class Sprint < ActiveRecord::Base
 
   def end_cannot_be_greater_than_or_equal_start
     errors.add(:end, "greater_than", {:count => 'activerecord.attributes.sprint.start'}) if !self.end.nil? && !self.start.nil? && self.end <= self.start
+  end
+
+  def must_have_at_least_one_weekday_between_start_and_end
+    errors.add(:end, "one_weekday_between") if !self.end.nil? && !self.start.nil? && self.start.weekdays_until(self.end)-1 == 0
   end
 
   #plot methods

@@ -145,6 +145,7 @@ en-US:
         less_than_or_equal_to: "precisa ser menor ou igual a {{count}}"
         odd: "precisa ser ímpar"
         even: "precisa ser par"
+        one_weekday_between: "precisa ter pelo menos um dia útil de diferença"
     models:
       product: 'Product'
       sprint: 'Sprint'

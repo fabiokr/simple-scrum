@@ -52,11 +52,21 @@ describe Sprint do
     @sprint.errors.invalid?(:start).should be_false
     @sprint.errors.invalid?(:end).should be_true
 
-    @sprint.end = 1.day.since
+    @sprint.end = 10.days.since.to_date
     @sprint.save
 
     @sprint.errors.invalid?(:start).should be_false
     @sprint.errors.invalid?(:end).should be_false
+  end
+
+  it "should have at least one work day between start and end" do
+    @sprint.start = Date.civil(2009,10,9)
+    @sprint.end = Date.civil(2009,10,10)
+
+    @sprint.save
+
+    @sprint.errors.invalid?(:start).should be_false
+    @sprint.errors.invalid?(:end).should be_true
   end
 
   it "should set velocity and estimated_velocity to 0 if nil" do
