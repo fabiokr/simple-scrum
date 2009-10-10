@@ -16,10 +16,10 @@
     )
   %thead
     %tr
-      %th{:class => 'span-4'}= "#{t('activerecord.models.story')}"
-      %th{:class => 'span-4'}= "#{t('app.sprints.todo')}"
-      %th{:class => 'span-4'}= "#{t('app.sprints.doing')}"
-      %th{:class => 'span-4 last'}= "#{t('app.sprints.done')}"
+      %th= "#{t('activerecord.models.story')}"
+      %th= "#{t('app.sprints.todo')}"
+      %th= "#{t('app.sprints.doing')}"
+      %th= "#{t('app.sprints.done')}"
   %tbody
     - @sprint.group_tasks_by_story.each do |story, tasks|
       - printed_story = false
