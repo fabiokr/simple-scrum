@@ -21,10 +21,8 @@
       #message
         = render :partial => 'layouts/message'
       = yield
-    #footer
+    #footer{:class => 'center'}
       personal-scrum 0.1 2009
-      =link_to(image_tag('http://www.w3.org/Icons/valid-xhtml10-blue', :alt => 'Valid XHTML 1.0 Transitional', :height => '31', :width => '88'), 'http://validator.w3.org/check?uri=referer')
-      =link_to(image_tag('http://jigsaw.w3.org/css-validator/images/vcss-blue', :alt => 'Valid CSS', :height => '31', :width => '88'), 'http://jigsaw.w3.org/css-validator/check/referer')
 
       / External javascripts
       = javascript_include_merged :base

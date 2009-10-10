@@ -4,9 +4,9 @@
     = select_tag 'story_id', options_for_select(@product.stories.all.collect {|s| [ s.name, s.id.to_s ]}, params[:story_id])
     = button_tag t('app.taskks.new'), 'add', :class => 'inline transparent'
 
-#burdown_chart
+= render :partial => 'sprints/backlog'
+
+#burdown_chart{:class => 'center'}
   = burndown_chart @sprint
 %br
-
-= render :partial => 'sprints/backlog'
 
