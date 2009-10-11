@@ -12,7 +12,6 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #
-#require 'gchart'
 
 class Sprint < ActiveRecord::Base
 
@@ -75,7 +74,7 @@ class Sprint < ActiveRecord::Base
   end
 
   def end_cannot_be_greater_than_or_equal_start
-    errors.add(:end, "greater_than", {:count => 'activerecord.attributes.sprint.start'}) if !self.end.nil? && !self.start.nil? && self.end <= self.start
+    errors.add(:end, "greater_than", {:count => I18n.t('activerecord.attributes.sprint.start')}) if !self.end.nil? && !self.start.nil? && self.end <= self.start
   end
 
   def must_have_at_least_one_weekday_between_start_and_end
