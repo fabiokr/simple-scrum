@@ -9,6 +9,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :search, :only => [:show]
 
+  map.new_session '/login', :controller => 'user_sessions', :action => 'new',  :conditions => { :method => :get }
+  map.session '/login', :controller => 'user_sessions', :action => 'create',  :conditions => { :method => :post }
+  map.session '/logout', :controller => 'user_sessions', :action => 'destroy'
+
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

@@ -1,0 +1,16 @@
+- form_for(@user_session, :url => new_session_path, :html => {:class => 'dataForm'}) do |f|
+  %fieldset
+    %legend= t('app.login.new')
+    = f.error_messages form_errors_class
+    = f.label :login
+    %br
+    = f.text_field :login, :class => 'validate[required] text'
+    %br
+    = f.label :password
+    %br
+    = f.password_field :password, :class => 'validate[required] text'
+    %br
+    = f.check_box :remember_me
+    = f.label :remember_me
+    %p= button_tag t('app.login.new'), :accept, :class => 'positive'
+

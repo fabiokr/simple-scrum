@@ -97,25 +97,25 @@ en-US:
 
   authlogic:
     error_messages:
-      login_blank: "não pode estar em branco"
-      login_not_found: "não existente"
-      login_invalid: "deve conter somente letras, números, espaços e .-_@"
-      email_invalid: "deve ser um endereço de email válido"
-      password_blank: "não pode estar em branco"
-      password_invalid: "inválida"
-      not_active: "Sua conta não está ativada"
-      not_confirmed: "Sua conta não foi confirmada ainda"
-      not_approved: "Sua conta ainda não foi aprovada"
-      blank_record: "Você não pode entrar com um registro em branco"
-      new_record: "Você não pode entrar com um novo registro"
+      login_blank: "cannot be empty"
+      login_not_found: "not found"
+      login_invalid: "must contain only letters, numbers, spaces and .-_@"
+      email_invalid: "must be a valid email address"
+      password_blank: "cannot be empty"
+      password_invalid: "invalid"
+      not_active: "Your account is not activated"
+      not_confirmed: "Your account was not yet confirmed"
+      not_approved: "Your account was not yet approved"
+      blank_record: "You cannot enter with an empty record"
+      new_record: "You cannot enter with a new record"
     models:
-      user_session: 'Sessão'
+      user_session: 'Session'
     attributes:
       user_session:
         login: 'Login'
         email: 'Email'
-        password: 'Senha'
-        remember_me: 'Lembrar-se de mim'
+        password: 'Password'
+        remember_me: 'Remember-me'
 
   # Active Record
   activerecord:
@@ -197,6 +197,11 @@ en-US:
         products: "Products"
         sprints: "Sprints"
         storys: "Storys"
+    login:
+        new: "Login"
+        require_login: "You should login to view this page"
+        login_successfull: "Welcome back, {{user}}!"
+        logout_successfull: "See you next time, {{user}}!"
     products:
         index: "Products"
         show: "Product Dashboard"
