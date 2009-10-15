@@ -34,6 +34,7 @@ require 'spec/autorun'
 require 'spec/rails'
 require 'remarkable_rails'
 require 'factory_girl'
+require 'authlogic/test_case'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.

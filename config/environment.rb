@@ -23,7 +23,7 @@ Rails::Initializer.run do |config|
   config.gem "rspec-rails", :lib => false, :version => ">= 1.2"
   config.gem "remarkable_rails", :lib => false
   config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => "http://gems.github.com"
-  config.gem 'webrat', :source => 'http://gems.github.com'
+  #config.gem 'webrat', :source => 'http://gems.github.com'
   config.gem 'faker'
 
   config.gem 'haml'
@@ -34,6 +34,7 @@ Rails::Initializer.run do |config|
   config.gem 'json'
   config.gem 'googlecharts', :lib => 'gchart'
   config.gem 'mdarby-weekdays', :lib => 'weekdays'
+  config.gem "authlogic"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
