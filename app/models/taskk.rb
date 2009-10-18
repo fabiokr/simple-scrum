@@ -38,6 +38,16 @@ class Taskk < ActiveRecord::Base
   after_save :update_sprint_estimated_velocity
   after_save :update_sprint_velocity
 
+  def status_str
+    STATUS_STR[self.status]
+  end
+
+  STATUS_STR = {
+    TODO => "todo",
+    DOING => "doing",
+    DONE => "done"
+  }
+
   private
 
     def set_default_status
