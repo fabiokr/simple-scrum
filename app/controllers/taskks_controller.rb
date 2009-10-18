@@ -1,5 +1,6 @@
 class TaskksController < ApplicationController
 
+  before_filter :require_user
   before_filter :get_product_and_sprint
 
   def show

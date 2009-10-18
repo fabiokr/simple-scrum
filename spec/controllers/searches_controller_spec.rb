@@ -17,6 +17,17 @@ describe SearchesController do
     @sprint2 = Factory(:sprint, :product => @product2, :name => 'other sprint')
     @task1 = Factory(:task, :story => @story1, :sprint => @sprint1, :name => 'good task', :description => 'really good')
     @task2 = Factory(:task, :story => @story2, :sprint => @sprint2, :name => 'great task', :description => 'really wonderful')
+
+    @user = Factory(:user)
+    activate_authlogic
+    UserSession.create(@user)
+  end
+
+  it "should require user" do
+    UserSession.find.destroy
+
+    get :show
+    response.should redirect_to(new_session_path)
   end
 
   it "should do no search if query has less than 3 chars" do

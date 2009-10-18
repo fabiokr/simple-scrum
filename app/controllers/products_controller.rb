@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
 
+  before_filter :require_user
+
   # GET /products
   # GET /products.json
   def index

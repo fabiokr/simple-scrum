@@ -16,10 +16,39 @@ describe ProductsController do
 
   before :each do
     @product = Factory(:product)
+    @user = Factory(:user)
+    activate_authlogic
+    UserSession.create(@user)
+  end
+
+  it "should require user" do
+    UserSession.find.destroy
+
+    get :index
+    response.should redirect_to(new_session_path)
+
+    get :show, :id => @product.id
+    response.should redirect_to(new_session_path)
+
+    get :new
+    response.should redirect_to(new_session_path)
+
+    get :edit, :id => @product.id
+    response.should redirect_to(new_session_path)
+
+    product = Factory.build(:product)
+    post :create, :product => product.attributes
+    response.should redirect_to(new_session_path)
+
+    @product.name = 'new name'
+    post :update, :id => @product.id, :product => @product.attributes
+    response.should redirect_to(new_session_path)
+
+    get :destroy, :id => @product.id
+    response.should redirect_to(new_session_path)
   end
 
   it "should list products on :index" do
-
     get :index
 
     assigns(:search).should_not be_nil

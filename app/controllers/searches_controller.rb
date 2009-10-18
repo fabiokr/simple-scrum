@@ -1,5 +1,7 @@
 class SearchesController < ApplicationController
 
+  before_filter :require_user
+
   def show
     if params[:q].nil? || params[:q].size < 3
       @products = []

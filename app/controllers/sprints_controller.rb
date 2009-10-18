@@ -1,5 +1,6 @@
 class SprintsController < ApplicationController
 
+  before_filter :require_user
   before_filter :get_product
 
   # GET /products/1/sprints

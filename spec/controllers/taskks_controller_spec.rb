@@ -17,11 +17,38 @@ describe TaskksController do
     @product = Factory(:product)
     @sprint = Factory(:sprint, :product => @product)
     @task = Factory(:task, :sprint => @sprint)
+    @user = Factory(:user)
+    activate_authlogic
+    UserSession.create(@user)
   end
 
   after :each do
-    assigns(:product).should_not be_nil
-    assigns(:sprint).should_not be_nil
+    assigns(:product).should_not be_nil unless assigns(:current_user_session).nil?
+    assigns(:sprint).should_not be_nil unless assigns(:current_user_session).nil?
+  end
+
+  it "should require user" do
+    UserSession.find.destroy
+
+    get :show, :product_id => @product.id, :sprint_id => @sprint.id, :id => @task.id
+    response.should redirect_to(new_session_path)
+
+    get :new, :product_id => @product.id, :sprint_id => @sprint.id
+    response.should redirect_to(new_session_path)
+
+    get :edit, :product_id => @product.id, :sprint_id => @sprint.id, :id => @task.id
+    response.should redirect_to(new_session_path)
+
+    task = Factory.build(:task)
+    post :create, :product_id => @product.id, :sprint_id => @sprint.id, :taskk => task.attributes
+    response.should redirect_to(new_session_path)
+
+    @task.name = 'new name'
+    post :update, :product_id => @product.id, :sprint_id => @sprint.id, :id => @task.id, :taskk => @task.attributes
+    response.should redirect_to(new_session_path)
+
+    get :destroy, :product_id => @product.id, :sprint_id => @sprint.id, :id => @task.id
+    response.should redirect_to(new_session_path)
   end
 
   it "should assign task on :show" do

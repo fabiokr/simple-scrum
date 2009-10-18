@@ -17,10 +17,40 @@ describe SprintsController do
   before :each do
     @product = Factory(:product)
     @sprint = Factory(:sprint, :product => @product)
+    @user = Factory(:user)
+    activate_authlogic
+    UserSession.create(@user)
   end
 
   after :each do
-    assigns(:product).should_not be_nil
+    assigns(:product).should_not be_nil unless assigns(:current_user_session).nil?
+  end
+
+  it "should require user" do
+    UserSession.find.destroy
+
+    get :index, :product_id => @product.id
+    response.should redirect_to(new_session_path)
+
+    get :show, :product_id => @product.id, :id => @sprint.id
+    response.should redirect_to(new_session_path)
+
+    get :new, :product_id => @product.id
+    response.should redirect_to(new_session_path)
+
+    get :edit, :product_id => @product.id, :id => @sprint.id
+    response.should redirect_to(new_session_path)
+
+    sprint = Factory.build(:sprint)
+    post :create, :product_id => @product.id, :sprint => sprint.attributes
+    response.should redirect_to(new_session_path)
+
+    @sprint.name = 'new name'
+    post :update, :product_id => @product.id, :id => @sprint.id, :sprint => @sprint.attributes
+    response.should redirect_to(new_session_path)
+
+    get :destroy, :product_id => @product.id, :id => @sprint.id
+    response.should redirect_to(new_session_path)
   end
 
   it "should list sprints on :index" do
