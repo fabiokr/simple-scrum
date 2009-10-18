@@ -1,6 +1,7 @@
 class UserSessionsController < ApplicationController
 
   before_filter :require_user, :only => :destroy
+  layout 'login'
 
   def new
     @user_session = UserSession.new
@@ -12,6 +13,7 @@ class UserSessionsController < ApplicationController
       flash[:message] = t('app.login.login_successfull', :user => current_user.login)
       redirect_back_or_default root_path
     else
+      flash[:error] = @user_session.errors.full_messages.first
       render :action => :new
     end
   end

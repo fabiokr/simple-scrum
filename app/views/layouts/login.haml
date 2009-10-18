@@ -12,14 +12,10 @@
   %body
     #header
       %h1{:class => 'inline'} Personal-Scrum
-      - form_tag search_path, :method => :get, :class => 'search inline right' do
-        = text_field_tag 'q', nil, :title => t('app.search_hint') ,:class => 'text smallInput'
-        = button_tag t('system.search'), :find, :class => 'search inline'
-    #navigation
-      = breadcrumbs
     #content
-      = render :partial => 'layouts/message'
-      = yield
+      .login
+        = render :partial => 'layouts/message'
+        = yield
     #footer{:class => 'center'}
       personal-scrum 0.1 2009
 

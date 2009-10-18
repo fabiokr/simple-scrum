@@ -131,5 +131,16 @@ describe Taskk do
     sprint.velocity.should == story1.estimative + story2.estimative
   end
 
+  it "should return valid status_str" do
+    @task.status = Taskk::TODO
+    @task.status_str.should == 'todo'
+
+    @task.status = Taskk::DOING
+    @task.status_str.should == 'doing'
+
+    @task.status = Taskk::DONE
+    @task.status_str.should == 'done'
+  end
+
 end
 

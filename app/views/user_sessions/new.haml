@@ -1,7 +1,6 @@
-- form_for(@user_session, :url => new_session_path, :html => {:class => 'dataForm'}) do |f|
+- form_for @user_session, :url => new_session_path do |f|
   %fieldset
     %legend= t('app.login.new')
-    = f.error_messages form_errors_class
     = f.label :login
     %br
     = f.text_field :login, :class => 'validate[required] text'

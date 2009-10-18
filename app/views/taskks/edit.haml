@@ -1,4 +1,4 @@
-- form_for([@product, @sprint, @task], :html => {:class => 'dataForm'}) do |f|
+- form_for [@product, @sprint, @task] do |f|
   %fieldset
     %legend= t('app.taskks.edit')
     = render :partial => 'taskks/form', :locals => { :f => f }

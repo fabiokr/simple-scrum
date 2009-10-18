@@ -1,3 +1,6 @@
+// Variables
+!site_width = 960px
+
 // Basic Elements
 textarea
   height: 100px
@@ -80,6 +83,10 @@ table
 .newLink
   width: 100px
 
+.login
+  width = !site_width * 0.4
+  margin: 100px auto 0 auto
+
 // Specific Selector
 div.color
   height: 20px
@@ -87,28 +94,28 @@ div.color
 
 // Page Template (thanks to http://csseasy.com)
 body
-  width: 960px
+  width = !site_width
   margin: 0 auto
   margin-top: 5px
 
 #header
-  width: 960px
+  width = !site_width
   height: 40px
 
 #navigation
-  width: 960px
+  width = !site_width
   height: 40px
   margin-top: 10px
 
 #content
-  width: 960px
+  width = !site_width
   min-height: 450px /* for modern browsers */
   height: auto !important /* for modern browsers */
   height: 450px /* for IE5.x and IE6 */
   margin-top: 10px
 
 #footer
-  width: 960px
+  width = !site_width
   height: 100px
   margin-top: 10px
 

@@ -2,4 +2,6 @@
   .notice= flash[:notice]
 - if !flash[:message].nil?
   .success= flash[:message]
+- if !flash[:error].nil?
+  .error= flash[:error]
 
