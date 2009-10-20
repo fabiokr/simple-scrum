@@ -53,6 +53,20 @@ describe StoriesController do
     response.should redirect_to(new_session_path)
   end
 
+  it "should user stamp the story on create and update" do
+    story = Factory.build(:story)
+    post :create, :product_id => @product.id, :story => story.attributes
+    assigns(:story).creator_id.should == @user.id
+    assigns(:story).updater_id.should == @user.id
+
+    user = Factory(:user)
+    story = Factory(:story, :product => @product, :creator => user, :updater => user)
+
+    post :update, :product_id => @product.id, :id => story.id, :story => {:name => 'new name'}
+    assigns(:story).creator_id.should == user.id
+    assigns(:story).updater_id.should == @user.id
+  end
+
   it "should list stories on :index" do
     get :index, :product_id => @product.id
 

@@ -51,6 +51,20 @@ describe TaskksController do
     response.should redirect_to(new_session_path)
   end
 
+  it "should user stamp the task on create and update" do
+    task = Factory.build(:task)
+    post :create, :product_id => @product.id, :sprint_id => @sprint.id, :task => task.attributes
+    assigns(:task).creator_id.should == @user.id
+    assigns(:task).updater_id.should == @user.id
+
+    user = Factory(:user)
+    task = Factory(:task, :sprint => @sprint, :creator => user, :updater => user)
+
+    post :update, :product_id => @product.id, :sprint_id => @sprint.id, :id => task.id, :task => {:name => 'new name'}
+    assigns(:task).creator_id.should == user.id
+    assigns(:task).updater_id.should == @user.id
+  end
+
   it "should assign task on :show" do
     get :show, :product_id => @product.id, :sprint_id => @sprint.id, :id => @task.id
 

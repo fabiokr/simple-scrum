@@ -14,6 +14,7 @@
 #
 
 class Taskk < ActiveRecord::Base
+  stampable
 
   set_table_name 'tasks'
 

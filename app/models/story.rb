@@ -14,6 +14,7 @@
 #
 
 class Story < ActiveRecord::Base
+  stampable
 
   belongs_to :product
   has_many :taskks, :dependent => :destroy

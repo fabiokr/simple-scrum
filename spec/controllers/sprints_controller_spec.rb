@@ -53,6 +53,20 @@ describe SprintsController do
     response.should redirect_to(new_session_path)
   end
 
+  it "should user stamp the sprint on create and update" do
+    sprint = Factory.build(:sprint)
+    post :create, :product_id => @product.id, :sprint => sprint.attributes
+    assigns(:sprint).creator_id.should == @user.id
+    assigns(:sprint).updater_id.should == @user.id
+
+    user = Factory(:user)
+    sprint = Factory(:sprint, :product => @product, :creator => user, :updater => user)
+
+    post :update, :product_id => @product.id, :id => sprint.id, :sprint => {:name => 'new name'}
+    assigns(:sprint).creator_id.should == user.id
+    assigns(:sprint).updater_id.should == @user.id
+  end
+
   it "should list sprints on :index" do
     get :index, :product_id => @product.id
 

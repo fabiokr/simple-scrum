@@ -24,7 +24,9 @@ describe Taskk do
     @task.should be_valid
   end
 
-  it { should have_db_columns :id, :name, :description, :estimative, :unplanned, :status, :status_changed_at, :story_id, :sprint_id, :created_at, :updated_at }
+  it { should have_db_columns :id, :name, :description, :estimative, :unplanned, :status, :status_changed_at, :story_id, :sprint_id, :created_at, :updated_at, :creator_id, :updater_id }
+  it { should belong_to :creator }
+  it { should belong_to :updater }
   it { should belong_to :story }
   it { should belong_to :sprint }
 

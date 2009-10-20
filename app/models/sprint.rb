@@ -14,6 +14,7 @@
 #
 
 class Sprint < ActiveRecord::Base
+  stampable
 
   PLOT_DATE_FORMAT = "%e/%m"
 

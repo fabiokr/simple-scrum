@@ -20,8 +20,10 @@ describe Product do
     @product.should be_valid
   end
 
-  it { should have_db_columns :id, :name, :owner, :created_at, :updated_at }
+  it { should have_db_columns :id, :name, :owner, :created_at, :updated_at, :creator_id, :updater_id }
   it { should validate_length_of(:name, :owner, :within => 1..60) }
+  it { should belong_to :creator }
+  it { should belong_to :updater }
   it { should have_many :stories, :sprints }
 end
 

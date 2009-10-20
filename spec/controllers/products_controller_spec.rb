@@ -48,6 +48,20 @@ describe ProductsController do
     response.should redirect_to(new_session_path)
   end
 
+  it "should user stamp the product on create and update" do
+    product = Factory.build(:product)
+    post :create, :product => product.attributes
+    assigns(:product).creator_id.should == @user.id
+    assigns(:product).updater_id.should == @user.id
+
+    user = Factory(:user)
+    product = Factory(:product, :creator => user, :updater => user)
+
+    post :update, :id => product.id, :product => {:name => 'new name'}
+    assigns(:product).creator_id.should == user.id
+    assigns(:product).updater_id.should == @user.id
+  end
+
   it "should list products on :index" do
     get :index
 
