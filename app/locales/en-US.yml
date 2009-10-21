@@ -197,6 +197,8 @@ en-US:
         products: "Products"
         sprints: "Sprints"
         storys: "Storys"
+        logout: "logout"
+        settings: "settings"
     login:
         new: "Login"
         require_login: "You should login to view this page"

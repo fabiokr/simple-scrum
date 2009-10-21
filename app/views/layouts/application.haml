@@ -16,6 +16,9 @@
         = text_field_tag 'q', nil, :title => t('app.search_hint') ,:class => 'text smallInput'
         = button_tag t('system.search'), :find, :class => 'search inline'
     #navigation
+      %ul{:id => 'topnav'}
+        %li= link_to t('app.menu.logout'), '/logout'
+        %li= link_to t('app.menu.settings'), '/logout'
       = breadcrumbs
     #content
       = render :partial => 'layouts/message'
