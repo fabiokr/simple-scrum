@@ -1,0 +1,17 @@
+- form_for @user, :url => settings_path do |f|
+  %fieldset
+    %legend= t('app.settings.profile')
+    = f.error_messages form_errors_class
+    = f.label :email
+    %br
+    = f.text_field :email, :class => 'validate[required] text'
+    %br
+    = f.label :password
+    %br
+    = f.password_field :password, :class => 'text'
+    %br
+    = f.label :password_confirmation
+    %br
+    = f.password_field :password_confirmation, :class => 'text'
+    %p= button_tag t('system.update'), :accept, :class => 'positive'
+

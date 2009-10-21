@@ -151,6 +151,7 @@ en-US:
       sprint: 'Sprint'
       story: 'Story'
       taskk: 'Task'
+      settings: 'Settings'
     attributes:
       _all:
         created_at: "Created at"
@@ -194,9 +195,7 @@ en-US:
     home: 'Home'
     search_hint: 'search query'
     menu:
-        products: "Products"
-        sprints: "Sprints"
-        storys: "Storys"
+        products: "products"
         logout: "logout"
         settings: "settings"
     login:
@@ -204,6 +203,9 @@ en-US:
         require_login: "You should login to view this page"
         login_successfull: "Welcome back, {{user}}!"
         logout_successfull: "See you next time, {{user}}!"
+    settings:
+        edit: "Settings"
+        profile: "Change profile"
     products:
         index: "Products"
         show: "Product Dashboard"

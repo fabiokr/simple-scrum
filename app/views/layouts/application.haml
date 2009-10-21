@@ -17,8 +17,9 @@
         = button_tag t('system.search'), :find, :class => 'search inline'
     #navigation
       %ul{:id => 'topnav'}
+        %li= link_to t('app.menu.products'), products_path
+        %li= link_to t('app.menu.settings'), edit_settings_path
         %li= link_to t('app.menu.logout'), '/logout'
-        %li= link_to t('app.menu.settings'), '/logout'
       = breadcrumbs
     #content
       = render :partial => 'layouts/message'

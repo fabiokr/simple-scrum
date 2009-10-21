@@ -1,3 +1,5 @@
+admin = Factory(:user, :admin => true, :login => 'admin', :email => 'no@email.com', :password => 'adminadmin', :password_confirmation => 'adminadmin')
+
 #products = []
 #5.times { products << Factory(:product)}
 

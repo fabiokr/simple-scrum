@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resource :search, :only => [:show]
+  map.resource :settings, :only => [:edit, :update]
 
   map.new_session '/login', :controller => 'user_sessions', :action => 'new',  :conditions => { :method => :get }
   map.session '/login', :controller => 'user_sessions', :action => 'create',  :conditions => { :method => :post }

@@ -22,6 +22,8 @@ Breadcrumb.configure do
 
   crumb :search_show, '#{t("app.searches.result")}', :searches_url
 
+  crumb :settings_edit, '#{t("app.settings.edit")}', :edit_settings_url
+
   #Trails
 
   root = [:product_index]
@@ -61,6 +63,10 @@ Breadcrumb.configure do
 
   context 'searches controller' do
     trail :searches, :show, [:search_show]
+  end
+
+  context 'settings controller' do
+    trail :settings, :edit, [:settings_edit]
   end
 
   delimit_with "|"

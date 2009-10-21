@@ -5,6 +5,7 @@ Factory.define :user do |u|
   u.email {|a| Faker::Internet.email}
   u.password 'password'
   u.password_confirmation 'password'
+  u.admin true
 
   u.created_at Time.now
   u.updated_at Time.now
