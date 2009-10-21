@@ -15,8 +15,8 @@ class Product < ActiveRecord::Base
   validates_length_of :name, :in => 1..60
   validates_length_of :owner, :in => 1..60
 
-  has_many :stories
-  has_many :sprints
+  has_many :stories, :dependent => :destroy
+  has_many :sprints, :dependent => :destroy
 
 end
 

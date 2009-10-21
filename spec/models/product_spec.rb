@@ -24,6 +24,7 @@ describe Product do
   it { should validate_length_of(:name, :owner, :within => 1..60) }
   it { should belong_to :creator }
   it { should belong_to :updater }
-  it { should have_many :stories, :sprints }
+  it { should have_many :stories, :dependent => :destroy }
+  it { should have_many :sprints, :dependent => :destroy }
 end
 
