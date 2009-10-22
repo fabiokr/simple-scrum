@@ -18,6 +18,8 @@
     #navigation
       %ul{:id => 'topnav'}
         %li= link_to t('app.menu.products'), products_path
+        - if current_user.admin?
+          %li= link_to t('app.menu.users'), users_path
         %li= link_to t('app.menu.settings'), edit_settings_path
         %li= link_to t('app.menu.logout'), '/logout'
       = breadcrumbs

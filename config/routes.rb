@@ -7,6 +7,8 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
+  map.resources :users
+
   map.resource :search, :only => [:show]
   map.resource :settings, :only => [:edit, :update]
 

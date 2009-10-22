@@ -1,6 +1,11 @@
 Breadcrumb.configure do
 
   #Crumbs
+  crumb :user_index, '#{t("app.users.index")}', :users_url
+  crumb :user_show, '#{@user.login}', :user_url, :user
+  crumb :user_new, '#{t("app.users.new")}', :new_user_url
+  crumb :user_edit, '#{t("app.users.edit")}', :user_url, :user
+
   crumb :product_index, '#{t("app.products.index")}', :products_url
   crumb :product_show, '#{@product.name}', :product_url, :product
   crumb :product_new, '#{t("app.products.new")}', :new_product_url
@@ -27,6 +32,13 @@ Breadcrumb.configure do
   #Trails
 
   root = [:product_index]
+
+  context 'users controller' do
+    trail :users, :index, root
+    trail :users, :show, root + [:user_show]
+    trail :users, :new,  root + [:user_new]
+    trail :users, :edit, root + [:user_edit]
+  end
 
   context 'products controller' do
     trail :products, :index, root

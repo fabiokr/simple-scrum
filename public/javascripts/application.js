@@ -1,7 +1,7 @@
 $(document).ready(function() {
   addConfirmToDestoyForm();
   $('.showLink').hide();
-  $("form.dataForm").validationEngine();
+  $("form").validationEngine();
   $('*[title]').inputHint();
 });
 

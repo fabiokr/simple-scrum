@@ -1,0 +1,28 @@
+= new_link(new_user_path, t('app.users.new'))
+
+%table.dataList
+  %caption
+    ="#{t('app.users.index')} - #{t('system.found_registries', :count => @users.total_entries)}"
+  %thead
+    %tr
+      %th= order @search, :by => :login, :as => t('activerecord.attributes.user.login')
+      %th= order @search, :by => :email, :as => t('activerecord.attributes.user.email')
+      %th= order @search, :by => :admin, :as => t('activerecord.attributes.user.admin')
+      %th= order @search, :by => :created_at, :as => t('activerecord.attributes._all.created_at')
+      %th= order @search, :by => :updated_at, :as => t('activerecord.attributes._all.updated_at')
+      %th
+      %th
+      %th
+  %tbody
+    - for user in @users
+      %tr{:user_id => user.id}
+        %td= h user.login
+        %td= h user.email
+        %td= h user.admin
+        %td= h user.created_at.to_formatted_s(:short)
+        %td= h user.updated_at.to_formatted_s(:short)
+        %td= show_link user_path(user)
+        %td= edit_link edit_user_path(user)
+        %td= delete_link user_path(user)
+= will_paginate @users
+

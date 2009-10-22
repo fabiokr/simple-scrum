@@ -147,6 +147,7 @@ en-US:
         even: "must be even"
         one_weekday_between: "must have at least one workday between"
     models:
+      user: 'User'
       product: 'Product'
       sprint: 'Sprint'
       story: 'Story'
@@ -159,6 +160,12 @@ en-US:
         name: 'Name'
         description: "Description"
         status: "Status"
+      user:
+        login: 'Login'
+        email: 'Email'
+        password: 'Password'
+        password_confirmation: 'Password confirmation'
+        admin: 'Administrator'
       product:
         owner: 'Owner'
       sprint:
@@ -198,14 +205,22 @@ en-US:
         products: "products"
         logout: "logout"
         settings: "settings"
+        users: "users"
     login:
         new: "Login"
         require_login: "You should login to view this page"
+        require_admin: "You don't have permission to access this page'"
         login_successfull: "Welcome back, {{user}}!"
         logout_successfull: "See you next time, {{user}}!"
     settings:
         edit: "Settings"
         profile: "Change profile"
+    users:
+        index: 'Users'
+        show: 'User'
+        new: 'New User'
+        edit: 'Editing User'
+        cannot_destroy_self: 'You cannot delete yourself'
     products:
         index: "Products"
         show: "Product Dashboard"

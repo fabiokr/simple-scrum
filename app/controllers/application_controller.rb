@@ -27,9 +27,14 @@ class ApplicationController < ActionController::Base
 
   def require_user
     unless current_user
-      store_location
-      flash[:notice] = t('app.login.require_login')
-      redirect_to new_session_path
+      redirect_to_login t('app.login.require_login')
+      return false
+    end
+  end
+
+  def require_admin
+    unless !require_user && current_user.admin?
+      redirect_to_login t('app.login.require_admin')
       return false
     end
   end
@@ -41,6 +46,14 @@ class ApplicationController < ActionController::Base
   def redirect_back_or_default(default)
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
+  end
+
+  private
+
+  def redirect_to_login(msg)
+    store_location
+    flash[:notice] = msg
+    redirect_to new_session_path
   end
 end
 

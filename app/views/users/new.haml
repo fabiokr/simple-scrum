@@ -1,0 +1,6 @@
+- form_for @user do |f|
+  %fieldset
+    %legend= t('app.users.new')
+    = render :partial => 'users/form', :locals => { :f => f }
+    %p= button_tag t('system.create'), :accept, :class => 'positive'
+
