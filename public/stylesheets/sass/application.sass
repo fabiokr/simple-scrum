@@ -16,6 +16,9 @@ table
 .inline
   display: inline !important
 
+.left
+  float: left
+
 .right
   float: right
 
@@ -92,12 +95,11 @@ div.color
   height: 20px
   width: 20px
 
-ul#topnav
+ul.cleanList
   font: 11px Arial, Helvetica, sans-serif
   height: 30px
   line-height: 30px
   color: #9b9b9b
-  width: 100%
   overflow: hidden
   margin: 0px
   padding: 0px
@@ -122,11 +124,16 @@ body
 
 #header
   width = !site_width
-  height: 40px
+  height: 30px
 
 #navigation
   width = !site_width
-  height: 80px
+  height: 28px
+  margin-top: 10px
+
+#breadcrumbs
+  width = !site_width
+  height: 35px
   margin-top: 10px
 
 #content

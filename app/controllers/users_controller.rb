@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :require_admin
+  before_filter :require_admin, :except => [:show]
+  before_filter :require_user, :only => [:show]
 
   def index
     @search = User.search(params[:search])

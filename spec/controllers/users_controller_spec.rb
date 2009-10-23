@@ -27,9 +27,6 @@ describe UsersController do
     get :index
     response.should redirect_to(new_session_path)
 
-    get :show, :id => @user.id
-    response.should redirect_to(new_session_path)
-
     get :new
     response.should redirect_to(new_session_path)
 
@@ -45,6 +42,13 @@ describe UsersController do
     response.should redirect_to(new_session_path)
 
     get :destroy, :id => @user.id
+    response.should redirect_to(new_session_path)
+  end
+
+  it "should require user" do
+    UserSession.find.destroy
+
+    get :show, :id => @user.id
     response.should redirect_to(new_session_path)
   end
 

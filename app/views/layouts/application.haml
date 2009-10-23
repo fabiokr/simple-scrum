@@ -12,16 +12,22 @@
   %body
     #header
       %h1{:class => 'inline'} Personal-Scrum
-      - form_tag search_path, :method => :get, :class => 'search inline right' do
-        = text_field_tag 'q', nil, :title => t('app.search_hint') ,:class => 'text smallInput'
-        = button_tag t('system.search'), :find, :class => 'search inline'
+      %ul{:class => 'cleanList inline right'}
+        %li= image_tag current_user.gravatar_url(:size => 20)
+        %li
+          %strong
+            = link_to current_user.login, user_path(current_user)
+        %li= link_to t('app.menu.profile'), edit_settings_path
+        %li= link_to t('app.menu.logout'), '/logout'
     #navigation
-      %ul{:id => 'topnav'}
+      %ul{:class => 'cleanList left'}
         %li= link_to t('app.menu.products'), products_path
         - if current_user.admin?
           %li= link_to t('app.menu.users'), users_path
-        %li= link_to t('app.menu.settings'), edit_settings_path
-        %li= link_to t('app.menu.logout'), '/logout'
+      - form_tag search_path, :method => :get, :class => 'search right' do
+        = text_field_tag 'q', nil, :title => t('app.search_hint') ,:class => 'text smallInput'
+        = button_tag t('system.search'), :find, :class => 'search inline'
+    #breadcrumbs
       = breadcrumbs
     #content
       = render :partial => 'layouts/message'

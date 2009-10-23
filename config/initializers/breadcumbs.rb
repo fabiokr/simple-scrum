@@ -33,13 +33,6 @@ Breadcrumb.configure do
 
   root = [:product_index]
 
-  context 'users controller' do
-    trail :users, :index, root
-    trail :users, :show, root + [:user_show]
-    trail :users, :new,  root + [:user_new]
-    trail :users, :edit, root + [:user_edit]
-  end
-
   context 'products controller' do
     trail :products, :index, root
     trail :products, :show, root + [:product_show]
@@ -71,6 +64,15 @@ Breadcrumb.configure do
     trail :taskks, :show,  controller_root + [:task_show]
     trail :taskks, :new,   controller_root + [:task_new]
     trail :taskks, :edit,  controller_root + [:task_edit]
+  end
+
+  context 'users controller' do
+    controller_root = [:user_index]
+
+    trail :users, :index, controller_root
+    trail :users, :show, controller_root + [:user_show]
+    trail :users, :new,  controller_root + [:user_new]
+    trail :users, :edit, controller_root + [:user_edit]
   end
 
   context 'searches controller' do

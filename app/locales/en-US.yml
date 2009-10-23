@@ -204,7 +204,7 @@ en-US:
     menu:
         products: "products"
         logout: "logout"
-        settings: "settings"
+        profile: "profile"
         users: "users"
     login:
         new: "Login"

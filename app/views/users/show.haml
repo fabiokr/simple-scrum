@@ -5,7 +5,9 @@
   %b #{t('activerecord.attributes.user.email')}:
   #{@user.email}
   %br
-  %b #{t('activerecord.attributes.user.admin')}:
-  #{@user.admin}
+  - if current_user.admin?
+    %b #{t('activerecord.attributes.user.admin')}:
+    #{@user.admin}
   %br
+  = image_tag @user.gravatar_url
 
