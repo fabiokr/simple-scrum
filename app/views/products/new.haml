@@ -2,5 +2,5 @@
   %fieldset
     %legend= t('app.products.new')
     = render :partial => 'products/form', :locals => { :f => f }
-    %p= button_tag t('system.create'), :accept, :class => 'positive'
+    %p= button_tag t('system.create'), :accept, :class => 'positive', :tabindex => 10
 

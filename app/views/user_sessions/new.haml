@@ -3,13 +3,13 @@
     %legend= t('app.login.new')
     = f.label :login
     %br
-    = f.text_field :login, :class => 'validate[required] text'
+    = f.text_field :login, :class => 'validate[required] text', :tabindex => 1
     %br
     = f.label :password
     %br
-    = f.password_field :password, :class => 'validate[required] text'
+    = f.password_field :password, :class => 'validate[required] text', :tabindex => 2
     %br
-    = f.check_box :remember_me
+    = f.check_box :remember_me, :tabindex => 3
     = f.label :remember_me
-    %p= button_tag t('app.login.new'), :accept, :class => 'positive'
+    %p= button_tag t('app.login.new'), :accept, :class => 'positive', :tabindex => 4
 

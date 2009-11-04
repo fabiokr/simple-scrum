@@ -1,24 +1,24 @@
 = f.error_messages form_errors_class
 = f.label :story_id
 %br
-= f.select(:story_id, @product.stories.all.collect {|s| [ s.name, s.id ] }, { :include_blank => true })
+= f.select(:story_id, @product.stories.all.collect {|s| [ s.name, s.id ] }, { :include_blank => true }, :tabindex => 1)
 %br
 = f.label :status
 %br
-= f.select(:status, Taskk::STATUS.collect {|s| [ t("app.sprints.#{Taskk::STATUS_STR[s]}"), s ] })
+= f.select(:status, Taskk::STATUS.collect {|s| [ t("app.sprints.#{Taskk::STATUS_STR[s]}"), s ]}, {}, :tabindex => 2)
 %br
-= f.check_box :unplanned
+= f.check_box :unplanned, :tabindex => 3
 = f.label :unplanned
 %br
 = f.label :name
 %br
-= f.text_field :name, :class => 'title validate[required,length[0,100]]'
+= f.text_field :name, :class => 'title validate[required,length[0,100]]', :tabindex => 4
 %br
 = f.label :estimative
 %br
-= f.text_field :estimative, :class => 'text smallInput validate[required,custom[onlyInteger]]'
+= f.text_field :estimative, :class => 'text smallInput validate[required,custom[onlyInteger]]', :tabindex => 5
 %br
 = f.label :description
 %br
-= f.text_area :description, :class => 'text'
+= f.text_area :description, :class => 'text', :tabindex => 6
 

@@ -2,5 +2,5 @@
   %fieldset
     %legend= t('app.stories.edit')
     = render :partial => 'stories/form', :locals => { :f => f }
-    %p= button_tag t('system.update'), :accept, :class => 'positive'
+    %p= button_tag t('system.update'), :accept, :class => 'positive', :tabindex => 10
 

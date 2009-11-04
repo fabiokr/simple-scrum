@@ -1,21 +1,21 @@
 = f.error_messages form_errors_class
 = f.label :admin
-= f.check_box :admin
+= f.check_box :admin, :tabindex => 1
 %br
 %br
 = f.label :login
 %br
-= f.text_field :login, :class => 'validate[required] text'
+= f.text_field :login, :class => 'validate[required] text', :tabindex => 2
 %br
 = f.label :email
 %br
-= f.text_field :email, :class => 'validate[required,email] text'
+= f.text_field :email, :class => 'validate[required,email] text', :tabindex => 3
 %br
 = f.label :password
 %br
-= f.password_field :password, :class => 'text'
+= f.password_field :password, :class => 'text', :tabindex => 4
 %br
 = f.label :password_confirmation
 %br
-= f.password_field :password_confirmation, :class => 'text'
+= f.password_field :password_confirmation, :class => 'text', :tabindex => 5
 

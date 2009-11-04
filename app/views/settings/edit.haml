@@ -4,14 +4,14 @@
     = f.error_messages form_errors_class
     = f.label :email
     %br
-    = f.text_field :email, :class => 'validate[required,email] text'
+    = f.text_field :email, :class => 'validate[required,email] text', :tabindex => 2
     %br
     = f.label :password
     %br
-    = f.password_field :password, :class => 'text'
+    = f.password_field :password, :class => 'text', :tabindex => 2
     %br
     = f.label :password_confirmation
     %br
-    = f.password_field :password_confirmation, :class => 'text'
-    %p= button_tag t('system.update'), :accept, :class => 'positive'
+    = f.password_field :password_confirmation, :class => 'text', :tabindex => 3
+    %p= button_tag t('system.update'), :accept, :class => 'positive', :tabindex => 4
 
