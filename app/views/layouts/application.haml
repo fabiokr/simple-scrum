@@ -29,8 +29,9 @@
         = button_tag t('system.search'), :find, :class => 'search inline'
     #breadcrumbs
       = breadcrumbs
-    #content
+    #message
       = render :partial => 'layouts/message'
+    #content
       = yield
     #footer{:class => 'center'}
       personal-scrum 0.1 2009

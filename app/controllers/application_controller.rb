@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  filter_parameter_logging :password, :password_confirmation # Scrub sensitive parameters from your log
 
-  # Scrub sensitive parameters from your log
-  filter_parameter_logging :password, :password_confirmation
+  after_filter :discard_flash_if_xhr
 
   layout proc { |controller| (controller.params[:format] == 'js') || controller.request.xhr? ? false : 'application' }
 
@@ -54,6 +54,10 @@ class ApplicationController < ActionController::Base
     store_location
     flash[:notice] = msg
     redirect_to new_session_path
+  end
+
+  def discard_flash_if_xhr
+    flash.discard if request.xhr?
   end
 end
 

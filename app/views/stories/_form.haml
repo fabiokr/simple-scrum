@@ -1,15 +1,15 @@
 = f.error_messages form_errors_class
 = f.label :name
 %br
-= f.text_field :name, :class => 'title validate[required,length[0,100]]', :tabindex => 1
+= f.text_field :name, :class => 'validate[required,length[0,100]] title', :tabindex => 1
 %br
 = f.label :priority
 %br
-= f.text_field :priority, :class => 'text smallInput validate[required,custom[onlyInteger]]'
+= f.text_field :priority, :class => 'validate[required,custom[onlyInteger]] text smallInput'
 %br
 = f.label :estimative
 %br
-= f.text_field :estimative, :class => 'text smallInput validate[required,custom[onlyInteger]]'
+= f.text_field :estimative, :class => 'validate[required,custom[onlyInteger]] text smallInput'
 %br
 = f.label :color
 %br

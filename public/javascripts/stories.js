@@ -1,35 +1,59 @@
-var estimativeInput, estimativeSlider, estimativeSliderControl, priorityInput, prioritySlider, prioritySliderControl, colorInput;
+var content, message;
 
 $(document).ready(function() {
-  showPrioritySlider();
-  showEstimativeSlider();
-
-  colorInput = $('input#story_color');
-  colorInput.ColorPicker({
-    onChange: function (hsb, hex, rgb) {
-		  colorInput.val(hex).css('color', '#'+hex);
-	  }
-  });
-
-  estimativeInput.attr('tabindex', '');
-  priorityInput.attr('tabindex', '');
-  estimativeSliderControl.attr('tabindex', '3');
-  prioritySliderControl.attr('tabindex', '2');
+    message = $('#message');
+    content = $('#content');
+    prepareList();
+    prepareForm();
 });
 
+function prepareList() {
+    $('a.newLink').live('click', function(e){
+        content.load($(this).attr('href'), function(){prepareForm();});
+        return false;
+    });
+}
+
+function prepareForm() {
+  $('#content form').validationEngine({
+      success: function(){
+         form = $('#content form');
+         $.post(form.attr('action'), form.serialize(), null, "script");
+      }
+  });
+
+  showPrioritySlider();
+  showEstimativeSlider();
+  showColorInput();
+}
+
 function showPrioritySlider() {
-  priorityInput = $('input#story_priority');
-  priorityInput.attr("readonly","readonly").after('<br/><span class="slider clearfix" id="priority-slider"></span>');
-  prioritySlider = $('span#priority-slider');
-  prioritySlider.slider({min:0, max:100, value:priorityInput.val(), slide:function(e,ui){priorityInput.val(ui.value)}});
-  prioritySliderControl = prioritySlider.children('a');
+    $('input#story_priority')
+        .attr("readonly","readonly")
+        .attr('tabindex', '')
+        .after('<br/><span class="slider clearfix" id="priority-slider"></span>');
+    $('span#priority-slider')
+        .slider({min:0, max:100, value:$('input#story_priority').val(), slide:function(e,ui){$('input#story_priority').val(ui.value)}})
+        .children('a')
+        .attr('tabindex', '2');
 }
 
 function showEstimativeSlider() {
-  estimativeInput = $('input#story_estimative');
-  estimativeInput.attr("readonly","readonly").after('<br/><span class="slider clearfix" id="estimative-slider"></span>');
-  estimativeSlider = $('span#estimative-slider');
-  estimativeSlider.slider({min:0, max:100, value:estimativeInput.val(), slide:function(e,ui){estimativeInput.val(ui.value)}});
-  estimativeSliderControl = estimativeSlider.children('a');
+    $('input#story_estimative')
+        .attr("readonly","readonly")
+        .attr('tabindex', '')
+        .after('<br/><span class="slider clearfix" id="estimative-slider"></span>');
+    $('span#estimative-slider')
+        .slider({min:0, max:100, value:$('input#story_estimative').val(), slide:function(e,ui){$('input#story_estimative').val(ui.value)}})
+        .children('a')
+        .attr('tabindex', '3');
+}
+
+function showColorInput() {
+  $('input#story_color').ColorPicker({
+    onChange: function (hsb, hex, rgb) {
+		  $('input#story_color').val(hex).css('color', '#'+hex);
+	  }
+  });
 }
 
