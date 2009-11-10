@@ -9,7 +9,11 @@ $(document).ready(function() {
 
 function prepareList() {
     $('a.newLink').live('click', function(e){
-        content.load($(this).attr('href'), function(){prepareForm();});
+        $('#content').spin();
+        content.load($(this).attr('href'), function(){
+            prepareForm();
+            $('#content').unspin();
+        });
         return false;
     });
 }
@@ -18,6 +22,7 @@ function prepareForm() {
   $('#content form').validationEngine({
       success: function(){
          form = $('#content form');
+         $('#content').spin();
          $.post(form.attr('action'), form.serialize(), null, "script");
       }
   });

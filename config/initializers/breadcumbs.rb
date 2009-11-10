@@ -84,6 +84,6 @@ Breadcrumb.configure do
   end
 
   delimit_with "|"
-  dont_link_last_crumb
+  #dont_link_last_crumb
 end
 

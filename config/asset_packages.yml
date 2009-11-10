@@ -18,9 +18,9 @@ stylesheets:
   - blueprint/fancy-type/screen
   - jquery-ui-1.7.2
   - validationEngine.jquery
-  - spinner
   - colorpicker
   - compiled/breadcrumb
+  - compiled/spinner
 - base_print:
   - blueprint/print
 
