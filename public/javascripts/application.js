@@ -4,7 +4,6 @@ var messagesPath = '/messages', content, message;
 $(document).ready(function() {
   message = $('#message');
   content = $('#content');
-  addConfirmToDestoyForm();
   $('*[title]').inputHint();
   $('#breadcrumb a:last').click(function(){
     content.spin().load($(this).attr('href'), function(){
@@ -14,12 +13,6 @@ $(document).ready(function() {
     return false;
   });
 });
-
-function addConfirmToDestoyForm() {
-  $('.deleteLink').click(function() {
-    return confirm(i18n.confirm_destroy);
-  });
-}
 
 /** TEMP BEFORE NEXT JQUERY VERSION **/
 /*

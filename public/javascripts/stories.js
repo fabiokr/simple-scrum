@@ -22,6 +22,24 @@ function prepareList() {
 
     $('a.showLink').live('click', showDetails);
     $('.dataList tbody tr td:not(:has(*))').live('click', showDetails);
+
+    $('.deleteLink').live('click', function(e) {
+        if(confirm(i18n.confirm_destroy)) {
+            form = $(this);
+            row = form.parent().parent();
+            row.spin();
+            $.post(form.attr('action'), form.serialize(), function(data, status){
+                if('success' == status) {
+                    row.remove();
+                    message.load(messagesPath, function(){$.Spinner.unspin();});
+                } else {
+                    content.html(data);
+                    message.load(messagesPath, function(){content.unspin()});
+                }
+            });
+        }
+        return false;
+    });
 }
 
 function prepareForm() {
@@ -30,7 +48,7 @@ function prepareForm() {
          form = $('#content form');
          content.spin();
          $.post(form.attr('action'), form.serialize(), function(data){
-            content.html(data).unspin();
+            content.html(data);
             message.load(messagesPath, function(){content.unspin()});
          });
       }

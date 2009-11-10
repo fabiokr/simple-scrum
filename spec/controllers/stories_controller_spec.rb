@@ -132,5 +132,14 @@ describe StoriesController do
     flash[:message].should_not be_nil
   end
 
+  it "should delete story on :destroy and set header to ok if xhr" do
+    another_story = Factory(:story, :product => @product)
+
+    xhr 'get', :destroy, :product_id => @product.id, :id => @story.id
+
+    lambda { Story.find(@story.id) }.should raise_error
+    flash[:message].should_not be_nil
+  end
+
 end
 

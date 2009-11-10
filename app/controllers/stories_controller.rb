@@ -9,8 +9,8 @@ class StoriesController < ApplicationController
     @stories = @search.all
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json  { render :json => @stories.all }
+      format.html
+      format.json { render :json => @stories.all }
     end
   end
 
@@ -74,10 +74,16 @@ class StoriesController < ApplicationController
     @story = @product.stories.find(params[:id])
     @story.destroy
 
-    respond_to do |format|
-      flash[:message] = t('system.successfully_destroyed', :model => t('activerecord.models.story'))
-      format.html { redirect_to(product_stories_url(@product)) }
+    flash[:message] = t('system.successfully_destroyed', :model => t('activerecord.models.story'))
+
+    if request.xhr?
+      render :nothing => true
+    else
+      respond_to do |format|
+        format.html { redirect_to(product_stories_url(@product)) }
+      end
     end
+
   end
 
   private
