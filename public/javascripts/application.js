@@ -1,8 +1,18 @@
+//Globals
+var messagesPath = '/messages', content, message;
+
 $(document).ready(function() {
+  message = $('#message');
+  content = $('#content');
   addConfirmToDestoyForm();
-  $('.showLink').hide();
-  $("form").validationEngine();
   $('*[title]').inputHint();
+  $('#breadcrumb a:last').click(function(){
+    content.spin().load($(this).attr('href'), function(){
+        message.html('');
+        content.unspin();
+    });
+    return false;
+  });
 });
 
 function addConfirmToDestoyForm() {

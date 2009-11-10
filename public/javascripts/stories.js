@@ -1,29 +1,38 @@
-var content, message;
-
 $(document).ready(function() {
-    message = $('#message');
-    content = $('#content');
     prepareList();
     prepareForm();
 });
 
 function prepareList() {
     $('a.newLink').live('click', function(e){
-        $('#content').spin();
-        content.load($(this).attr('href'), function(){
+        content.spin().load($(this).attr('href'), function(){
             prepareForm();
-            $('#content').unspin();
+            content.unspin();
         });
         return false;
     });
+
+    $('a.editLink').live('click', function(e){
+        content.spin().load($(this).attr('href'), function(){
+            prepareForm();
+            content.unspin();
+        });
+        return false;
+    });
+
+    $('a.showLink').live('click', showDetails);
+    $('.dataList tbody tr td:not(:has(*))').live('click', showDetails);
 }
 
 function prepareForm() {
   $('#content form').validationEngine({
       success: function(){
          form = $('#content form');
-         $('#content').spin();
-         $.post(form.attr('action'), form.serialize(), null, "script");
+         content.spin();
+         $.post(form.attr('action'), form.serialize(), function(data){
+            content.html(data).unspin();
+            message.load(messagesPath, function(){content.unspin()});
+         });
       }
   });
 
@@ -59,6 +68,23 @@ function showColorInput() {
     onChange: function (hsb, hex, rgb) {
 		  $('input#story_color').val(hex).css('color', '#'+hex);
 	  }
+  });
+}
+
+function showDetails(e) {
+  content.spin();
+  $.get($(this).parent().find('a.showLink').attr('href'), function(data) {
+    $.Spinner.unspin();
+    $(data).dialog({
+      title:i18n.product_backlog_dialog_title,
+      modal:true,
+      height:500,
+      width:710,
+      resizable:false,
+      show:'fade',
+      hide:'fade'
+    });
+    return false;
   });
 }
 

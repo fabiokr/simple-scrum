@@ -25,7 +25,7 @@ Breadcrumb.configure do
   crumb :task_new, '#{t("app.taskks.new")}', :new_product_sprint_taskk_url, :product, :sprint
   crumb :task_edit, '#{t("app.taskks.edit")}', :edit_product_sprint_taskk_url, :product, :sprint, :task
 
-  crumb :search_show, '#{t("app.searches.result")}', :searches_url
+  crumb :search_show, '#{t("app.searches.result")}', :search_url
 
   crumb :settings_edit, '#{t("app.settings.edit")}', :edit_settings_url
 

@@ -97,16 +97,7 @@ describe StoriesController do
     post :create, :product_id => @product.id, :story => @story.attributes
 
     assigns(:story).should == Story.find(assigns(:story).id)
-    response.should redirect_to(product_stories_path(@product))
-    flash[:message].should_not be_nil
-  end
-
-  it "should add new story on :create and render reload_index if format is js" do
-    @story = Factory.build(:story)
-    post :create, :product_id => @product.id, :story => @story.attributes, :format => 'js'
-
-    assigns(:story).should == Story.find(assigns(:story).id)
-    response.should render_template('reload_index')
+    response.should render_template('edit')
     flash[:message].should_not be_nil
   end
 
@@ -122,16 +113,7 @@ describe StoriesController do
     post :update, :product_id => @product.id, :id => @story.id, :story => @story.attributes
 
     Story.find(assigns(:story).id).name.should == @story.name
-    response.should redirect_to(product_stories_path(@product))
-    flash[:message].should_not be_nil
-  end
-
-  it "should save story on :update and render reload_index if format is js" do
-    @story.name = 'new name'
-    post :update, :product_id => @product.id, :id => @story.id, :story => @story.attributes, :format => 'js'
-
-    Story.find(assigns(:story).id).name.should == @story.name
-    response.should render_template('reload_index')
+    response.should render_template('edit')
     flash[:message].should_not be_nil
   end
 

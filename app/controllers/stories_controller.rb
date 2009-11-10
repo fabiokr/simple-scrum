@@ -49,8 +49,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.story'))
-        format.html { redirect_to(product_stories_url(@product)) }
-        format.js { render :action => "reload_index" }
+        format.html { render :action => 'edit' }
       else
         format.html { render :action => "new" }
       end
@@ -64,11 +63,9 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story.update_attributes(params[:story])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.story'))
-        format.html { redirect_to(product_stories_url(@product)) }
-        format.js { render :action => "reload_index" }
-      else
-        format.html { render :action => "edit" }
       end
+
+      format.html { render :action => "edit" }
     end
   end
 

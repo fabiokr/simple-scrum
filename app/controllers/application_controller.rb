@@ -12,8 +12,6 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
   strip_tags_from_params #params sanitizer plugin
 
-  after_filter :discard_flash_if_xhr
-
   layout proc { |controller| (controller.params[:format] == 'js') || controller.request.xhr? ? false : 'application' }
 
   def current_user_session
@@ -57,9 +55,5 @@ class ApplicationController < ActionController::Base
     redirect_to new_session_path
   end
 
-  #cleans flash messages from session after ajax requests
-  def discard_flash_if_xhr
-    flash.discard if request.xhr?
-  end
 end
 
