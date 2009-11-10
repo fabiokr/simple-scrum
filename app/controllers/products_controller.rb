@@ -49,7 +49,6 @@ class ProductsController < ApplicationController
       if @product.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.product'))
         format.html { redirect_to(products_url) }
-        format.js { render :action => "reload_index" }
       else
         format.html { render :action => "new" }
       end
@@ -65,7 +64,6 @@ class ProductsController < ApplicationController
       if @product.update_attributes(params[:product])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.product'))
         format.html { redirect_to(products_url) }
-        format.js { render :action => "reload_index" }
       else
         format.html { render :action => "edit" }
       end

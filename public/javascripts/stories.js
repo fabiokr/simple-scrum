@@ -9,10 +9,10 @@ $(document).ready(function() {
 
 function prepareList() {
     $('a.newLink').live('click', function(e){
-        content.spin();
+        $('#content').spin();
         content.load($(this).attr('href'), function(){
             prepareForm();
-            content.unspin();
+            $('#content').unspin();
         });
         return false;
     });
@@ -22,7 +22,7 @@ function prepareForm() {
   $('#content form').validationEngine({
       success: function(){
          form = $('#content form');
-         content.spin();
+         $('#content').spin();
          $.post(form.attr('action'), form.serialize(), null, "script");
       }
   });

@@ -96,15 +96,6 @@ describe ProductsController do
     flash[:message].should_not be_nil
   end
 
-  it "should add new product on :create and render reload_index if format is js" do
-    @product = Factory.build(:product)
-    post :create, :product => @product.attributes, :format => 'js'
-
-    assigns(:product).should == Product.find(assigns(:product).id)
-    response.should render_template('reload_index')
-    flash[:message].should_not be_nil
-  end
-
   it "should re-render new when invalid on :create" do
     @product = Factory.build(:product, :name => nil)
     post :create, :product => @product.attributes
@@ -118,15 +109,6 @@ describe ProductsController do
 
     Product.find(assigns(:product).id).name.should == @product.name
     response.should redirect_to(products_path)
-    flash[:message].should_not be_nil
-  end
-
-  it "should save product on :update and render reload_index if format is js" do
-    @product.name = 'new name'
-    post :update, :id => @product.id, :product => @product.attributes, :format => 'js'
-
-    Product.find(assigns(:product).id).name.should == @product.name
-    response.should render_template('reload_index')
     flash[:message].should_not be_nil
   end
 
