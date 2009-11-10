@@ -8,8 +8,9 @@ class ApplicationController < ActionController::Base
   helper :all, :breadcrumbs
   helper_method :current_user_session, :current_user
 
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  filter_parameter_logging :password, :password_confirmation # Scrub sensitive parameters from your log
+  protect_from_forgery
+  filter_parameter_logging :password, :password_confirmation
+  strip_tags_from_params #params sanitizer plugin
 
   after_filter :discard_flash_if_xhr
 
@@ -56,6 +57,7 @@ class ApplicationController < ActionController::Base
     redirect_to new_session_path
   end
 
+  #cleans flash messages from session after ajax requests
   def discard_flash_if_xhr
     flash.discard if request.xhr?
   end
