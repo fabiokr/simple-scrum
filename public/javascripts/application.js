@@ -1,5 +1,5 @@
 //Globals
-var messagesPath = '/messages', content, message, prepareListCallback, prepareFormCallback;
+var messagesPath = '/messages', content, message, prepareListCallback, prepareFormCallback, showLinkCallback;
 
 $(document).ready(function() {
   message = $('#message');
@@ -20,12 +20,14 @@ $(document).ready(function() {
     The options hash param support the following values:
     options['listCallback']: sets a callback function to be called after preparing the list
     options['formCallback']: sets a callback function to be called after preparing the form
+    options['showLinkCallback']: sets a callback function to be called on the onclick event of showLink
 */
 function prepareAjax(options) {
     options = options || {};
 
     prepareListCallback = _.isUndefined(options['listCallback']) ? null : options['listCallback'];
     prepareFormCallback = _.isUndefined(options['formCallback']) ? null : options['formCallback'];
+    showLinkCallback = _.isUndefined(options['showLinkCallback']) ? showDetails : options['showLinkCallback'];
 
     prepareList();
     prepareForm();
@@ -103,8 +105,8 @@ function showDetails(e) {
       show:'fade',
       hide:'fade'
     });
-    return false;
   });
+  return false;
 }
 
 /** TEMP BEFORE NEXT JQUERY VERSION **/
