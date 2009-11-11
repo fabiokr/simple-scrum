@@ -9,6 +9,7 @@ javascripts:
   - libs/jquery.validationEngine
   - libs/jquery.colorpicker
   - libs/jquery.inputHint
+  - libs/underscore
   - application.en-US
 stylesheets:
 - base_screen:
