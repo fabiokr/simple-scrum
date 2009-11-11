@@ -92,7 +92,7 @@ describe ProductsController do
     post :create, :product => @product.attributes
 
     assigns(:product).should == Product.find(assigns(:product).id)
-    response.should redirect_to(products_path)
+    response.should render_template('edit')
     flash[:message].should_not be_nil
   end
 
@@ -108,7 +108,7 @@ describe ProductsController do
     post :update, :id => @product.id, :product => @product.attributes
 
     Product.find(assigns(:product).id).name.should == @product.name
-    response.should redirect_to(products_path)
+    response.should render_template('edit')
     flash[:message].should_not be_nil
   end
 
@@ -124,6 +124,16 @@ describe ProductsController do
 
     lambda { Product.find(@product.id) }.should raise_error
     response.should redirect_to(products_path)
+    flash[:message].should_not be_nil
+  end
+
+  it "should delete product on :destroy and set header to ok if xhr" do
+    another_product = Factory(:product)
+
+    xhr 'get', :destroy, :id => @product.id
+
+    lambda { Product.find(@product.id) }.should raise_error
+    response.should_not render_template
     flash[:message].should_not be_nil
   end
 

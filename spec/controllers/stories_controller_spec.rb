@@ -138,6 +138,7 @@ describe StoriesController do
     xhr 'get', :destroy, :product_id => @product.id, :id => @story.id
 
     lambda { Story.find(@story.id) }.should raise_error
+    response.should_not render_template
     flash[:message].should_not be_nil
   end
 

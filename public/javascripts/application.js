@@ -51,8 +51,8 @@ function prepareList() {
         return false;
     });
 
-    $('a.showLink').live('click', showDetails);
-    $('.dataList tbody tr td:not(:has(*))').live('click', showDetails);
+    $('a.showLink').live('click', showLinkCallback);
+    $('.dataList tbody tr td:not(:has(*))').live('click', showLinkCallback);
 
     $('.deleteLink').live('click', function(e) {
         if(confirm(i18n.confirm_destroy)) {

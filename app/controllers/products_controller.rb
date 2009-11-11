@@ -48,7 +48,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.product'))
-        format.html { redirect_to(products_url) }
+        format.html { render :action => 'edit' }
       else
         format.html { render :action => "new" }
       end
@@ -63,10 +63,9 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.update_attributes(params[:product])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.product'))
-        format.html { redirect_to(products_url) }
-      else
-        format.html { render :action => "edit" }
       end
+
+      format.html { render :action => "edit" }
     end
   end
 
@@ -76,9 +75,14 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.destroy
 
-    respond_to do |format|
-      flash[:message] = t('system.successfully_destroyed', :model => t('activerecord.models.product'))
-      format.html { redirect_to(products_url) }
+    flash[:message] = t('system.successfully_destroyed', :model => t('activerecord.models.product'))
+
+    if request.xhr?
+      render :nothing => true
+    else
+      respond_to do |format|
+        format.html { redirect_to(products_url) }
+      end
     end
   end
 
