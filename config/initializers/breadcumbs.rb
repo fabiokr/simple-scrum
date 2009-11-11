@@ -17,7 +17,7 @@ Breadcrumb.configure do
   crumb :story_edit, '#{t("app.stories.edit")}', :edit_product_story_url, :product, :story
 
   crumb :sprint_index, '#{t("app.sprints.index")}', :product_sprints_url, :product
-  crumb :sprint_show, '#{t("app.sprints.show")}', :product_sprint_url, :product, :sprint
+  crumb :sprint_show, '#{@sprint.name}', :product_sprint_url, :product, :sprint
   crumb :sprint_new, '#{t("app.sprints.new")}', :new_product_sprint_url, :product
   crumb :sprint_edit, '#{t("app.sprints.edit")}', :edit_product_sprint_url, :product, :sprint
 
@@ -84,6 +84,5 @@ Breadcrumb.configure do
   end
 
   delimit_with "|"
-  #dont_link_last_crumb
 end
 

@@ -52,7 +52,7 @@ class SprintsController < ApplicationController
     respond_to do |format|
       if @sprint.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.sprint'))
-        format.html { redirect_to(product_sprints_url(@product)) }
+        format.html { render :action => 'edit' }
       else
         format.html { render :action => "new" }
       end
@@ -66,7 +66,7 @@ class SprintsController < ApplicationController
     respond_to do |format|
       if @sprint.update_attributes(params[:sprint])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.sprint'))
-        format.html { redirect_to(product_sprints_url(@product)) }
+        format.html { render :action => 'edit' }
       else
         format.html { render :action => "edit" }
       end
@@ -78,9 +78,14 @@ class SprintsController < ApplicationController
     @sprint = @product.sprints.find(params[:id])
     @sprint.destroy
 
-    respond_to do |format|
-      flash[:message] = t('system.successfully_destroyed', :model => t('activerecord.models.sprint'))
-      format.html { redirect_to(product_sprints_url(@product)) }
+    flash[:message] = t('system.successfully_destroyed', :model => t('activerecord.models.sprint'))
+
+    if request.xhr?
+      render :nothing => true
+    else
+      respond_to do |format|
+        format.html { redirect_to(product_sprints_url(@product)) }
+      end
     end
   end
 

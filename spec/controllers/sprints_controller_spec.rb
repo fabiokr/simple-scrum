@@ -111,7 +111,7 @@ describe SprintsController do
     post :create, :product_id => @product.id, :sprint => @sprint.attributes
 
     assigns(:sprint).should == Sprint.find(assigns(:sprint).id)
-    response.should redirect_to(product_sprints_path(@product))
+    response.should render_template('edit')
     flash[:message].should_not be_nil
   end
 
@@ -127,7 +127,7 @@ describe SprintsController do
     post :update, :product_id => @product.id, :id => @sprint.id, :sprint => @sprint.attributes
 
     Sprint.find(assigns(:sprint).id).name.should == @sprint.name
-    response.should redirect_to(product_sprints_path(@product))
+    response.should render_template('edit')
     flash[:message].should_not be_nil
   end
 
@@ -143,6 +143,14 @@ describe SprintsController do
 
     lambda { Sprint.find(@sprint.id) }.should raise_error
     response.should redirect_to(product_sprints_path(@product))
+    flash[:message].should_not be_nil
+  end
+
+  it "should delete sprint on :destroy and set header to ok if xhr" do
+    xhr 'get', :destroy, :product_id => @product.id, :id => @sprint.id
+
+    lambda { Sprint.find(@sprint.id) }.should raise_error
+    response.should_not render_template
     flash[:message].should_not be_nil
   end
 
