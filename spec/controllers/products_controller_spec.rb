@@ -128,8 +128,6 @@ describe ProductsController do
   end
 
   it "should delete product on :destroy and set header to ok if xhr" do
-    another_product = Factory(:product)
-
     xhr 'get', :destroy, :id => @product.id
 
     lambda { Product.find(@product.id) }.should raise_error
