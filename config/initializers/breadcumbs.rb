@@ -25,7 +25,8 @@ Breadcrumb.configure do
   crumb :task_new, '#{t("app.taskks.new")}', :new_product_sprint_taskk_url, :product, :sprint
   crumb :task_edit, '#{t("app.taskks.edit")}', :edit_product_sprint_taskk_url, :product, :sprint, :task
 
-  crumb :search_show, '#{t("app.searches.result")}', :search_url
+  crumb :search_show, '#{t("system.search_legend")}', :search_path
+  crumb :search_back, '#{t("app.searches.back")}', :back_url
 
   crumb :settings_edit, '#{t("app.settings.edit")}', :edit_settings_url
 
@@ -76,7 +77,7 @@ Breadcrumb.configure do
   end
 
   context 'searches controller' do
-    trail :searches, :show, [:search_show]
+    trail :searches, :show, [:search_show, :search_back]
   end
 
   context 'settings controller' do

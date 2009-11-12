@@ -81,5 +81,12 @@ describe ApplicationHelper do
     assert result.match(/.*<li>one<\/li><li>two<\/li><li>three<\/li>.*/)
   end
 
+  it 'should print the back url' do
+    request.env["HTTP_REFERER"] = 'someurl'
+
+    result = back_url
+    result.should == 'someurl'
+  end
+
 end
 

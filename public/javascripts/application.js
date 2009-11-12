@@ -5,15 +5,6 @@ $(document).ready(function() {
   message = $('#message');
   content = $('#content');
   $('*[title]').inputHint();
-  $('#breadcrumb a:last').click(function(){
-    content.spin().load($(this).attr('href'), function(){
-        message.html('');
-        content.unspin();
-
-        if(_.isFunction(lastBreadcrumbCallback)) {lastBreadcrumbCallback.call();}
-    });
-    return false;
-  });
 });
 
 /*
@@ -21,6 +12,7 @@ $(document).ready(function() {
     This will prepare the list and form ajax events.
     The options hash param support the following values:
     options['prepareList']: default is true; can be set to false if should not prepareList
+    options['prepareLastBreadcrumb']: default is true; can be set to false if should not prepareLastBreadcrumb
     options['listCallback']: sets a callback function to be called after preparing the list
     options['formCallback']: sets a callback function to be called after preparing the form
     options['showLinkCallback']: sets a callback function to be called on the onclick event of showLink
@@ -39,7 +31,24 @@ function prepareAjax(options) {
     if(_.isUndefined(options['prepareList']) || options['prepareList']) {
         prepareList();
     }
+
+    if(_.isUndefined(options['prepareLastBreadcrumb']) || options['prepareLastBreadcrumb']) {
+        prepareLastBreadcrumb();
+    }
 }
+
+function prepareLastBreadcrumb() {
+    $('#breadcrumb a:last').click(function(){
+        content.spin().load($(this).attr('href'), function(){
+            message.html('');
+            content.unspin();
+
+            if(_.isFunction(lastBreadcrumbCallback)) {lastBreadcrumbCallback.call();}
+        });
+        return false;
+    });
+}
+
 
 //Sets ajax events for a data list
 function prepareList() {

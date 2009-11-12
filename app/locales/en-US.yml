@@ -256,4 +256,5 @@ en-US:
     searches:
         result: "Search results"
         insuficient_query: "The query value was to small (at least 3 characters required)"
+        back: "Back"
 

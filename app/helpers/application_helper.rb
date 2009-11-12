@@ -53,5 +53,9 @@ module ApplicationHelper
     content_tag(:ul, breadcrumbs.map { |trail| content_tag(:li, trail) }, :id => 'breadcrumb')
   end
 
+  def back_url
+    request.env["HTTP_REFERER"]
+  end
+
 end
 
