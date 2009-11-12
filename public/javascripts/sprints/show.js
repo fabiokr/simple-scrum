@@ -1,30 +1,31 @@
 $(document).ready(function() {
-  $('table#kanban tbody tr td div.name').click(showDetails);
+  prepareAjax({formCallback: showEstimativeSlider, lastBreadcrumbCallback: prepareBacklog});
+  prepareBacklog();
+  $('table#kanban tbody tr td div.name').live('click', defaultShowLinkBehaviour);
 });
 
-function showDetails() {
-  $('#content').spin();
-
-  var title = null;
-  if($(this).parents('div.postit').hasClass('story')) {
-    title = i18n.product_backlog_dialog_title;
-  } else {
-    title = i18n.sprint_backlog_task_dialog_title;
-  }
-
-  (i18n.sprint_backlog_task_dialog_title)
-  $.get($(this).parent().find('a.showLink').attr('href'), function(data) {
-    $.Spinner.unspin();
-    $(data).dialog({
-      title:title,
-      modal:true,
-      height:500,
-      width:710,
-      resizable:false,
-      show:'fade',
-      hide:'fade'
+function prepareBacklog() {
+    $('#newTaskForm').validationEngine({
+        success: function(){
+            form = $('#newTaskForm');
+            content.spin();
+            $.get(form.attr('action'), form.serialize(), function(data){
+                content.html(data);
+                prepareForm();
+                content.unspin();
+            });
+        }
     });
-  });
-  return false;
+}
+
+function showEstimativeSlider() {
+  $('input#taskk_estimative')
+    .attr('tabindex', '')
+    .attr("readonly","readonly")
+    .after('<br/><span class="slider clearfix" id="estimative-slider"></span>');
+  $('span#estimative-slider')
+    .slider({min:0, max:100, value:$('input#taskk_estimative').val(), slide:function(e,ui){$('input#taskk_estimative').val(ui.value)}})
+    .children('a')
+    .attr('tabindex', '5');
 }
 

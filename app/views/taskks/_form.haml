@@ -12,11 +12,11 @@
 %br
 = f.label :name
 %br
-= f.text_field :name, :class => 'title validate[required,length[0,100]]', :tabindex => 4
+= f.text_field :name, :class => 'validate[required,length[0,100]] title', :tabindex => 4
 %br
 = f.label :estimative
 %br
-= f.text_field :estimative, :class => 'text smallInput validate[required,custom[onlyInteger]]', :tabindex => 5
+= f.text_field :estimative, :class => 'validate[required,custom[onlyInteger]] text smallInput', :tabindex => 5
 %br
 = f.label :description
 %br

@@ -1,5 +1,5 @@
 //Globals
-var messagesPath = '/messages', content, message, prepareListCallback, prepareFormCallback, showLinkCallback;
+var messagesPath = '/messages', content, message, prepareListCallback, prepareFormCallback, showLinkCallback, destroyCallback, lastBreadcrumbCallback;
 
 $(document).ready(function() {
   message = $('#message');
@@ -9,6 +9,8 @@ $(document).ready(function() {
     content.spin().load($(this).attr('href'), function(){
         message.html('');
         content.unspin();
+
+        if(_.isFunction(lastBreadcrumbCallback)) {lastBreadcrumbCallback.call();}
     });
     return false;
   });
@@ -18,19 +20,25 @@ $(document).ready(function() {
     Interface for the default ajax behaviour.
     This will prepare the list and form ajax events.
     The options hash param support the following values:
+    options['prepareList']: default is true; can be set to false if should not prepareList
     options['listCallback']: sets a callback function to be called after preparing the list
     options['formCallback']: sets a callback function to be called after preparing the form
     options['showLinkCallback']: sets a callback function to be called on the onclick event of showLink
+    options['destroyCallback']: sets a callback function to be called on the onclick event of deleteLink
+    options['lastBreadcrumbCallback']: sets a callback function to be called on the onclick event of the last breadcrumb
 */
 function prepareAjax(options) {
     options = options || {};
 
     prepareListCallback = _.isUndefined(options['listCallback']) ? null : options['listCallback'];
     prepareFormCallback = _.isUndefined(options['formCallback']) ? null : options['formCallback'];
-    showLinkCallback = _.isUndefined(options['showLinkCallback']) ? showDetails : options['showLinkCallback'];
+    showLinkCallback = _.isUndefined(options['showLinkCallback']) ? defaultShowLinkBehaviour : options['showLinkCallback'];
+    destroyCallback = _.isUndefined(options['destroyCallback']) ? defaultDestroyBehaviour : options['destroyCallback'];
+    lastBreadcrumbCallback = _.isUndefined(options['lastBreadcrumbCallback']) ? null : options['lastBreadcrumbCallback'];
 
-    prepareList();
-    prepareForm();
+    if(_.isUndefined(options['prepareList']) || options['prepareList']) {
+        prepareList();
+    }
 }
 
 //Sets ajax events for a data list
@@ -38,7 +46,7 @@ function prepareList() {
     $('a.newLink').live('click', function(e){
         content.spin().load($(this).attr('href'), function(){
             prepareForm(prepareFormCallback);
-            content.unspin();
+            message.load(messagesPath, function(){content.unspin()});
         });
         return false;
     });
@@ -46,7 +54,7 @@ function prepareList() {
     $('a.editLink').live('click', function(e){
         content.spin().load($(this).attr('href'), function(){
             prepareForm(prepareFormCallback);
-            content.unspin();
+            message.load(messagesPath, function(){content.unspin()});
         });
         return false;
     });
@@ -54,23 +62,7 @@ function prepareList() {
     $('a.showLink').live('click', showLinkCallback);
     $('.dataList tbody tr td:not(:has(*))').live('click', showLinkCallback);
 
-    $('.deleteLink').live('click', function(e) {
-        if(confirm(i18n.confirm_destroy)) {
-            form = $(this);
-            row = form.parent().parent();
-            row.spin();
-            $.post(form.attr('action'), form.serialize(), function(data, status){
-                if('success' == status) {
-                    row.remove();
-                    message.load(messagesPath, function(){$.Spinner.unspin();});
-                } else {
-                    content.html(data);
-                    message.load(messagesPath, function(){content.unspin()});
-                }
-            });
-        }
-        return false;
-    });
+    $('.deleteLink').live('click', destroyCallback);
 
     if(_.isFunction(prepareListCallback)) {prepareListCallback.call();}
 }
@@ -92,7 +84,7 @@ function prepareForm() {
   if(_.isFunction(prepareFormCallback)) {prepareFormCallback.call();}
 }
 
-function showDetails(e) {
+function defaultShowLinkBehaviour(e) {
   content.spin();
   $.get($(this).parent().find('a.showLink').attr('href'), function(data) {
     $.Spinner.unspin();
@@ -107,6 +99,23 @@ function showDetails(e) {
     });
   });
   return false;
+}
+
+function defaultDestroyBehaviour() {
+    if(confirm(i18n.confirm_destroy)) {
+        form = $(this);
+        content.spin();
+        $.post(form.attr('action'), form.serialize(), function(data, status){
+            if('success' == status) {
+                content.load(location.href);
+                message.load(messagesPath, function(){$.Spinner.unspin();});
+            } else {
+                content.html(data);
+                message.load(messagesPath, function(){content.unspin()});
+            }
+        });
+    }
+    return false;
 }
 
 /** TEMP BEFORE NEXT JQUERY VERSION **/

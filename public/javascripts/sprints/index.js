@@ -6,7 +6,7 @@ $(document).ready(function() {
 });
 
 function formSpecifics() {
-  $('#sprint_start').datepicker();
-  $('#sprint_end').datepicker();
+  $('#sprint_start').datepicker({ dateFormat: 'yy-mm-dd' });
+  $('#sprint_end').datepicker({ dateFormat: 'yy-mm-dd' });
 }
 
