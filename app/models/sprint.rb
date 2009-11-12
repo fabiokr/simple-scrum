@@ -83,10 +83,16 @@ class Sprint < ActiveRecord::Base
     end
 
     #distribute the data arround the max value of 100
-    factor_x, factor_y  = (100.0/x_labels.size).round_with_precision(1), (100.0/y.max).round_with_precision(1)
+    factor_x = (100.0/x_labels.size).round_with_precision(1) unless x_labels.empty?
+    factor_y = (100.0/y.max).round_with_precision(1) unless y.empty?
 
     x.collect! {|v| BigDecimal.new((v*factor_x).to_s) }
     y.collect! {|v| BigDecimal.new((v*factor_y).to_s) }
+
+    if x.empty? && y.empty?
+      x << BigDecimal.new(0.to_s)
+      y << BigDecimal.new(0.to_s)
+    end
 
     {:x => x, :y => y, :x_labels => x_labels}
   end
