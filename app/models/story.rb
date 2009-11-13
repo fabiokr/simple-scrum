@@ -4,13 +4,15 @@
 #
 #  id          :integer         not null, primary key
 #  name        :string(255)
+#  color       :string(255)
 #  description :text
 #  estimative  :integer
 #  priority    :integer
 #  product_id  :integer
 #  created_at  :datetime
 #  updated_at  :datetime
-#  color       :string(255)
+#  creator_id  :integer
+#  updater_id  :integer
 #
 
 class Story < ActiveRecord::Base

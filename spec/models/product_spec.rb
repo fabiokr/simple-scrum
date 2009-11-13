@@ -7,6 +7,8 @@
 #  owner      :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  creator_id :integer
+#  updater_id :integer
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

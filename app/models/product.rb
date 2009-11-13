@@ -7,6 +7,8 @@
 #  owner      :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  creator_id :integer
+#  updater_id :integer
 #
 
 class Product < ActiveRecord::Base

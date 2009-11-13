@@ -11,10 +11,14 @@
 #  product_id         :integer
 #  created_at         :datetime
 #  updated_at         :datetime
+#  creator_id         :integer
+#  updater_id         :integer
 #
 
 class Sprint < ActiveRecord::Base
   stampable
+
+  default_scope :order => 'start DESC, end DESC'
 
   PLOT_DATE_FORMAT = "%e/%m"
 

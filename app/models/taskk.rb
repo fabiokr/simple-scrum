@@ -2,15 +2,19 @@
 #
 # Table name: tasks
 #
-#  id          :integer         not null, primary key
-#  name        :string(255)
-#  status      :string(255)
-#  description :text
-#  estimative  :integer
-#  story_id    :integer
-#  sprint_id   :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id                :integer         not null, primary key
+#  name              :string(255)
+#  description       :text
+#  status            :integer
+#  estimative        :integer
+#  story_id          :integer
+#  sprint_id         :integer
+#  unplanned         :boolean
+#  status_changed_at :datetime
+#  created_at        :datetime
+#  updated_at        :datetime
+#  creator_id        :integer
+#  updater_id        :integer
 #
 
 class Taskk < ActiveRecord::Base
