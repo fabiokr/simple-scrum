@@ -85,6 +85,7 @@ function prepareForm() {
          $.post(form.attr('action'), form.serialize(), function(data){
             content.html(data);
             message.load(messagesPath, function(){content.unspin()});
+            $('html, body').animate({scrollTop:0}, 'slow');
             prepareForm();
          });
       }
