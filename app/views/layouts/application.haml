@@ -6,13 +6,15 @@
     %title= title
     / External stylesheets
     = stylesheet_link_merged :base_screen
+    /[if lt IE 8]
+      = stylesheet_link_tag 'blueprint/ie'
     = stylesheet_link_merged :base_print, :media => 'print'
     / Application stylesheets
     = stylesheets(:path => 'compiled')
   %body
     #header
       %h1{:class => 'inline'} Personal-Scrum
-      %ul{:class => 'cleanList inline right'}
+      %ul{:class => 'clean-list inline right'}
         %li= image_tag current_user.gravatar_url(:size => 20)
         %li
           %strong
@@ -20,7 +22,7 @@
         %li= link_to t('app.menu.profile'), edit_settings_path
         %li= link_to t('app.menu.logout'), '/logout'
     #navigation
-      %ul{:class => 'cleanList left'}
+      %ul{:class => 'clean-list left'}
         %li= link_to t('app.menu.products'), products_path
         - if current_user.admin?
           %li= link_to t('app.menu.users'), users_path

@@ -226,6 +226,7 @@ en-US:
         show: "Product Dashboard"
         new: "New Product"
         edit: "Editing Product"
+        view_all: "view all"
     stories:
         index: "Product Backlog"
         show: "Story"

@@ -21,12 +21,15 @@ class Story < ActiveRecord::Base
   belongs_to :product
   has_many :taskks, :dependent => :destroy
 
-  default_scope :order => 'priority DESC'
-
   validates_presence_of :product_id
   validates_length_of :name, :in => 1..200
 
   validates_numericality_of :estimative
   validates_numericality_of :priority
+
+  def self.per_page
+    15
+  end
+
 end
 

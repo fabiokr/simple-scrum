@@ -20,5 +20,9 @@ class Product < ActiveRecord::Base
   has_many :stories, :dependent => :destroy
   has_many :sprints, :dependent => :destroy
 
+  def self.per_page
+    15
+  end
+
 end
 

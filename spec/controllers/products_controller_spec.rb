@@ -69,10 +69,15 @@ describe ProductsController do
     assigns(:products).should include(@product)
   end
 
-  it "should assign product on :show" do
+  it "should assign product, stories and sprints on :show" do
+    stories = [Factory(:story, :product => @product), Factory(:story, :product => @product)]
+    sprints = [Factory(:sprint, :product => @product), Factory(:sprint, :product => @product)]
+
     get :show, :id => @product.id
 
     assigns(:product).should == @product
+    assigns(:stories).should == stories
+    assigns(:sprints).should == sprints
   end
 
   it "should assign a new product on :new" do

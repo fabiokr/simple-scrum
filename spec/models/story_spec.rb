@@ -34,5 +34,6 @@ describe Story do
   it { should belong_to :product }
   it { should have_many :taskks, :dependent => :destroy }
   it { should validate_numericality_of :estimative, :priority }
+
 end
 

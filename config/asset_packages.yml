@@ -13,7 +13,9 @@ javascripts:
   - application.en-US
 stylesheets:
 - base_screen:
+  - blueprint/reset
   - blueprint/typography
+  - blueprint/grid
   - blueprint/forms
   - blueprint/buttons/screen
   - blueprint/fancy-type/screen

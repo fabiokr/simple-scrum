@@ -18,8 +18,6 @@
 class Sprint < ActiveRecord::Base
   stampable
 
-  default_scope :order => 'start DESC, end DESC'
-
   PLOT_DATE_FORMAT = "%e/%m"
 
   before_save :set_velocity_and_estimated_velocity
@@ -33,6 +31,10 @@ class Sprint < ActiveRecord::Base
   validates_numericality_of :estimated_velocity, :allow_nil => true
   validate :end_cannot_be_greater_than_or_equal_start
   validate :must_have_at_least_one_weekday_between_start_and_end
+
+  def self.per_page
+    15
+  end
 
   def group_tasks_by_story
     stories = {}

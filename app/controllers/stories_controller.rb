@@ -5,6 +5,11 @@ class StoriesController < ApplicationController
 
   # GET /products/1/stories
   def index
+    if params[:search].nil? || params[:search][:order].nil?
+      params[:search] ||= {}
+      params[:search][:order] ||= 'descend_by_priority'
+    end
+
     @search = @product.stories.search(params[:search])
     @stories = @search.all
 

@@ -5,6 +5,11 @@ class SprintsController < ApplicationController
 
   # GET /products/1/sprints
   def index
+    if params[:search].nil? || params[:search][:order].nil?
+      params[:search] ||= {}
+      params[:search][:order] ||= 'descend_by_start'
+    end
+
     @search = @product.sprints.search(params[:search])
     @sprints = @search.all
 
