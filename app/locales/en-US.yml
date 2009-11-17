@@ -200,12 +200,15 @@ en-US:
   app:
     name: 'Personal SCRUM'
     home: 'Home'
-    search_hint: 'search query'
+    search_hint: 'search'
     menu:
-        products: "products"
         logout: "logout"
         profile: "profile"
         users: "users"
+        profile_hint: "view your profile details"
+        edit_profile_hint: "edit your profile details"
+        users_hint: "manages the users registered on the sytem"
+        logout_hint: "exit the system"
     login:
         new: "Login"
         require_login: "You should login to view this page"

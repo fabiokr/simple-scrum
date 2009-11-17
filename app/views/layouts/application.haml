@@ -18,19 +18,16 @@
         %li= image_tag current_user.gravatar_url(:size => 20)
         %li
           %strong
-            = link_to current_user.login, user_path(current_user)
-        %li= link_to t('app.menu.profile'), edit_settings_path
-        %li= link_to t('app.menu.logout'), '/logout'
-    #navigation
-      %ul{:class => 'clean-list left'}
-        %li= link_to t('app.menu.products'), products_path
+            = link_to current_user.login, user_path(current_user), :title => t('app.menu.profile_hint')
+        %li= link_to t('app.menu.profile'), edit_settings_path, :title => t('app.menu.edit_profile_hint')
         - if current_user.admin?
-          %li= link_to t('app.menu.users'), users_path
+          %li= link_to t('app.menu.users'), users_path, :title => t('app.menu.users_hint')
+        %li= link_to t('app.menu.logout'), '/logout', :title => t('app.menu.logout_hint')
+    #navigation
+      = breadcrumbs
       - form_tag search_path, :method => :get, :class => 'search right' do
         = text_field_tag 'q', nil, :title => t('app.search_hint') ,:class => 'text smallInput'
-        = button_tag t('system.search'), :find, :class => 'search inline'
-    #breadcrumbs
-      = breadcrumbs
+        = button_tag '', :find, :class => 'search inline', :title => t('system.search')
     #message
       = render :partial => 'layouts/message'
     #content
