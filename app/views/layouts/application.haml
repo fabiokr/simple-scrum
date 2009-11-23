@@ -14,7 +14,10 @@
   %body
     #header
       %h1{:class => 'inline'} Personal-Scrum
-      %ul{:class => 'clean-list inline right'}
+      - form_tag search_path, :method => :get, :class => 'search right' do
+        = text_field_tag 'q', nil, :title => t('app.search_hint') ,:class => 'text smallInput'
+        = button_tag '', :find, :class => 'search inline', :title => t('system.search')
+      %ul{:class => 'clean-list right'}
         %li= image_tag current_user.gravatar_url(:size => 20)
         %li
           %strong
@@ -25,9 +28,6 @@
         %li= link_to t('app.menu.logout'), '/logout', :title => t('app.menu.logout_hint')
     #navigation
       = breadcrumbs
-      - form_tag search_path, :method => :get, :class => 'search right' do
-        = text_field_tag 'q', nil, :title => t('app.search_hint') ,:class => 'text smallInput'
-        = button_tag '', :find, :class => 'search inline', :title => t('system.search')
     #message
       = render :partial => 'layouts/message'
     #content
