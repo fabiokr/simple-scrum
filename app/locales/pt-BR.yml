@@ -1,0 +1,268 @@
+pt-BR:
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d de %B"
+      long: "%d de %B de %Y"
+      only_day: "%d"
+
+    day_names: [Domingo, Segunda, Terça, Quarta, Quinta, Sexta, Sábado]
+    abbr_day_names: [Dom, Seg, Ter, Qua, Qui, Sex, Sáb]
+    month_names: [~, Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro]
+    abbr_month_names: [~, Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez]
+    order: [:day,:month,:year]
+
+  time:
+    formats:
+      default: "%A, %d de %B de %Y, %H:%M hs"
+      time: "%H:%M hs"
+      short: "%d/%m, %H:%M hs"
+      long: "%A, %d de %B de %Y, %H:%M hs"
+      only_second: "%S"
+      datetime:
+        formats:
+          default: "%Y-%m-%dT%H:%M:%S%Z"
+    am: ''
+    pm: ''
+
+  datetime:
+    distance_in_words:
+      half_a_minute: 'meio minuto'
+      less_than_x_seconds:
+        one: 'menos de 1 segundo'
+        other: 'menos de {{count}} segundos'
+
+      x_seconds:
+        one: '1 segundo'
+        other: '{{count}} segundos'
+
+      less_than_x_minutes:
+        one: 'menos de um minuto'
+        other: 'menos de {{count}} minutos'
+
+      x_minutes:
+        one: '1 minuto'
+        other: '{{count}} minutos'
+
+      about_x_hours:
+        one: 'aproximadamente 1 hora'
+        other: 'aproximadamente {{count}} horas'
+
+      x_days:
+        one: '1 dia'
+        other: '{{count}} dias'
+
+      about_x_months:
+        one: 'aproximadamente 1 mês'
+        other: 'aproximadamente {{count}} meses'
+
+      x_months:
+        one: '1 mês'
+        other: '{{count}} meses'
+
+      about_x_years:
+        one: 'aproximadamente 1 ano'
+        other: 'aproximadamente {{count}} anos'
+
+      over_x_years:
+        one: 'mais de 1 ano'
+        other: 'mais de {{count}} anos'
+
+  number:
+    format:
+      precision: 3
+      separator: ','
+      delimiter: '.'
+    currency:
+      format:
+        unit: 'R$'
+        precision: 2
+        format: '%u %n'
+        separator: ','
+        delimiter: '.'
+    percentage:
+      format:
+        delimiter: '.'
+    precision:
+      format:
+        delimiter: '.'
+    human:
+      format:
+        precision: 1
+        delimiter: '.'
+  support:
+    array:
+      sentence_connector: "e"
+      skip_last_comma: true
+
+  authlogic:
+    error_messages:
+      login_blank: "não pode estar vazio"
+      login_not_found: "não encontrado"
+      login_invalid: "só pode conter letras, números e os caracteres .-_@"
+      email_invalid: "deve ser um endereço de email válido"
+      password_blank: "não pode estar vazio"
+      password_invalid: "inválido"
+      not_active: "Sua conta não está ativada"
+      not_confirmed: "Sua conta ainda não foi confirmada"
+      not_approved: "Sua conta ainda não foi aprovada"
+      blank_record: "Você não pode entrar com dados vazios"
+      new_record: "Você não pode entrar com novos dados"
+    models:
+      user_session: 'Sessão'
+    attributes:
+      user_session:
+        login: 'Login'
+        email: 'Email'
+        password: 'Senha'
+        remember_me: 'Lembrar-se de mim'
+
+  # Active Record
+  activerecord:
+    errors:
+      template:
+        header:
+          one: "Não foi possível gravar {{model}}: 1 erro"
+          other: "Não foi possível gravar {{model}}: {{count}} erros"
+        body: "Por favor, verifique o(s) seguinte(s) campo(s):"
+      messages:
+        inclusion: "não está incluído na lista"
+        exclusion: "não está disponível"
+        invalid: "não é válido"
+        confirmation: "não está de acordo com a confirmação"
+        accepted: "deve ser aceito"
+        empty: "não pode ficar vazio"
+        blank: "não pode ficar em branco"
+        too_long: "é muito longo (máximo: {{count}} caracteres)"
+        too_short: "é muito curto (mínimo: {{count}} caracteres)"
+        wrong_length: "não possui o tamanho esperado ({{count}} caracteres)"
+        taken: "já está em uso"
+        not_a_number: "não é um número"
+        greater_than: "deve ser maior do que {{count}}"
+        greater_than_or_equal_to: "deve ser maior ou igual a {{count}}"
+        equal_to: "deve ser igual a {{count}}"
+        less_than: "deve ser menor do que {{count}}"
+        less_than_or_equal_to: "deve ser menor ou igual a {{count}}"
+        odd: "deve ser ímpar"
+        even: "deve ser par"
+        record_invalid: "A validação falhou: {{errors}}"
+        one_weekday_between: "must have at least one workday between"
+    models:
+      user: 'Usuário'
+      product: 'Produto'
+      sprint: 'Sprint'
+      story: 'Estória'
+      taskk: 'Tarefa'
+      settings: 'Configurações'
+    attributes:
+      _all:
+        created_at: "Criado em"
+        updated_at: "Atualizado em"
+        name: 'Nome'
+        description: "Descrição"
+        status: "Status"
+      user:
+        login: 'Login'
+        email: 'Email'
+        password: 'Senha'
+        password_confirmation: 'Confirmação da senha'
+        admin: 'Administrador'
+      product:
+        owner: 'Dono'
+      sprint:
+        start: "Início"
+        end: "Fim"
+        velocity: "Velocidade"
+        estimated_velocity: "Velocidade estimada"
+      story:
+        priority: "Prioridade"
+        estimative: "Estimativa"
+        father: 'Pai'
+        color: 'Cor'
+      taskk:
+        unplanned: 'Não planejado'
+  system:
+    create: 'novo'
+    update: 'atualizar'
+    show: 'visualizar'
+    edit: 'editar'
+    destroy: 'remover'
+    search: 'pesquisar'
+    search_legend: 'Pesquisar'
+    back: 'voltar'
+    confirm: 'Tem certeza?'
+    found_registries: "{{count}} registro(s) encontrado(s)"
+    no_registries_found: "Nenhum registro encontrado"
+    successfully_created: "{{model}} criado"
+    successfully_updated: "{{model}} atualizado"
+    successfully_destroyed: "{{model}} removido"
+    previous_label: '&laquo; Anterior'
+    next_label: 'Próximo &raquo;'
+  app:
+    name: 'Simple-SCRUM'
+    home: 'Início'
+    search_hint: 'pesquisar'
+    paginate:
+      previous: 'Anterior'
+      next: 'Próxima'
+    menu:
+        logout: "sair"
+        profile: "perfil"
+        users: "usuários"
+        profile_hint: "visualizar os detalhes do seu perfil"
+        edit_profile_hint: "editar os detalhes de seu perfil"
+        users_hint: "gerencia os usuários registrados no sistema"
+        logout_hint: "sair do sistema"
+    login:
+        new: "Entrar"
+        require_login: "Você deve entrar no sistema para visualizar esta página"
+        require_admin: "Você não possui permissão para acessar esta página"
+        login_successfull: "Bem vindo de volta, {{user}}!"
+        logout_successfull: "Nos vemos na próxima, {{user}}!"
+    settings:
+        edit: "Configurações"
+        profile: "Alterar perfil"
+    users:
+        index: 'Usuários'
+        show: 'Usuário'
+        new: 'Novo usuário'
+        edit: 'Editar usuário'
+        cannot_destroy_self: 'Você não pode remover seu próprio usuário'
+    products:
+        index: "Produtos"
+        show: "Painél de produtos"
+        new: "Novo produto"
+        edit: "Editar produto"
+        view_all: "visualizar todos"
+    stories:
+        index: "Backlog do produto"
+        show: "Estória"
+        new: "Nova estória"
+        edit: "Editar estória"
+    sprints:
+        index: "Sprints"
+        show: "Sprint"
+        new: "Nova sprint"
+        edit: "Editar sprint"
+        backlog: "Backlog da sprint"
+        todo: "A fazer"
+        doing: "Fazendo"
+        done: "Finalizado"
+        previous_state: "Estado anterior"
+        next_state: "Próximo estado"
+        previous_velocities: "Velocidades anteriores de {{product}}"
+        previous_projects_velocities: "Velocidades de produtos anteriores"
+        burndown_chart: "Gráfico de Burndown"
+        burndown_chart_expected_line: "Esperado"
+        burndown_chart_current_line: "Atual"
+        burndown_chart_not_enought: "Não existem dados suficientes para plotar o gráfico de Burndown"
+    taskks:
+        index: "Tarefas"
+        show: "Tarefa"
+        new: "Nova tarefa"
+        edit: "Editar tarefa"
+    searches:
+        result: "Resultados da pesquisa"
+        insuficient_query: "A pesquisa foi muito pequena (pelo menos 3 caracteres são necessários)"
+        back: "Voltar"
+
