@@ -16,3 +16,6 @@
 [submodule "vendor/plugins/styler"]
 	path = vendor/plugins/styler
 	url = git://github.com/mokolabs/styler.git
+[submodule "vendor/plugins/user_stamp"]
+	path = vendor/plugins/user_stamp
+	url = git://github.com/jnunemaker/user_stamp.git
