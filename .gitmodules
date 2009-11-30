@@ -13,3 +13,6 @@
 [submodule "vendor/plugins/params_sanitizer"]
 	path = vendor/plugins/params_sanitizer
 	url = git://github.com/mauricio/params_sanitizer.git
+[submodule "vendor/plugins/styler"]
+	path = vendor/plugins/styler
+	url = git://github.com/mokolabs/styler.git
