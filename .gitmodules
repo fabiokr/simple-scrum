@@ -7,3 +7,6 @@
 [submodule "vendor/plugins/crumble"]
 	path = vendor/plugins/crumble
 	url = git://github.com/mattmatt/crumble.git
+[submodule "vendor/plugins/i18n_label"]
+	path = vendor/plugins/i18n_label
+	url = git://github.com/iain/i18n_label.git
