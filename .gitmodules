@@ -19,3 +19,6 @@
 [submodule "vendor/plugins/user_stamp"]
 	path = vendor/plugins/user_stamp
 	url = git://github.com/jnunemaker/user_stamp.git
+[submodule "vendor/plugins/javascripter"]
+	path = vendor/plugins/javascripter
+	url = git://github.com/mokolabs/javascripter.git
