@@ -1,3 +1,6 @@
 [submodule "vendor/plugins/activerecord_i18n_defaults"]
 	path = vendor/plugins/activerecord_i18n_defaults
 	url = git://github.com/dcrec1/activerecord_i18n_defaults.git
+[submodule "vendor/plugins/asset_packager"]
+	path = vendor/plugins/asset_packager
+	url = git://github.com/sbecker/asset_packager.git
