@@ -27,7 +27,6 @@ Rails::Initializer.run do |config|
   config.gem 'faker'
 
   config.gem 'haml'
-  config.gem 'jscruggs-metric_fu', :lib => 'metric_fu', :source => 'http://gems.github.com'
   config.gem 'random_data'
   config.gem "searchlogic"
   config.gem 'mislav-will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
