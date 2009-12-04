@@ -23,7 +23,6 @@ Rails::Initializer.run do |config|
   config.gem "rspec-rails", :lib => false, :version => ">= 1.2"
   config.gem "remarkable_rails", :lib => false
   config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => "http://gems.github.com"
-  #config.gem 'webrat', :source => 'http://gems.github.com'
   config.gem 'faker'
 
   config.gem 'haml'

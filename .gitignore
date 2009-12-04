@@ -3,7 +3,7 @@ log
 config/database.yml
 tmp
 public/stylesheets/compiled
-public/stylesheets/*packaged*
-public/javascripts/*packaged*
+public/stylesheets/cache
+public/javascripts/cache
 coverage
 
