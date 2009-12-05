@@ -75,6 +75,9 @@ en-US:
         edit_profile_hint: "edit your profile details"
         users_hint: "manages the users registered on the sytem"
         logout_hint: "exit the system"
+    user_sessions:
+      index: "Welcome"
+      new: "Login"
     login:
         new: "Login"
         require_login: "You should login to view this page"

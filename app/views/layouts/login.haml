@@ -7,7 +7,7 @@
     = render :partial => 'layouts/css'
   %body
     #header
-      %h1{:class => 'inline'} Personal-Scrum
+      %h1{:class => 'inline'}= t('app.name')
     #content
       .login
         = render :partial => 'layouts/message'

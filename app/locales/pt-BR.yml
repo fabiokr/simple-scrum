@@ -213,6 +213,9 @@ pt-BR:
         edit_profile_hint: "editar os detalhes de seu perfil"
         users_hint: "gerencia os usuários registrados no sistema"
         logout_hint: "sair do sistema"
+    user_sessions:
+      index: "Bem vindo"
+      new: "Entrar"
     login:
         new: "Entrar"
         require_login: "Você deve entrar no sistema para visualizar esta página"
