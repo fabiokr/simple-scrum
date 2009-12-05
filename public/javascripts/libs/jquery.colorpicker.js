@@ -1,484 +1,360 @@
-/**
- *
- * Color picker
- * Author: Stefan Petre www.eyecon.ro
- * 
- * Dual licensed under the MIT and GPL licenses
- * 
- */
-(function ($) {
-	var ColorPicker = function () {
-		var
-			ids = {},
-			inAction,
-			charMin = 65,
-			visible,
-			tpl = '<div class="colorpicker"><div class="colorpicker_color"><div><div></div></div></div><div class="colorpicker_hue"><div></div></div><div class="colorpicker_new_color"></div><div class="colorpicker_current_color"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6" /></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_submit"></div></div>',
-			defaults = {
-				eventName: 'click',
-				onShow: function () {},
-				onBeforeShow: function(){},
-				onHide: function () {},
-				onChange: function () {},
-				onSubmit: function () {},
-				color: 'ff0000',
-				livePreview: true,
-				flat: false
-			},
-			fillRGBFields = function  (hsb, cal) {
-				var rgb = HSBToRGB(hsb);
-				$(cal).data('colorpicker').fields
-					.eq(1).val(rgb.r).end()
-					.eq(2).val(rgb.g).end()
-					.eq(3).val(rgb.b).end();
-			},
-			fillHSBFields = function  (hsb, cal) {
-				$(cal).data('colorpicker').fields
-					.eq(4).val(hsb.h).end()
-					.eq(5).val(hsb.s).end()
-					.eq(6).val(hsb.b).end();
-			},
-			fillHexFields = function (hsb, cal) {
-				$(cal).data('colorpicker').fields
-					.eq(0).val(HSBToHex(hsb)).end();
-			},
-			setSelector = function (hsb, cal) {
-				$(cal).data('colorpicker').selector.css('backgroundColor', '#' + HSBToHex({h: hsb.h, s: 100, b: 100}));
-				$(cal).data('colorpicker').selectorIndic.css({
-					left: parseInt(150 * hsb.s/100, 10),
-					top: parseInt(150 * (100-hsb.b)/100, 10)
-				});
-			},
-			setHue = function (hsb, cal) {
-				$(cal).data('colorpicker').hue.css('top', parseInt(150 - 150 * hsb.h/360, 10));
-			},
-			setCurrentColor = function (hsb, cal) {
-				$(cal).data('colorpicker').currentColor.css('backgroundColor', '#' + HSBToHex(hsb));
-			},
-			setNewColor = function (hsb, cal) {
-				$(cal).data('colorpicker').newColor.css('backgroundColor', '#' + HSBToHex(hsb));
-			},
-			keyDown = function (ev) {
-				var pressedKey = ev.charCode || ev.keyCode || -1;
-				if ((pressedKey > charMin && pressedKey <= 90) || pressedKey == 32) {
-					return false;
+/* jQuery ColorPicker
+   Written by Virgil Reboton(vreboton@gmail.com)
+
+   ColorPicker function structures and attahcment is base on
+   jQuery UI Date Picker v3.3beta
+   by Marc Grabanski (m@marcgrabanski.com) and Keith Wood (kbwood@virginbroadband.com.au).
+
+   ColorPicker render data is base on
+   http://www.mattkruse.com/javascript/colorpicker/
+   by Matt Kruse
+
+*/
+
+(function($) { // hide the namespace
+
+function colorPicker()
+{
+	this._nextId = 0; // Next ID for a time picker instance
+	this._inst = []; // List of instances indexed by ID
+	this._curInst = null; // The current instance in use
+	this._colorpickerShowing = false;
+	this._colorPickerDiv = $('<div id="colorPickerDiv"></div>');
+}
+$.extend(colorPicker.prototype, {
+	/* Class name added to elements to indicate already configured with a time picker. */
+	markerClassName: 'hasColorPicker',
+
+	/* Register a new time picker instance - with custom settings. */
+	_register: function(inst) {
+		var id = this._nextId++;
+		this._inst[id] = inst;
+		return id;
+	},
+
+	/* Retrieve a particular time picker instance based on its ID. */
+	_getInst: function(id) {
+		return this._inst[id] || id;
+	},
+
+	/* Handle keystrokes. */
+	_doKeyDown: function(e) {
+        var inst = $.colorPicker._getInst(this._colId);
+		if ($.colorPicker._colorpickerShowing) {
+			switch (e.keyCode) {
+				case 9:
+				    // hide on tab out
+				    $.colorPicker.hideColorPicker();
+                    break;
+
+				case 27:
+				    // hide on escape
+				    $.colorPicker.hideColorPicker();
+					break;
+            }
+		}
+		else if (e.keyCode == 40) { // display the time picker on down arrow key
+			$.colorPicker.showFor(this);
+		}
+	},
+
+/* Handle keystrokes. */
+	_resetSample: function(e) {
+        var inst = $.colorPicker._getInst(this._colId);
+		inst._sampleSpan.css('background-color', inst._input.value);
+		alert(inst._input.value);
+	},
+
+    /* Does this element have a particular class? */
+	_hasClass: function(element, className) {
+		var classes = element.attr('class');
+		return (classes && classes.indexOf(className) > -1);
+	},
+
+    /* Pop-up the time picker for a given input field.
+	   @param  control  element - the input field attached to the time picker or
+	                    string - the ID or other jQuery selector of the input field or
+	                    object - jQuery object for input field
+	   @return the manager object */
+	showFor: function(control) {
+		control = (control.jquery ? control[0] :
+			(typeof control == 'string' ? $(control)[0] : control));
+		var input = (control.nodeName && control.nodeName.toLowerCase() == 'input' ? control : this);
+
+		if ($.colorPicker._lastInput == input) { return; }
+		if ($.colorPicker._colorpickerShowing) { return; }
+
+		var inst = $.colorPicker._getInst(input._colId);
+
+		$.colorPicker.hideColorPicker();
+		$.colorPicker._lastInput = input;
+
+		if (!$.colorPicker._pos) { // position below input
+			$.colorPicker._pos = $.colorPicker._findPos(input);
+			$.colorPicker._pos[1] += input.offsetHeight; // add the height
+		}
+
+		var isFixed = false;
+		$(input).parents().each(function() {
+			isFixed |= $(this).css('position') == 'fixed';
+		});
+
+		if (isFixed && $.browser.opera) { // correction for Opera when fixed and scrolled
+			$.colorPicker._pos[0] -= document.documentElement.scrollLeft;
+			$.colorPicker._pos[1] -= document.documentElement.scrollTop;
+		}
+
+	    inst._colorPickerDiv.css('position', ($.blockUI ? 'static' : (isFixed ? 'fixed' : 'absolute'))).css('left', $.colorPicker._pos[0] + 'px').css('top', $.colorPicker._pos[1]+1 + 'px');
+
+		$.colorPicker._pos = null;
+		$.colorPicker._showColorPicker(inst);
+
+		return this;
+	},
+
+    /* Find an object's position on the screen. */
+	_findPos: function(obj) {
+		while (obj && (obj.type == 'hidden' || obj.nodeType != 1)) {
+			obj = obj.nextSibling;
+		}
+		var curleft = curtop = 0;
+		if (obj && obj.offsetParent) {
+			curleft = obj.offsetLeft;
+			curtop = obj.offsetTop;
+			while (obj = obj.offsetParent) {
+				var origcurleft = curleft;
+				curleft += obj.offsetLeft;
+				if (curleft < 0) {
+					curleft = origcurleft;
 				}
-				var cal = $(this).parent().parent();
-				if (cal.data('colorpicker').livePreview === true) {
-					change.apply(this);
-				}
-			},
-			change = function (ev) {
-				var cal = $(this).parent().parent(), col;
-				if (this.parentNode.className.indexOf('_hex') > 0) {
-					cal.data('colorpicker').color = col = HexToHSB(fixHex(this.value));
-				} else if (this.parentNode.className.indexOf('_hsb') > 0) {
-					cal.data('colorpicker').color = col = fixHSB({
-						h: parseInt(cal.data('colorpicker').fields.eq(4).val(), 10),
-						s: parseInt(cal.data('colorpicker').fields.eq(5).val(), 10),
-						b: parseInt(cal.data('colorpicker').fields.eq(6).val(), 10)
-					});
-				} else {
-					cal.data('colorpicker').color = col = RGBToHSB(fixRGB({
-						r: parseInt(cal.data('colorpicker').fields.eq(1).val(), 10),
-						g: parseInt(cal.data('colorpicker').fields.eq(2).val(), 10),
-						b: parseInt(cal.data('colorpicker').fields.eq(3).val(), 10)
-					}));
-				}
-				if (ev) {
-					fillRGBFields(col, cal.get(0));
-					fillHexFields(col, cal.get(0));
-					fillHSBFields(col, cal.get(0));
-				}
-				setSelector(col, cal.get(0));
-				setHue(col, cal.get(0));
-				setNewColor(col, cal.get(0));
-				cal.data('colorpicker').onChange.apply(cal, [col, HSBToHex(col), HSBToRGB(col)]);
-			},
-			blur = function (ev) {
-				var cal = $(this).parent().parent();
-				cal.data('colorpicker').fields.parent().removeClass('colorpicker_focus');
-			},
-			focus = function () {
-				charMin = this.parentNode.className.indexOf('_hex') > 0 ? 70 : 65;
-				$(this).parent().parent().data('colorpicker').fields.parent().removeClass('colorpicker_focus');
-				$(this).parent().addClass('colorpicker_focus');
-			},
-			downIncrement = function (ev) {
-				var field = $(this).parent().find('input').focus();
-				var current = {
-					el: $(this).parent().addClass('colorpicker_slider'),
-					max: this.parentNode.className.indexOf('_hsb_h') > 0 ? 360 : (this.parentNode.className.indexOf('_hsb') > 0 ? 100 : 255),
-					y: ev.pageY,
-					field: field,
-					val: parseInt(field.val(), 10),
-					preview: $(this).parent().parent().data('colorpicker').livePreview					
-				};
-				$(document).bind('mouseup', current, upIncrement);
-				$(document).bind('mousemove', current, moveIncrement);
-			},
-			moveIncrement = function (ev) {
-				ev.data.field.val(Math.max(0, Math.min(ev.data.max, parseInt(ev.data.val + ev.pageY - ev.data.y, 10))));
-				if (ev.data.preview) {
-					change.apply(ev.data.field.get(0), [true]);
-				}
-				return false;
-			},
-			upIncrement = function (ev) {
-				change.apply(ev.data.field.get(0), [true]);
-				ev.data.el.removeClass('colorpicker_slider').find('input').focus();
-				$(document).unbind('mouseup', upIncrement);
-				$(document).unbind('mousemove', moveIncrement);
-				return false;
-			},
-			downHue = function (ev) {
-				var current = {
-					cal: $(this).parent(),
-					y: $(this).offset().top
-				};
-				current.preview = current.cal.data('colorpicker').livePreview;
-				$(document).bind('mouseup', current, upHue);
-				$(document).bind('mousemove', current, moveHue);
-			},
-			moveHue = function (ev) {
-				change.apply(
-					ev.data.cal.data('colorpicker')
-						.fields
-						.eq(4)
-						.val(parseInt(360*(150 - Math.max(0,Math.min(150,(ev.pageY - ev.data.y))))/150, 10))
-						.get(0),
-					[ev.data.preview]
-				);
-				return false;
-			},
-			upHue = function (ev) {
-				fillRGBFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
-				fillHexFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
-				$(document).unbind('mouseup', upHue);
-				$(document).unbind('mousemove', moveHue);
-				return false;
-			},
-			downSelector = function (ev) {
-				var current = {
-					cal: $(this).parent(),
-					pos: $(this).offset()
-				};
-				current.preview = current.cal.data('colorpicker').livePreview;
-				$(document).bind('mouseup', current, upSelector);
-				$(document).bind('mousemove', current, moveSelector);
-			},
-			moveSelector = function (ev) {
-				change.apply(
-					ev.data.cal.data('colorpicker')
-						.fields
-						.eq(6)
-						.val(parseInt(100*(150 - Math.max(0,Math.min(150,(ev.pageY - ev.data.pos.top))))/150, 10))
-						.end()
-						.eq(5)
-						.val(parseInt(100*(Math.max(0,Math.min(150,(ev.pageX - ev.data.pos.left))))/150, 10))
-						.get(0),
-					[ev.data.preview]
-				);
-				return false;
-			},
-			upSelector = function (ev) {
-				fillRGBFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
-				fillHexFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
-				$(document).unbind('mouseup', upSelector);
-				$(document).unbind('mousemove', moveSelector);
-				return false;
-			},
-			enterSubmit = function (ev) {
-				$(this).addClass('colorpicker_focus');
-			},
-			leaveSubmit = function (ev) {
-				$(this).removeClass('colorpicker_focus');
-			},
-			clickSubmit = function (ev) {
-				var cal = $(this).parent();
-				var col = cal.data('colorpicker').color;
-				cal.data('colorpicker').origColor = col;
-				setCurrentColor(col, cal.get(0));
-				cal.data('colorpicker').onSubmit(col, HSBToHex(col), HSBToRGB(col), cal.data('colorpicker').el);
-			},
-			show = function (ev) {
-				var cal = $('#' + $(this).data('colorpickerId'));
-				cal.data('colorpicker').onBeforeShow.apply(this, [cal.get(0)]);
-				var pos = $(this).offset();
-				var viewPort = getViewport();
-				var top = pos.top + this.offsetHeight;
-				var left = pos.left;
-				if (top + 176 > viewPort.t + viewPort.h) {
-					top -= this.offsetHeight + 176;
-				}
-				if (left + 356 > viewPort.l + viewPort.w) {
-					left -= 356;
-				}
-				cal.css({left: left + 'px', top: top + 'px'});
-				if (cal.data('colorpicker').onShow.apply(this, [cal.get(0)]) != false) {
-					cal.show();
-				}
-				$(document).bind('mousedown', {cal: cal}, hide);
-				return false;
-			},
-			hide = function (ev) {
-				if (!isChildOf(ev.data.cal.get(0), ev.target, ev.data.cal.get(0))) {
-					if (ev.data.cal.data('colorpicker').onHide.apply(this, [ev.data.cal.get(0)]) != false) {
-						ev.data.cal.hide();
-					}
-					$(document).unbind('mousedown', hide);
-				}
-			},
-			isChildOf = function(parentEl, el, container) {
-				if (parentEl == el) {
-					return true;
-				}
-				if (parentEl.contains) {
-					return parentEl.contains(el);
-				}
-				if ( parentEl.compareDocumentPosition ) {
-					return !!(parentEl.compareDocumentPosition(el) & 16);
-				}
-				var prEl = el.parentNode;
-				while(prEl && prEl != container) {
-					if (prEl == parentEl)
-						return true;
-					prEl = prEl.parentNode;
-				}
-				return false;
-			},
-			getViewport = function () {
-				var m = document.compatMode == 'CSS1Compat';
-				return {
-					l : window.pageXOffset || (m ? document.documentElement.scrollLeft : document.body.scrollLeft),
-					t : window.pageYOffset || (m ? document.documentElement.scrollTop : document.body.scrollTop),
-					w : window.innerWidth || (m ? document.documentElement.clientWidth : document.body.clientWidth),
-					h : window.innerHeight || (m ? document.documentElement.clientHeight : document.body.clientHeight)
-				};
-			},
-			fixHSB = function (hsb) {
-				return {
-					h: Math.min(360, Math.max(0, hsb.h)),
-					s: Math.min(100, Math.max(0, hsb.s)),
-					b: Math.min(100, Math.max(0, hsb.b))
-				};
-			}, 
-			fixRGB = function (rgb) {
-				return {
-					r: Math.min(255, Math.max(0, rgb.r)),
-					g: Math.min(255, Math.max(0, rgb.g)),
-					b: Math.min(255, Math.max(0, rgb.b))
-				};
-			},
-			fixHex = function (hex) {
-				var len = 6 - hex.length;
-				if (len > 0) {
-					var o = [];
-					for (var i=0; i<len; i++) {
-						o.push('0');
-					}
-					o.push(hex);
-					hex = o.join('');
-				}
-				return hex;
-			}, 
-			HexToRGB = function (hex) {
-				var hex = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1) : hex), 16);
-				return {r: hex >> 16, g: (hex & 0x00FF00) >> 8, b: (hex & 0x0000FF)};
-			},
-			HexToHSB = function (hex) {
-				return RGBToHSB(HexToRGB(hex));
-			},
-			RGBToHSB = function (rgb) {
-				var hsb = {
-					h: 0,
-					s: 0,
-					b: 0
-				};
-				var min = Math.min(rgb.r, rgb.g, rgb.b);
-				var max = Math.max(rgb.r, rgb.g, rgb.b);
-				var delta = max - min;
-				hsb.b = max;
-				if (max != 0) {
-					
-				}
-				hsb.s = max != 0 ? 255 * delta / max : 0;
-				if (hsb.s != 0) {
-					if (rgb.r == max) {
-						hsb.h = (rgb.g - rgb.b) / delta;
-					} else if (rgb.g == max) {
-						hsb.h = 2 + (rgb.b - rgb.r) / delta;
-					} else {
-						hsb.h = 4 + (rgb.r - rgb.g) / delta;
-					}
-				} else {
-					hsb.h = -1;
-				}
-				hsb.h *= 60;
-				if (hsb.h < 0) {
-					hsb.h += 360;
-				}
-				hsb.s *= 100/255;
-				hsb.b *= 100/255;
-				return hsb;
-			},
-			HSBToRGB = function (hsb) {
-				var rgb = {};
-				var h = Math.round(hsb.h);
-				var s = Math.round(hsb.s*255/100);
-				var v = Math.round(hsb.b*255/100);
-				if(s == 0) {
-					rgb.r = rgb.g = rgb.b = v;
-				} else {
-					var t1 = v;
-					var t2 = (255-s)*v/255;
-					var t3 = (t1-t2)*(h%60)/60;
-					if(h==360) h = 0;
-					if(h<60) {rgb.r=t1;	rgb.b=t2; rgb.g=t2+t3}
-					else if(h<120) {rgb.g=t1; rgb.b=t2;	rgb.r=t1-t3}
-					else if(h<180) {rgb.g=t1; rgb.r=t2;	rgb.b=t2+t3}
-					else if(h<240) {rgb.b=t1; rgb.r=t2;	rgb.g=t1-t3}
-					else if(h<300) {rgb.b=t1; rgb.g=t2;	rgb.r=t2+t3}
-					else if(h<360) {rgb.r=t1; rgb.g=t2;	rgb.b=t1-t3}
-					else {rgb.r=0; rgb.g=0;	rgb.b=0}
-				}
-				return {r:Math.round(rgb.r), g:Math.round(rgb.g), b:Math.round(rgb.b)};
-			},
-			RGBToHex = function (rgb) {
-				var hex = [
-					rgb.r.toString(16),
-					rgb.g.toString(16),
-					rgb.b.toString(16)
-				];
-				$.each(hex, function (nr, val) {
-					if (val.length == 1) {
-						hex[nr] = '0' + val;
-					}
-				});
-				return hex.join('');
-			},
-			HSBToHex = function (hsb) {
-				return RGBToHex(HSBToRGB(hsb));
-			},
-			restoreOriginal = function () {
-				var cal = $(this).parent();
-				var col = cal.data('colorpicker').origColor;
-				cal.data('colorpicker').color = col;
-				fillRGBFields(col, cal.get(0));
-				fillHexFields(col, cal.get(0));
-				fillHSBFields(col, cal.get(0));
-				setSelector(col, cal.get(0));
-				setHue(col, cal.get(0));
-				setNewColor(col, cal.get(0));
-			};
-		return {
-			init: function (opt) {
-				opt = $.extend({}, defaults, opt||{});
-				if (typeof opt.color == 'string') {
-					opt.color = HexToHSB(opt.color);
-				} else if (opt.color.r != undefined && opt.color.g != undefined && opt.color.b != undefined) {
-					opt.color = RGBToHSB(opt.color);
-				} else if (opt.color.h != undefined && opt.color.s != undefined && opt.color.b != undefined) {
-					opt.color = fixHSB(opt.color);
-				} else {
-					return this;
-				}
-				return this.each(function () {
-					if (!$(this).data('colorpickerId')) {
-						var options = $.extend({}, opt);
-						options.origColor = opt.color;
-						var id = 'collorpicker_' + parseInt(Math.random() * 1000);
-						$(this).data('colorpickerId', id);
-						var cal = $(tpl).attr('id', id);
-						if (options.flat) {
-							cal.appendTo(this).show();
-						} else {
-							cal.appendTo(document.body);
-						}
-						options.fields = cal
-											.find('input')
-												.bind('keyup', keyDown)
-												.bind('change', change)
-												.bind('blur', blur)
-												.bind('focus', focus);
-						cal
-							.find('span').bind('mousedown', downIncrement).end()
-							.find('>div.colorpicker_current_color').bind('click', restoreOriginal);
-						options.selector = cal.find('div.colorpicker_color').bind('mousedown', downSelector);
-						options.selectorIndic = options.selector.find('div div');
-						options.el = this;
-						options.hue = cal.find('div.colorpicker_hue div');
-						cal.find('div.colorpicker_hue').bind('mousedown', downHue);
-						options.newColor = cal.find('div.colorpicker_new_color');
-						options.currentColor = cal.find('div.colorpicker_current_color');
-						cal.data('colorpicker', options);
-						cal.find('div.colorpicker_submit')
-							.bind('mouseenter', enterSubmit)
-							.bind('mouseleave', leaveSubmit)
-							.bind('click', clickSubmit);
-						fillRGBFields(options.color, cal.get(0));
-						fillHSBFields(options.color, cal.get(0));
-						fillHexFields(options.color, cal.get(0));
-						setHue(options.color, cal.get(0));
-						setSelector(options.color, cal.get(0));
-						setCurrentColor(options.color, cal.get(0));
-						setNewColor(options.color, cal.get(0));
-						if (options.flat) {
-							cal.css({
-								position: 'relative',
-								display: 'block'
-							});
-						} else {
-							$(this).bind(options.eventName, show);
-						}
-					}
-				});
-			},
-			showPicker: function() {
-				return this.each( function () {
-					if ($(this).data('colorpickerId')) {
-						show.apply(this);
-					}
-				});
-			},
-			hidePicker: function() {
-				return this.each( function () {
-					if ($(this).data('colorpickerId')) {
-						$('#' + $(this).data('colorpickerId')).hide();
-					}
-				});
-			},
-			setColor: function(col) {
-				if (typeof col == 'string') {
-					col = HexToHSB(col);
-				} else if (col.r != undefined && col.g != undefined && col.b != undefined) {
-					col = RGBToHSB(col);
-				} else if (col.h != undefined && col.s != undefined && col.b != undefined) {
-					col = fixHSB(col);
-				} else {
-					return this;
-				}
-				return this.each(function(){
-					if ($(this).data('colorpickerId')) {
-						var cal = $('#' + $(this).data('colorpickerId'));
-						cal.data('colorpicker').color = col;
-						cal.data('colorpicker').origColor = col;
-						fillRGBFields(col, cal.get(0));
-						fillHSBFields(col, cal.get(0));
-						fillHexFields(col, cal.get(0));
-						setHue(col, cal.get(0));
-						setSelector(col, cal.get(0));
-						setCurrentColor(col, cal.get(0));
-						setNewColor(col, cal.get(0));
-					}
-				});
+				curtop += obj.offsetTop;
 			}
-		};
-	}();
-	$.fn.extend({
-		ColorPicker: ColorPicker.init,
-		ColorPickerHide: ColorPicker.hidePicker,
-		ColorPickerShow: ColorPicker.showPicker,
-		ColorPickerSetColor: ColorPicker.setColor
+		}
+		return [curleft,curtop];
+	},
+
+	/* Close time picker if clicked elsewhere. */
+	_checkExternalClick: function(event) {
+		if (!$.colorPicker._curInst)
+		{
+			return;
+		}
+		var target = $(event.target);
+
+		if ((target.parents("#colorPickerDiv").length == 0) && $.colorPicker._colorpickerShowing && !($.blockUI))
+		{
+		    if (target.text() != $.colorPicker._curInst._colorPickerDiv.text())
+		        $.colorPicker.hideColorPicker();
+		}
+	},
+
+    /* Hide the time picker from view.
+	   @param  speed  string - the speed at which to close the time picker
+	   @return void */
+	hideColorPicker: function(s) {
+		var inst = this._curInst;
+		if (!inst) {
+			return;
+		}
+
+		if (this._colorpickerShowing)
+		{
+			this._colorpickerShowing = false;
+			this._lastInput = null;
+
+			this._colorPickerDiv.css('position', 'absolute').css('left', '0px').css('top', '-1000px');
+
+			if ($.blockUI)
+			{
+				$.unblockUI();
+				$('body').append(this._colorPickerDiv);
+			}
+
+            this._curInst = null;
+		}
+
+		if (inst._input[0].value != $.css(inst._sampleSpan,'background-color'))
+		{
+		    inst._sampleSpan.css('background-color',inst._input[0].value);
+		}
+	},
+
+	/* Attach the time picker to an input field. */
+	_connectColorPicker: function(target, inst) {
+		var input = $(target);
+		if (this._hasClass(input, this.markerClassName)) { return; }
+
+		$(input).attr('autocomplete', 'OFF'); // Disable browser autocomplete
+		inst._input = $(input);
+
+		// Create sample span
+		inst._sampleSpan = $('<span class="ColorPickerDivSample" style="background-color:' + inst._input[0].value + ';height:' + inst._input[0].offsetHeight + ';">&nbsp;</span>');
+		input.after(inst._sampleSpan);
+
+		inst._sampleSpan.click(function() {
+		    input.focus();
+		});
+
+		input.focus(this.showFor);
+
+		input.addClass(this.markerClassName).keydown(this._doKeyDown);
+		input[0]._colId = inst._id;
+	},
+
+
+	/* Construct and display the time picker. */
+	_showColorPicker: function(id) {
+		var inst = this._getInst(id);
+		this._updateColorPicker(inst);
+
+        inst._colorPickerDiv.css('width', inst._startTime != null ? '10em' : '6em');
+
+		inst._colorPickerDiv.show('fast');
+		if (inst._input[0].type != 'hidden')
+        {
+		    inst._input[0].focus();
+        }
+
+		this._curInst = inst;
+		this._colorpickerShowing = true;
+	},
+
+	/* Generate the time picker content. */
+	_updateColorPicker: function(inst) {
+		inst._colorPickerDiv.empty().append(inst._generateColorPicker());
+		if (inst._input && inst._input[0].type != 'hidden')
+		{
+			inst._input[0].focus();
+
+            $("td.color", inst._timePickerDiv).unbind().mouseover(function() {
+                //inst._sampleSpan.css('background-color', $.css(this,'background-color'));
+            }).click(function() {
+                inst._sampleSpan.css('background-color', $.css(this,'background-color'));
+                inst._setValue(this);
+            });
+        }
+    }
+
+});
+
+/* Individualised settings for time picker functionality applied to one or more related inputs.
+   Instances are managed and manipulated through the TimePicker manager. */
+function ColorPickerInstance()
+{
+	this._id = $.colorPicker._register(this);
+	this._input = null;
+	this._colorPickerDiv = $.colorPicker._colorPickerDiv;
+	this._sampleSpan = null;
+}
+
+$.extend(ColorPickerInstance.prototype, {
+	/* Get a setting value, defaulting if necessary. */
+	_get: function(name) {
+		return (this._settings[name] != null ? this._settings[name] : $.colorPicker._defaults[name]);
+	},
+
+    _getValue: function () {
+        if (this._input && this._input[0].type != 'hidden' && this._input[0].value != "")
+		{
+			return this._input[0].value;
+        }
+        return null;
+    },
+
+	_setValue: function (sel) {
+        // Update input field
+        if (this._input && this._input[0].type != 'hidden')
+		{
+		    this._input[0].value = $.attr(sel,'title');
+			$(this._input[0]).change();
+        }
+
+        // Hide picker
+        $.colorPicker.hideColorPicker();
+    },
+
+	/* Generate the HTML for the current state of the time picker. */
+	_generateColorPicker: function() {
+        // Code to populate color picker window
+        /*var colors  = new Array("#000000","#000033","#000066","#000099","#0000CC","#0000FF","#330000","#330033","#330066","#330099","#3300CC",
+                                "#3300FF","#660000","#660033","#660066","#660099","#6600CC","#6600FF","#990000","#990033","#990066","#990099",
+                                "#9900CC","#9900FF","#CC0000","#CC0033","#CC0066","#CC0099","#CC00CC","#CC00FF","#FF0000","#FF0033","#FF0066",
+							    "#FF0099","#FF00CC","#FF00FF","#003300","#003333","#003366","#003399","#0033CC","#0033FF","#333300","#333333",
+							    "#333366","#333399","#3333CC","#3333FF","#663300","#663333","#663366","#663399","#6633CC","#6633FF","#993300",
+							    "#993333","#993366","#993399","#9933CC","#9933FF","#CC3300","#CC3333","#CC3366","#CC3399","#CC33CC","#CC33FF",
+							    "#FF3300","#FF3333","#FF3366","#FF3399","#FF33CC","#FF33FF","#006600","#006633","#006666","#006699","#0066CC",
+							    "#0066FF","#336600","#336633","#336666","#336699","#3366CC","#3366FF","#666600","#666633","#666666","#666699",
+							    "#6666CC","#6666FF","#996600","#996633","#996666","#996699","#9966CC","#9966FF","#CC6600","#CC6633","#CC6666",
+							    "#CC6699","#CC66CC","#CC66FF","#FF6600","#FF6633","#FF6666","#FF6699","#FF66CC","#FF66FF","#009900","#009933",
+							    "#009966","#009999","#0099CC","#0099FF","#339900","#339933","#339966","#339999","#3399CC","#3399FF","#669900",
+							    "#669933","#669966","#669999","#6699CC","#6699FF","#999900","#999933","#999966","#999999","#9999CC","#9999FF",
+							    "#CC9900","#CC9933","#CC9966","#CC9999","#CC99CC","#CC99FF","#FF9900","#FF9933","#FF9966","#FF9999","#FF99CC",
+							    "#FF99FF","#00CC00","#00CC33","#00CC66","#00CC99","#00CCCC","#00CCFF","#33CC00","#33CC33","#33CC66","#33CC99",
+							    "#33CCCC","#33CCFF","#66CC00","#66CC33","#66CC66","#66CC99","#66CCCC","#66CCFF","#99CC00","#99CC33","#99CC66",
+							    "#99CC99","#99CCCC","#99CCFF","#CCCC00","#CCCC33","#CCCC66","#CCCC99","#CCCCCC","#CCCCFF","#FFCC00","#FFCC33",
+							    "#FFCC66","#FFCC99","#FFCCCC","#FFCCFF","#00FF00","#00FF33","#00FF66","#00FF99","#00FFCC","#00FFFF","#33FF00",
+							    "#33FF33","#33FF66","#33FF99","#33FFCC","#33FFFF","#66FF00","#66FF33","#66FF66","#66FF99","#66FFCC","#66FFFF",
+							    "#99FF00","#99FF33","#99FF66","#99FF99","#99FFCC","#99FFFF","#CCFF00","#CCFF33","#CCFF66","#CCFF99","#CCFFCC",
+							    "#CCFFFF","#FFFF00","#FFFF33","#FFFF66","#FFFF99","#FFFFCC","#EEEEEE","#111111","#222222","#333333","#444444",
+							    "#555555","#666666","#777777","#888888","#999999","#A5A5A5","#AAAAAA","#BBBBBB","#C3C3C3","#CCCCCC","#D2D2D2",
+							    "#DDDDDD","#E1E1E1","#FFFFFF");*/
+				var colors  = new Array("#680000", "#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#00FFFF", "#9933CC", "#FF00FF", "#C0C0C0", "#FFFFFF");
+
+        var total = colors.length;
+        var width = 18;
+	    var html = "<table border='1px' cellspacing='0' cellpadding='0'>";
+
+	    for (var i=0; i<total; i++)
+	    {
+		    if ((i % width) == 0) { html += "<tr>"; }
+
+		    html += '<td class="color" title="' + colors[i] + '" style="background-color:' + colors[i] + '"><label>&nbsp;&nbsp;&nbsp;</label></td>';
+
+		    if ( ((i+1)>=total) || (((i+1) % width) == 0))
+		    {
+		        html += "</tr>";
+            }
+		}
+
+		html += '<tr><td title="" style="background-color:#999" class="color" colspan="' + width + '" align="center"><label>No Color</label></td></tr>'
+
+		html += "</table>";
+
+        return html
+	}
+
+});
+
+
+/* Attach the time picker to a jQuery selection.
+   @param  settings  object - the new settings to use for this time picker instance (anonymous)
+   @return jQuery object - for chaining further calls */
+$.fn.attachColorPicker = function() {
+	return this.each(function() {
+		var nodeName = this.nodeName.toLowerCase();
+		if (nodeName == 'input')
+		{
+			var inst = new ColorPickerInstance();
+			$.colorPicker._connectColorPicker(this, inst);
+		}
 	});
-})(jQuery)
+};
+
+$.fn.getValue = function() {
+	var inst = (this.length > 0 ? $.colorPicker._getInst(this[0]._colId) : null);
+	return (inst ? inst._getValue() : null);
+};
+
+$.fn.setValue = function(value) {
+	var inst = (this.length > 0 ? $.colorPicker._getInst(this[0]._colId) : null);
+	if (inst) inst._setValue(value);
+};
+
+/* Initialise the time picker. */
+$(document).ready(function() {
+	$.colorPicker = new colorPicker(); // singleton instance
+	$(document.body).append($.colorPicker._colorPickerDiv).mousedown($.colorPicker._checkExternalClick);
+});
+
+})(jQuery);
+

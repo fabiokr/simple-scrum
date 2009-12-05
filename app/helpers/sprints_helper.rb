@@ -46,7 +46,7 @@ module SprintsHelper
 
   def postit(content, html_class = nil, color = nil)
     html_class = "postit #{html_class}"
-    style = "background-color:##{color}" unless color.nil?
+    style = "background-color:#{color}" unless color.nil?
     content_tag 'div', content, :class => html_class, :style => style
   end
 

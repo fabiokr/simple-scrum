@@ -5,7 +5,7 @@ $(document).ready(function() {
 function formSpecifics() {
   showPrioritySlider();
   showEstimativeSlider();
-  showColorInput();
+  $("input#story_color").attachColorPicker();
 }
 
 function showPrioritySlider() {
@@ -28,13 +28,5 @@ function showEstimativeSlider() {
         .slider({min:0, max:100, value:$('input#story_estimative').val(), slide:function(e,ui){$('input#story_estimative').val(ui.value)}})
         .children('a')
         .attr('tabindex', '3');
-}
-
-function showColorInput() {
-  $('input#story_color').ColorPicker({
-    onChange: function (hsb, hex, rgb) {
-		  $('input#story_color').val(hex).css('color', '#'+hex);
-	  }
-  });
 }
 
