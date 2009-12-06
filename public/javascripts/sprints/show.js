@@ -2,6 +2,7 @@ $(document).ready(function() {
   prepareAjax({formCallback: showEstimativeSlider, lastBreadcrumbCallback: prepareBacklog});
   prepareBacklog();
   $('table#kanban tbody tr td div.name').live('click', defaultShowLinkBehaviour);
+  prepareChangeStateForm();
 });
 
 function prepareBacklog() {
@@ -27,5 +28,20 @@ function showEstimativeSlider() {
     .slider({min:0, max:100, value:$('input#taskk_estimative').val(), slide:function(e,ui){$('input#taskk_estimative').val(ui.value)}})
     .children('a')
     .attr('tabindex', '5');
+}
+
+function prepareChangeStateForm() {
+  $('form.changeState').submit(function(e){
+    var form = $(e.target);
+    console.log(form);
+    content.spin()
+    $.post(form.attr('action'), form.serialize(), function(data){
+      content.load(location.href, function(){
+        content.unspin();
+        prepareChangeStateForm();
+      });
+    });
+    return false;
+  });
 }
 
