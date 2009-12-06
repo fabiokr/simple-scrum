@@ -1,6 +1,6 @@
 %table.dataList
   %caption
-    ="#{t('app.stories.index')} - #{t('system.found_registries', :count => stories.count)}"
+    ="#{t('app.stories.index')} - #{t('system.found_registries', :count => stories.size)}"
   %thead
     %tr
       %th= order search, :by => :priority, :as => t('activerecord.attributes.story.priority')

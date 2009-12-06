@@ -1,6 +1,6 @@
 %table.dataList
   %caption
-    ="#{t('app.sprints.index')} - #{t('system.found_registries', :count => sprints.count)}"
+    ="#{t('app.sprints.index')} - #{t('system.found_registries', :count => sprints.size)}"
   %thead
     %tr
       %th= order search, :by => :name, :as => t('activerecord.models.sprint')
