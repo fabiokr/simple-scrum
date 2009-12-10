@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :users
+  map.resources :password_resets, :only => [:new, :create, :edit, :update]
 
   map.resource :search, :only => [:show]
   map.resource :settings, :only => [:edit, :update]

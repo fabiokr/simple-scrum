@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091019233018) do
+ActiveRecord::Schema.define(:version => 20091207104438) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -118,5 +118,6 @@ ActiveRecord::Schema.define(:version => 20091019233018) do
   add_index "users", ["admin"], :name => "index_users_on_admin"
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["login"], :name => "index_users_on_login"
+  add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
 
 end

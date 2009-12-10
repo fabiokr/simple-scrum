@@ -1,0 +1,9 @@
+%p= t('app.password_resets.forgot_password_explain')
+- form_tag password_resets_path do
+  %fieldset
+    %legend= t('app.password_resets.forgot_password_legend')
+    = label_tag 'email', t('activerecord.attributes.user.email')
+    %br
+    = text_field_tag 'email', {}, :class => 'text', :tabindex => 1
+    %p= button_tag t('system.update'), :accept, :class => 'positive', :tabindex => 10
+

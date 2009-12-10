@@ -268,4 +268,16 @@ pt-BR:
         result: "Resultados da pesquisa"
         insuficient_query: "A pesquisa foi muito pequena (pelo menos 3 caracteres são necessários)"
         back: "Voltar"
+    password_resets:
+      forgot_password_legend: "Esqueci minha senha"
+      forgot_password_explain: "Preencha o formulário abaixo e instruções de como criar uma nova senha serão enviadas para o seu email:"
+      change_password_legend: "Mudar minha senha"
+      request_sent: "Instruções para criar uma nova senha foram enviadas para o seu email"
+      not_found: "Não foi encontrado um usuário com este email"
+      password_updated: "Senha atualizada"
+      problem_loading_user: "Desculpe, mas não foi possível encontrar a sua conta. Se você estiver tendo dificuldades, tente copiar e colar a URL do seu email em seu navegador ou reinicie o processo de recuperação de senha"
+      email_subject: "Intruções para criar uma nova senha"
+      email_from: "Simple Scrum"
+      email_message_before_link: "Uma solicitação para criar uma nova senha para sua conta foi feita. Se não foi você quem fez a solicitação, simplesmente ignore esta mensagem. Se foi você, por favor clique no link abaixo:"
+      email_message_after_link: "Se a URL acima não funcionar, tente copiá-la e colá-la em seu navegador."
 

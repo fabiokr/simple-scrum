@@ -1,0 +1,13 @@
+- form_for @user, :url => password_reset_path, :method => :put do |f|
+  %fieldset
+    %legend= t('app.password_resets.change_password_legend')
+    = f.error_messages form_errors_class
+    = f.label :password
+    %br
+    = f.password_field :password, :class => 'text', :tabindex => 1
+    %br
+    = f.label :password_confirmation
+    %br
+    = f.password_field :password_confirmation, :class => 'text', :tabindex => 2
+    %p= button_tag t('system.update'), :accept, :class => 'positive', :tabindex => 10
+
