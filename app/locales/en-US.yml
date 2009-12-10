@@ -171,7 +171,6 @@ en-US:
       password_updated: "Password successfully updated"
       problem_loading_user: "We're sorry, but we could not locate your account. If you are having issues try copying and pasting the URL from your email into your browser or restarting the reset password process."
       email_subject: "Password Reset Instructions"
-      email_from: "Simple Scrum"
       email_message_before_link: "A request to reset your password has been made. If you did not make this request, simply ignore this email. If you did make this request just click the link below:"
       email_message_after_link: "If the above URL does not work try copying and pasting it into your browser."
 
