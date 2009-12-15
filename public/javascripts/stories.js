@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    prepareAjax({formCallback: formSpecifics});
+    formSpecifics();
 });
 
 function formSpecifics() {
