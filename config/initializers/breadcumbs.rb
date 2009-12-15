@@ -38,7 +38,9 @@ Breadcrumb.configure do
     trail :products, :index, root
     trail :products, :show, root + [:product_show]
     trail :products, :new,  root + [:product_new]
+    trail :products, :create,  root + [:product_new]
     trail :products, :edit, root + [:product_edit]
+    trail :products, :update, root + [:product_edit]
   end
 
   context 'stories controller' do
@@ -47,7 +49,9 @@ Breadcrumb.configure do
     trail :stories, :index, controller_root
     trail :stories, :show,  controller_root + [:story_show]
     trail :stories, :new,   controller_root + [:story_new]
+    trail :stories, :create,   controller_root + [:story_new]
     trail :stories, :edit,  controller_root + [:story_edit]
+    trail :stories, :update,  controller_root + [:story_edit]
   end
 
   context 'sprints controller' do
@@ -56,7 +60,9 @@ Breadcrumb.configure do
     trail :sprints, :index, controller_root
     trail :sprints, :show,  controller_root + [:sprint_show]
     trail :sprints, :new,   controller_root + [:sprint_new]
+    trail :sprints, :create,   controller_root + [:sprint_new]
     trail :sprints, :edit,  controller_root + [:sprint_edit]
+    trail :sprints, :update,  controller_root + [:sprint_edit]
   end
 
   context 'taskks controller' do
@@ -64,7 +70,9 @@ Breadcrumb.configure do
 
     trail :taskks, :show,  controller_root + [:task_show]
     trail :taskks, :new,   controller_root + [:task_new]
+    trail :taskks, :create,   controller_root + [:task_new]
     trail :taskks, :edit,  controller_root + [:task_edit]
+    trail :taskks, :update,  controller_root + [:task_edit]
   end
 
   context 'users controller' do
@@ -73,7 +81,9 @@ Breadcrumb.configure do
     trail :users, :index, controller_root
     trail :users, :show, controller_root + [:user_show]
     trail :users, :new,  controller_root + [:user_new]
+    trail :users, :create,  controller_root + [:user_new]
     trail :users, :edit, controller_root + [:user_edit]
+    trail :users, :update, controller_root + [:user_edit]
   end
 
   context 'searches controller' do
@@ -85,5 +95,6 @@ Breadcrumb.configure do
   end
 
   delimit_with "|"
+  dont_link_last_crumb
 end
 
