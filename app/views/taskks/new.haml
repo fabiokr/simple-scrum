@@ -1,4 +1,4 @@
-- form_for [@product, @sprint, @task] do |f|
+- form_for [@product, @sprint, @task], :url => product_sprint_taskks_path(@product.slug, @sprint) do |f|
   %fieldset
     %legend= t('app.taskks.new')
     = render :partial => 'taskks/form', :locals => { :f => f }

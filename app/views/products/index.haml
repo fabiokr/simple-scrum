@@ -19,7 +19,7 @@
         %td= h product.owner
         %td= h product.created_at.to_formatted_s(:short)
         %td= h product.updated_at.to_formatted_s(:short)
-        %td= show_link product_path(product)
+        %td= show_link product_path(product.slug)
         %td= edit_link edit_product_path(product)
         %td= delete_link product_path(product)
 = will_paginate @products

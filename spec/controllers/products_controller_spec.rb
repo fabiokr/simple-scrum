@@ -2,12 +2,12 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ProductsController, 'routes' do
   should_route :get, '/products', :controller => :products, :action => :index
-  should_route :get, '/products/1', :controller => :products, :action => :show, :id => 1
+  should_route :get, '/products/abc', :controller => :products, :action => :show, :id => 'abc'
   should_route :get, '/products/new', :controller => :products, :action => :new
-  should_route :get, '/products/1/edit', :controller => :products, :action => :edit, :id => 1
+  should_route :get, '/products/1/edit', :controller => :products, :action => :edit, :id => '1'
   should_route :post, '/products', :controller => :products, :action => :create
-  should_route :put, '/products/1', :controller => :products, :action => :update, :id => 1
-  should_route :delete, '/products/1', :controller => :products, :action => :destroy, :id => 1
+  should_route :put, '/products/1', :controller => :products, :action => :update, :id => '1'
+  should_route :delete, '/products/1', :controller => :products, :action => :destroy, :id => '1'
 end
 
 describe ProductsController do
@@ -73,7 +73,7 @@ describe ProductsController do
     stories = [Factory(:story, :product => @product), Factory(:story, :product => @product)]
     sprints = [Factory(:sprint, :product => @product), Factory(:sprint, :product => @product)]
 
-    get :show, :id => @product.id
+    get :show, :id => @product.slug
 
     assigns(:product).should == @product
     assigns(:stories).should == stories
@@ -97,7 +97,7 @@ describe ProductsController do
     post :create, :product => @product.attributes
 
     assigns(:product).should == Product.find(assigns(:product).id)
-    response.should render_template('edit')
+    response.should redirect_to(edit_product_path(assigns(:product)))
     flash[:message].should_not be_nil
   end
 
@@ -113,7 +113,7 @@ describe ProductsController do
     post :update, :id => @product.id, :product => @product.attributes
 
     Product.find(assigns(:product).id).name.should == @product.name
-    response.should render_template('edit')
+    response.should redirect_to(edit_product_path(assigns(:product)))
     flash[:message].should_not be_nil
   end
 

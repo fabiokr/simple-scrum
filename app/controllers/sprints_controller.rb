@@ -57,7 +57,7 @@ class SprintsController < ApplicationController
     respond_to do |format|
       if @sprint.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.sprint'))
-        format.html { render :action => 'edit' }
+        format.html { redirect_to(edit_product_sprint_path(@product.slug, @sprint)) }
       else
         format.html { render :action => "new" }
       end
@@ -71,7 +71,7 @@ class SprintsController < ApplicationController
     respond_to do |format|
       if @sprint.update_attributes(params[:sprint])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.sprint'))
-        format.html { render :action => 'edit' }
+        format.html { redirect_to(edit_product_sprint_path(@product.slug, @sprint)) }
       else
         format.html { render :action => "edit" }
       end
@@ -89,7 +89,7 @@ class SprintsController < ApplicationController
       render :nothing => true
     else
       respond_to do |format|
-        format.html { redirect_to(product_sprints_url(@product)) }
+        format.html { redirect_to(product_sprints_path(@product.slug)) }
       end
     end
   end
@@ -97,7 +97,7 @@ class SprintsController < ApplicationController
   private
 
   def get_product
-    @product = Product.find(params[:product_id])
+    @product = Product.find_by_slug(params[:product_id])
   end
 
 end

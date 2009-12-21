@@ -22,11 +22,20 @@ describe Product do
     @product.should be_valid
   end
 
-  it { should have_db_columns :id, :name, :owner, :created_at, :updated_at, :creator_id, :updater_id }
+  it { should have_db_columns :id, :name, :owner, :slug, :created_at, :updated_at, :creator_id, :updater_id }
   it { should validate_length_of(:name, :owner, :within => 1..60) }
   it { should belong_to :creator }
   it { should belong_to :updater }
   it { should have_many :stories, :dependent => :destroy }
   it { should have_many :sprints, :dependent => :destroy }
+  it { should validate_uniqueness_of :name }
+  it { should validate_uniqueness_of :slug }
+
+  it 'should create the slug based on the product name on save' do
+    @product = Factory.build(:product)
+    @product.name = 'My Product'
+    @product.save!
+    @product.slug.should == 'my-product'
+  end
 end
 

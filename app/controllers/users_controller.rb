@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.user'))
-        format.html { redirect_to(users_url) }
+        format.html { redirect_to(users_path) }
       else
         format.html { render :action => "new" }
       end
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.user'))
-        format.html { redirect_to(users_url) }
+        format.html { redirect_to(users_path) }
       else
         format.html { render :action => "edit" }
       end
@@ -71,7 +71,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       flash[:message] = msg
-      format.html { redirect_to(users_url) }
+      format.html { redirect_to(users_path) }
     end
   end
 end

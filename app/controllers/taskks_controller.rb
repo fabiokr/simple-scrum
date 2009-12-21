@@ -35,7 +35,7 @@ class TaskksController < ApplicationController
     respond_to do |format|
       if @task.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.taskk'))
-        format.html { render :action => 'edit' }
+        format.html { redirect_to(edit_product_sprint_taskk_path(@product.slug, @sprint, @task)) }
       else
         format.html { render :action => "new" }
       end
@@ -48,9 +48,10 @@ class TaskksController < ApplicationController
     respond_to do |format|
       if @task.update_attributes(params[:taskk])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.taskk'))
+        format.html { redirect_to(edit_product_sprint_taskk_path(@product.slug, @sprint, @task)) }
+      else
+        format.html { render :action => "edit" }
       end
-
-      format.html { render :action => "edit" }
     end
   end
 
@@ -64,7 +65,7 @@ class TaskksController < ApplicationController
       render :nothing => true
     else
       respond_to do |format|
-        format.html { redirect_to(product_sprint_url(@product, @sprint)) }
+        format.html { redirect_to(product_sprint_path(@product.slug, @sprint)) }
       end
     end
   end
@@ -72,7 +73,7 @@ class TaskksController < ApplicationController
   private
 
   def get_product_and_sprint
-    @product = Product.find(params[:product_id])
+    @product = Product.find_by_slug(params[:product_id])
     @sprint = @product.sprints.find(params[:sprint_id])
   end
 

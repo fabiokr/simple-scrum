@@ -29,53 +29,53 @@ describe SprintsController do
   it "should require user" do
     UserSession.find.destroy
 
-    get :index, :product_id => @product.id
+    get :index, :product_id => @product.slug
     response.should redirect_to(new_session_path)
 
-    get :show, :product_id => @product.id, :id => @sprint.id
+    get :show, :product_id => @product.slug, :id => @sprint.id
     response.should redirect_to(new_session_path)
 
-    get :new, :product_id => @product.id
+    get :new, :product_id => @product.slug
     response.should redirect_to(new_session_path)
 
-    get :edit, :product_id => @product.id, :id => @sprint.id
+    get :edit, :product_id => @product.slug, :id => @sprint.id
     response.should redirect_to(new_session_path)
 
     sprint = Factory.build(:sprint)
-    post :create, :product_id => @product.id, :sprint => sprint.attributes
+    post :create, :product_id => @product.slug, :sprint => sprint.attributes
     response.should redirect_to(new_session_path)
 
     @sprint.name = 'new name'
-    post :update, :product_id => @product.id, :id => @sprint.id, :sprint => @sprint.attributes
+    post :update, :product_id => @product.slug, :id => @sprint.id, :sprint => @sprint.attributes
     response.should redirect_to(new_session_path)
 
-    get :destroy, :product_id => @product.id, :id => @sprint.id
+    get :destroy, :product_id => @product.slug, :id => @sprint.id
     response.should redirect_to(new_session_path)
   end
 
   it "should user stamp the sprint on create and update" do
     sprint = Factory.build(:sprint)
-    post :create, :product_id => @product.id, :sprint => sprint.attributes
+    post :create, :product_id => @product.slug, :sprint => sprint.attributes
     assigns(:sprint).creator_id.should == @user.id
     assigns(:sprint).updater_id.should == @user.id
 
     user = Factory(:user)
     sprint = Factory(:sprint, :product => @product, :creator => user, :updater => user)
 
-    post :update, :product_id => @product.id, :id => sprint.id, :sprint => {:name => 'new name'}
+    post :update, :product_id => @product.slug, :id => sprint.id, :sprint => {:name => 'new name'}
     assigns(:sprint).creator_id.should == user.id
     assigns(:sprint).updater_id.should == @user.id
   end
 
   it "should list sprints on :index" do
-    get :index, :product_id => @product.id
+    get :index, :product_id => @product.slug
 
     assigns(:search).should_not be_nil
     assigns(:sprints).should include(@sprint)
   end
 
   it "should assign sprint on :show" do
-    get :show, :product_id => @product.id, :id => @sprint.id
+    get :show, :product_id => @product.slug, :id => @sprint.id
 
     assigns(:sprint).should == @sprint
   end
@@ -88,66 +88,66 @@ describe SprintsController do
       Factory(:sprint, :start => (t-10).days.since.to_date, :end => t.days.since.to_date)
     end
 
-    get :show, :product_id => @product.id, :id => @sprint.id
+    get :show, :product_id => @product.slug, :id => @sprint.id
 
     assigns(:product_sprints).size.should == 5
     assigns(:all_products_sprints).size.should == 10
   end
 
   it "should assign a new sprint on :new" do
-    get :new, :product_id => @product.id
+    get :new, :product_id => @product.slug
 
     assigns(:sprint).should be_new_record
   end
 
   it "should assign sprint on :edit" do
-    get :edit, :product_id => @product.id, :id => @sprint.id
+    get :edit, :product_id => @product.slug, :id => @sprint.id
 
     assigns(:sprint).should == @sprint
   end
 
   it "should add new sprint on :create" do
     @sprint = Factory.build(:sprint)
-    post :create, :product_id => @product.id, :sprint => @sprint.attributes
+    post :create, :product_id => @product.slug, :sprint => @sprint.attributes
 
     assigns(:sprint).should == Sprint.find(assigns(:sprint).id)
-    response.should render_template('edit')
+    response.should redirect_to(edit_product_sprint_path(@product.slug, assigns(:sprint)))
     flash[:message].should_not be_nil
   end
 
   it "should re-render new when invalid on :create" do
     @sprint = Factory.build(:sprint, :name => nil)
-    post :create, :product_id => @product.id, :sprint => @sprint.attributes
+    post :create, :product_id => @product.slug, :sprint => @sprint.attributes
 
     response.should render_template('new')
   end
 
   it "should save sprint on :update" do
     @sprint.name = 'new name'
-    post :update, :product_id => @product.id, :id => @sprint.id, :sprint => @sprint.attributes
+    post :update, :product_id => @product.slug, :id => @sprint.id, :sprint => @sprint.attributes
 
     Sprint.find(assigns(:sprint).id).name.should == @sprint.name
-    response.should render_template('edit')
+    redirect_to(edit_product_story_path(@product.slug, @sprint))
     flash[:message].should_not be_nil
   end
 
   it "should re-render edit when invalid on :update" do
     @sprint.name = nil
-    post :update, :product_id => @product.id, :id => @sprint.id, :sprint => @sprint.attributes
+    post :update, :product_id => @product.slug, :id => @sprint.id, :sprint => @sprint.attributes
 
     response.should render_template('edit')
   end
 
   it "should delete sprint on :destroy" do
-    get :destroy, :product_id => @product.id, :id => @sprint.id
+    get :destroy, :product_id => @product.slug, :id => @sprint.id
 
     lambda { Sprint.find(@sprint.id) }.should raise_error
-    response.should redirect_to(product_sprints_path(@product))
+    response.should redirect_to(product_sprints_path(@product.slug))
     flash[:message].should_not be_nil
   end
 
   it "should delete sprint on :destroy and set header to ok if xhr" do
-    xhr 'get', :destroy, :product_id => @product.id, :id => @sprint.id
+    xhr 'get', :destroy, :product_id => @product.slug, :id => @sprint.id
 
     lambda { Sprint.find(@sprint.id) }.should raise_error
     response.should_not render_template

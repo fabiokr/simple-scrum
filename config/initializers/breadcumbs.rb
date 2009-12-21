@@ -2,30 +2,30 @@ Breadcrumb.configure do
 
   #Crumbs
   crumb :user_index, '#{t("app.users.index")}', :users_url
-  crumb :user_show, '#{@user.login}', :user_url, :user
+  crumb :user_show, '#{@user.login}', :user_url, '@user'
   crumb :user_new, '#{t("app.users.new")}', :new_user_url
-  crumb :user_edit, '#{t("app.users.edit")}', :user_url, :user
+  crumb :user_edit, '#{t("app.users.edit")}', :user_url, '@user'
 
   crumb :product_index, '#{t("app.products.index")}', :products_url
-  crumb :product_show, '#{@product.name}', :product_url, :product
+  crumb :product_show, '#{@product.name}', :product_url, '@product.slug'
   crumb :product_new, '#{t("app.products.new")}', :new_product_url
-  crumb :product_edit, '#{t("app.products.edit")}', :product_url, :product
+  crumb :product_edit, '#{t("app.products.edit")}', :product_url, '@product'
 
-  crumb :story_index, '#{t("app.stories.index")}', :product_stories_url, :product
-  crumb :story_show, '#{t("app.stories.show")}', :product_story_url, :product, :story
-  crumb :story_new, '#{t("app.stories.new")}', :new_product_story_url, :product
-  crumb :story_edit, '#{t("app.stories.edit")}', :edit_product_story_url, :product, :story
+  crumb :story_index, '#{t("app.stories.index")}', :product_stories_url, '@product.slug'
+  crumb :story_show, '#{t("app.stories.show")}', :product_story_url, '@product.slug', '@story.id'
+  crumb :story_new, '#{t("app.stories.new")}', :new_product_story_url, '@product.slug'
+  crumb :story_edit, '#{t("app.stories.edit")}', :edit_product_story_url, '@product.slug', '@story.id'
 
-  crumb :sprint_index, '#{t("app.sprints.index")}', :product_sprints_url, :product
-  crumb :sprint_show, '#{@sprint.name}', :product_sprint_url, :product, :sprint
-  crumb :sprint_new, '#{t("app.sprints.new")}', :new_product_sprint_url, :product
-  crumb :sprint_edit, '#{t("app.sprints.edit")}', :edit_product_sprint_url, :product, :sprint
+  crumb :sprint_index, '#{t("app.sprints.index")}', :product_sprints_url, '@product.slug'
+  crumb :sprint_show, '#{@sprint.name}', :product_sprint_url, '@product.slug', '@sprint.id'
+  crumb :sprint_new, '#{t("app.sprints.new")}', :new_product_sprint_url, '@product.slug'
+  crumb :sprint_edit, '#{t("app.sprints.edit")}', :edit_product_sprint_url, '@product.slug', '@sprint.id'
 
-  crumb :task_show, '#{t("app.taskks.show")}', :product_sprint_taskk_url, :product, :sprint, :task
-  crumb :task_new, '#{t("app.taskks.new")}', :new_product_sprint_taskk_url, :product, :sprint
-  crumb :task_edit, '#{t("app.taskks.edit")}', :edit_product_sprint_taskk_url, :product, :sprint, :task
+  crumb :task_show, '#{t("app.taskks.show")}', :product_sprint_taskk_url, '@product.slug', '@sprint.id', '@task.id'
+  crumb :task_new, '#{t("app.taskks.new")}', :new_product_sprint_taskk_url, '@product.slug', '@sprint.id'
+  crumb :task_edit, '#{t("app.taskks.edit")}', :edit_product_sprint_taskk_url, '@product.slug', '@sprint.id', '@task.id'
 
-  crumb :search_show, '#{t("system.search_legend")}', :search_path
+  crumb :search_show, '#{t("system.search_legend")}', :search_url
   crumb :search_back, '#{t("app.searches.back")}', :back_url
 
   crumb :settings_edit, '#{t("app.settings.edit")}', :edit_settings_url

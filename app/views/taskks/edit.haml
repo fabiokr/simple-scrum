@@ -1,5 +1,5 @@
-= new_link(new_product_sprint_taskk_path(@product, @sprint, {:story_id => @task.story_id}), t('app.taskks.new'))
-- form_for [@product, @sprint, @task] do |f|
+= new_link(new_product_sprint_taskk_path(@product.slug, @sprint, {:story_id => @task.story_id}), t('app.taskks.new'))
+- form_for [@product, @sprint, @task], :url => product_sprint_taskk_path(@product.slug, @sprint, @task) do |f|
   %fieldset
     %legend= t('app.taskks.edit')
     = render :partial => 'taskks/form', :locals => { :f => f }

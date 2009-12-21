@@ -20,7 +20,7 @@
         %td
           %div{:class => 'color', :style => "background-color:#{story.color}"}
         %td= h story.updated_at.to_formatted_s(:short)
-        %td= show_link product_story_path(@product, story)
-        %td= edit_link edit_product_story_path(@product, story)
-        %td= delete_link product_story_path(@product, story)
+        %td= show_link product_story_path(@product.slug, story)
+        %td= edit_link edit_product_story_path(@product.slug, story)
+        %td= delete_link product_story_path(@product.slug, story)
 

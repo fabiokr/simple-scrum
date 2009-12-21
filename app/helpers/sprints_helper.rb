@@ -3,7 +3,7 @@ module SprintsHelper
   def print_story(story)
     html = ''
     html << content_tag('div', "#{truncate story.name} (#{story.estimative})", :class => 'name')
-    html << content_tag('div', "#{show_link(product_story_path(@product, story))}#{edit_link(edit_product_story_path(@product, story))}#{delete_link(product_story_path(@product, story))}", :class => 'links')
+    html << content_tag('div', "#{show_link(product_story_path(@product.slug, story))}#{edit_link(edit_product_story_path(@product.slug, story))}#{delete_link(product_story_path(@product.slug, story))}", :class => 'links')
     postit(html, 'story', story.color)
   end
 
@@ -13,7 +13,7 @@ module SprintsHelper
       task_html = ''
       task_html << to_previous_state(task)
       task_html << content_tag('div', "#{truncate task.name} (#{task.estimative}) #{(task.unplanned? && icon(:exclamation, :alt => t('activerecord.attributes.taskk.unplanned'), :title => t('activerecord.attributes.taskk.unplanned'))) || ''}", :class => 'name')
-      task_html << content_tag('div', "#{show_link(product_sprint_taskk_path(@product, @sprint, task))}#{edit_link(edit_product_sprint_taskk_path(@product, @sprint, task))}#{delete_link(product_sprint_taskk_path(@product, @sprint, task))}", :class => 'links')
+      task_html << content_tag('div', "#{show_link(product_sprint_taskk_path(@product.slug, @sprint, task))}#{edit_link(edit_product_sprint_taskk_path(@product.slug, @sprint, task))}#{delete_link(product_sprint_taskk_path(@product.slug, @sprint, task))}", :class => 'links')
       task_html << to_next_state(task)
       html << postit(task_html, 'task', task.story.color)
     end
@@ -39,7 +39,6 @@ module SprintsHelper
       ),
       :alt => t('app.sprints.burndown_chart')
     )
-
   end
 
   private
@@ -67,7 +66,7 @@ module SprintsHelper
   end
 
   def change_state_form(task, status, label, icon)
-    html_options = html_options_for_form(product_sprint_taskk_path(task.sprint.product, task.sprint, task),{})
+    html_options = html_options_for_form(product_sprint_taskk_path(task.sprint.product.slug, task.sprint, task),{})
     form = ''
     form = content_tag('form', :action => html_options['action'], :method => 'post', :class => 'changeState') do
       content = ''

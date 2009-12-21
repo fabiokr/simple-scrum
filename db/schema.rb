@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091207104438) do
+ActiveRecord::Schema.define(:version => 20091216125726) do
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -18,12 +18,14 @@ ActiveRecord::Schema.define(:version => 20091207104438) do
     t.datetime "updated_at"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.string   "slug"
   end
 
   add_index "products", ["created_at"], :name => "index_products_on_created_at"
   add_index "products", ["creator_id"], :name => "index_products_on_creator_id"
   add_index "products", ["name"], :name => "index_products_on_name"
   add_index "products", ["owner"], :name => "index_products_on_owner"
+  add_index "products", ["slug"], :name => "index_products_on_slug"
   add_index "products", ["updated_at"], :name => "index_products_on_updated_at"
   add_index "products", ["updater_id"], :name => "index_products_on_updater_id"
 

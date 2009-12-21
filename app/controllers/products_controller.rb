@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
-    @product = Product.find(params[:id])
+    @product = Product.find_by_slug(params[:id])
     @stories = @product.stories.descend_by_updated_at.paginate(:page => 1)
     @sprints = @product.sprints.descend_by_updated_at.paginate(:page => 1)
 
@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.product'))
-        format.html { render :action => 'edit' }
+        format.html { redirect_to(edit_product_path(@product)) }
       else
         format.html { render :action => "new" }
       end
@@ -65,9 +65,10 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.update_attributes(params[:product])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.product'))
+        format.html { redirect_to(edit_product_path(@product)) }
+      else
+        format.html { render :action => "edit" }
       end
-
-      format.html { render :action => "edit" }
     end
   end
 
@@ -83,7 +84,7 @@ class ProductsController < ApplicationController
       render :nothing => true
     else
       respond_to do |format|
-        format.html { redirect_to(products_url) }
+        format.html { redirect_to(products_path) }
       end
     end
   end

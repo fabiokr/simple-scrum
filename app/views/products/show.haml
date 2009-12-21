@@ -1,13 +1,13 @@
 %h2= "#{@product.name} (#{t('activerecord.attributes.product.owner')}: #{@product.owner})"
 %div{:class => 'left'}
   %h3
-    =link_to("#{t('app.stories.index')} (#{t('app.products.view_all')})", product_stories_path(@product))
+    =link_to("#{t('app.stories.index')} (#{t('app.products.view_all')})", product_stories_path(@product.slug))
   %ul
     - @stories.each do |story|
       %li= story.name
 %div{:class => 'left'}
   %h3
-    =link_to("#{t('app.sprints.index')} (#{t('app.products.view_all')})", product_sprints_path(@product))
+    =link_to("#{t('app.sprints.index')} (#{t('app.products.view_all')})", product_sprints_path(@product.slug))
   %ul
     - @sprints.each do |sprint|
       %li= sprint.name

@@ -1,5 +1,5 @@
-= new_link(new_product_story_path(@product), t('app.stories.new'))
-- form_for [@product, @story] do |f|
+= new_link(new_product_story_path(@product.slug), t('app.stories.new'))
+- form_for [@product, @story], :url => product_story_path(@product.slug, @story) do |f|
   %fieldset
     %legend= t('app.stories.edit')
     = render :partial => 'stories/form', :locals => { :f => f }

@@ -54,7 +54,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story.save
         flash[:message] = t('system.successfully_created', :model => t('activerecord.models.story'))
-        format.html { render :action => 'edit' }
+        format.html { redirect_to(edit_product_story_path(@product.slug, @story)) }
       else
         format.html { render :action => "new" }
       end
@@ -68,9 +68,10 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story.update_attributes(params[:story])
         flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.story'))
+        format.html { redirect_to(edit_product_story_path(@product.slug, @story)) }
+      else
+        format.html { render :action => "edit" }
       end
-
-      format.html { render :action => "edit" }
     end
   end
 
@@ -85,7 +86,7 @@ class StoriesController < ApplicationController
       render :nothing => true
     else
       respond_to do |format|
-        format.html { redirect_to(product_stories_url(@product)) }
+        format.html { redirect_to(product_stories_path(@product.slug)) }
       end
     end
 
@@ -94,7 +95,7 @@ class StoriesController < ApplicationController
   private
 
   def get_product
-    @product = Product.find(params[:product_id])
+    @product = Product.find_by_slug(params[:product_id])
   end
 
 end
