@@ -192,12 +192,14 @@ pt-BR:
     back: 'voltar'
     confirm: 'Tem certeza?'
     found_registries: "{{count}} registro(s) encontrado(s)"
+    n_of_total_found_registries: "{{n}} de {{count}} registro(s) encontrado(s)"
     no_registries_found: "Nenhum registro encontrado"
     successfully_created: "{{model}} criado"
     successfully_updated: "{{model}} atualizado"
     successfully_destroyed: "{{model}} removido"
     previous_label: '&laquo; Anterior'
     next_label: 'Próximo &raquo;'
+    view_all: "ver todos"
   app:
     name: 'Simple-SCRUM'
     home: 'Início'
@@ -236,7 +238,6 @@ pt-BR:
         show: "Painél de produtos"
         new: "Novo produto"
         edit: "Editar produto"
-        view_all: "visualizar todos"
     stories:
         index: "Backlog do produto"
         show: "Estória"

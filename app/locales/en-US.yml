@@ -86,12 +86,14 @@ en-US:
     back: 'back'
     confirm: 'Are you sure?'
     found_registries: "{{count}} registries found"
+    n_of_total_found_registries: "{{n}} of {{count}} registries found"
     no_registries_found: "No registry found"
     successfully_created: "{{model}} created"
     successfully_updated: "{{model}} updated"
     successfully_destroyed: "{{model}} deleted"
     previous_label: '&laquo; Previous'
     next_label: 'Next &raquo;'
+    view_all: "view all"
   app:
     name: 'Simple-SCRUM'
     home: 'Home'
@@ -130,7 +132,6 @@ en-US:
       show: "Product Dashboard"
       new: "New Product"
       edit: "Editing Product"
-      view_all: "view all"
     stories:
       index: "Product Backlog"
       show: "Story"

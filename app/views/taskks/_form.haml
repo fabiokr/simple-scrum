@@ -1,7 +1,7 @@
 = f.error_messages form_errors_class
 = f.label :story_id
 %br
-= f.select(:story_id, @product.stories.all.collect {|s| [ s.name, s.id ] }, { :include_blank => true }, :tabindex => 1)
+= f.select(:story_id, @product.stories.all(:order => 'name').collect {|s| [ s.name, s.id ] }, { :include_blank => true }, :tabindex => 1)
 %br
 = f.label :status
 %br

@@ -1,14 +1,41 @@
 %h2= "#{@product.name} (#{t('activerecord.attributes.product.owner')}: #{@product.owner})"
-%div{:class => 'left'}
-  %h3
-    =link_to("#{t('app.stories.index')} (#{t('app.products.view_all')})", product_stories_path(@product.slug))
-  %ul
-    - @stories.each do |story|
-      %li= story.name
-%div{:class => 'left'}
-  %h3
-    =link_to("#{t('app.sprints.index')} (#{t('app.products.view_all')})", product_sprints_path(@product.slug))
-  %ul
-    - @sprints.each do |sprint|
-      %li= sprint.name
+%div{:id => 'sprints', :class => 'span-10'}
+  %table{:class => 'dataList'}
+    %caption
+      ="#{t('app.sprints.index')} - #{t('system.n_of_total_found_registries', :n => @sprints.size, :count => @sprints.total_entries)} (#{link_to(t('system.view_all'), product_sprints_url(@product.slug))})"
+    %thead
+      %tr
+        %th= t('activerecord.models.sprint')
+        %th
+        %th
+        %th
+    %tbody
+      - @sprints.each do |sprint|
+        %tr{:sprint_id => sprint.id}
+          %td= sprint.name
+          %td= show_link product_sprint_path(@product.slug, sprint)
+          %td= edit_link edit_product_sprint_path(@product.slug, sprint)
+          %td= delete_link product_sprint_path(@product.slug, sprint)
+
+%div{:id => 'stories', :class => 'span-14 last'}
+  %table{:class => 'dataList'}
+    %caption
+      ="#{t('app.stories.index')} - #{t('system.n_of_total_found_registries', :n => @stories.size, :count => @stories.total_entries)} (#{link_to(t('system.view_all'), product_stories_url(@product.slug))})"
+    %thead
+      %tr
+        %th= t('activerecord.attributes.story.priority')
+        %th= t('activerecord.attributes.story.estimative')
+        %th= t('activerecord.models.story')
+        %th
+        %th
+        %th
+    %tbody
+      - @stories.each do |story|
+        %tr{:story_id => story.id}
+          %td= story.priority
+          %td= story.estimative
+          %td= story.name
+          %td= show_link product_story_path(@product.slug, story)
+          %td= edit_link edit_product_story_path(@product.slug, story)
+          %td= delete_link product_story_path(@product.slug, story)
 
