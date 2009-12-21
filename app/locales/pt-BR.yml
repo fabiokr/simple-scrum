@@ -200,6 +200,7 @@ pt-BR:
     previous_label: '&laquo; Anterior'
     next_label: 'Próximo &raquo;'
     view_all: "ver todos"
+    license: "Distribuído sob a licensa {{license}}"
   app:
     name: 'Simple-SCRUM'
     home: 'Início'

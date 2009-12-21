@@ -94,6 +94,7 @@ en-US:
     previous_label: '&laquo; Previous'
     next_label: 'Next &raquo;'
     view_all: "view all"
+    license: "Released under the {{license}} license"
   app:
     name: 'Simple-SCRUM'
     home: 'Home'
