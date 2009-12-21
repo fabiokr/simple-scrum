@@ -6,4 +6,4 @@ public/stylesheets/compiled
 public/stylesheets/cache
 public/javascripts/cache
 coverage
-
+db/schema.rb
