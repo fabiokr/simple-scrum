@@ -23,7 +23,7 @@ class Sprint < ActiveRecord::Base
   before_save :set_velocity_and_estimated_velocity
 
   belongs_to :product
-  has_many :tasks, :class_name => 'Taskk', :dependent => :destroy
+  has_many :tasks, :dependent => :destroy
 
   validates_presence_of :product_id
   validates_length_of :name, :in => 1..60
@@ -110,7 +110,7 @@ class Sprint < ActiveRecord::Base
     stories_end = {}
     self.group_tasks_by_story.each do |story, tasks|
       story_ended = true
-      tasks.each {|task| story_ended = false if task.status != Taskk::DONE}
+      tasks.each {|task| story_ended = false if task.status != Task::DONE}
 
       if story_ended
         date = (tasks.sort_by {|task| task.status_changed_at}).last.status_changed_at.to_date

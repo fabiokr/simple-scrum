@@ -17,7 +17,7 @@
 #  updater_id        :integer
 #
 
-class Taskk < ActiveRecord::Base
+class Task < ActiveRecord::Base
   stampable
 
   set_table_name 'tasks'

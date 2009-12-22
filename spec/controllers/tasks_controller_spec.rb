@@ -1,15 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe TaskksController, 'routes' do
-  should_route :get, '/products/1/sprints/1/taskks/1', :controller => :taskks, :action => :show, :id => 1, :product_id => 1, :sprint_id => 1
-  should_route :get, '/products/1/sprints/1/taskks/new', :controller => :taskks, :action => :new, :product_id => 1, :sprint_id => 1
-  should_route :get, '/products/1/sprints/1/taskks/1/edit', :controller => :taskks, :action => :edit, :id => 1, :product_id => 1, :sprint_id => 1
-  should_route :post, '/products/1/sprints/1/taskks', :controller => :taskks, :action => :create, :product_id => 1, :sprint_id => 1
-  should_route :put, '/products/1/sprints/1/taskks/1', :controller => :taskks, :action => :update, :id => 1, :product_id => 1, :sprint_id => 1
-  should_route :delete, '/products/1/sprints/1/taskks/1', :controller => :taskks, :action => :destroy, :id => 1, :product_id => 1, :sprint_id => 1
+describe TasksController, 'routes' do
+  should_route :get, '/products/1/sprints/1/tasks/1', :controller => :tasks, :action => :show, :id => 1, :product_id => 1, :sprint_id => 1
+  should_route :get, '/products/1/sprints/1/tasks/new', :controller => :tasks, :action => :new, :product_id => 1, :sprint_id => 1
+  should_route :get, '/products/1/sprints/1/tasks/1/edit', :controller => :tasks, :action => :edit, :id => 1, :product_id => 1, :sprint_id => 1
+  should_route :post, '/products/1/sprints/1/tasks', :controller => :tasks, :action => :create, :product_id => 1, :sprint_id => 1
+  should_route :put, '/products/1/sprints/1/tasks/1', :controller => :tasks, :action => :update, :id => 1, :product_id => 1, :sprint_id => 1
+  should_route :delete, '/products/1/sprints/1/tasks/1', :controller => :tasks, :action => :destroy, :id => 1, :product_id => 1, :sprint_id => 1
 end
 
-describe TaskksController do
+describe TasksController do
 
   integrate_views
 
@@ -40,11 +40,11 @@ describe TaskksController do
     response.should redirect_to(new_session_path)
 
     task = Factory.build(:task)
-    post :create, :product_id => @product.slug, :sprint_id => @sprint.id, :taskk => task.attributes
+    post :create, :product_id => @product.slug, :sprint_id => @sprint.id, :task => task.attributes
     response.should redirect_to(new_session_path)
 
     @task.name = 'new name'
-    post :update, :product_id => @product.slug, :sprint_id => @sprint.id, :id => @task.id, :taskk => @task.attributes
+    post :update, :product_id => @product.slug, :sprint_id => @sprint.id, :id => @task.id, :task => @task.attributes
     response.should redirect_to(new_session_path)
 
     get :destroy, :product_id => @product.slug, :sprint_id => @sprint.id, :id => @task.id
@@ -85,33 +85,33 @@ describe TaskksController do
 
   it "should add new task on :create" do
     @task = Factory.build(:task)
-    post :create, :product_id => @product.slug, :sprint_id => @sprint.id, :taskk => @task.attributes
+    post :create, :product_id => @product.slug, :sprint_id => @sprint.id, :task => @task.attributes
 
-    assigns(:task).should == Taskk.find(assigns(:task).id)
-    response.should redirect_to(edit_product_sprint_taskk_path(@product.slug, @sprint, assigns(:task)))
+    assigns(:task).should == Task.find(assigns(:task).id)
+    response.should redirect_to(edit_product_sprint_task_path(@product.slug, @sprint, assigns(:task)))
     flash[:message].should_not be_nil
   end
 
   it "should re-render new when invalid on :create" do
 
     @task = Factory.build(:task, :name => nil)
-    post :create, :product_id => @product.slug, :sprint_id => @sprint.id, :taskk => @task.attributes
+    post :create, :product_id => @product.slug, :sprint_id => @sprint.id, :task => @task.attributes
 
     response.should render_template('new')
   end
 
   it "should save task on :update" do
     @task.name = 'new name'
-    post :update, :product_id => @product.slug, :sprint_id => @sprint.id, :id => @task.id, :taskk => @task.attributes
+    post :update, :product_id => @product.slug, :sprint_id => @sprint.id, :id => @task.id, :task => @task.attributes
 
-    Taskk.find(@task.id).name.should == @task.name
-    response.should redirect_to(edit_product_sprint_taskk_path(@product.slug, @sprint, @task))
+    Task.find(@task.id).name.should == @task.name
+    response.should redirect_to(edit_product_sprint_task_path(@product.slug, @sprint, @task))
     flash[:message].should_not be_nil
   end
 
   it "should re-render edit when invalid on :update" do
     @task.name = nil
-    post :update, :product_id => @product.slug, :sprint_id => @sprint.id, :id => @task.id, :taskk => @task.attributes
+    post :update, :product_id => @product.slug, :sprint_id => @sprint.id, :id => @task.id, :task => @task.attributes
 
     response.should render_template('edit')
   end
@@ -119,7 +119,7 @@ describe TaskksController do
   it "should delete task on :destroy" do
     get :destroy, :product_id => @product.slug, :sprint_id => @sprint.id, :id => @task.id
 
-    lambda { Taskk.find(@task.id) }.should raise_error
+    lambda { Task.find(@task.id) }.should raise_error
     response.should redirect_to(product_sprint_path(@product.slug, @sprint))
     flash[:message].should_not be_nil
   end
@@ -127,7 +127,7 @@ describe TaskksController do
   it "should delete task on :destroy and set header to ok if xhr" do
     xhr 'get', :destroy, :product_id => @product.slug, :sprint_id => @sprint.id, :id => @task.id
 
-    lambda { Taskk.find(@task.id) }.should raise_error
+    lambda { Task.find(@task.id) }.should raise_error
     response.should_not render_template
     flash[:message].should_not be_nil
   end

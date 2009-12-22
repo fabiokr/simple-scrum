@@ -28,7 +28,7 @@
           - if printed_story == false
             %td{:rowspan => tasks.size}= print_story(story)
             - printed_story = true
-          %td= print_task(task, Taskk::TODO)
-          %td= print_task(task, Taskk::DOING)
-          %td= print_task(task, Taskk::DONE)
+          %td= print_task(task, Task::TODO)
+          %td= print_task(task, Task::DOING)
+          %td= print_task(task, Task::DONE)
 

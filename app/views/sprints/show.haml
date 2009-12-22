@@ -1,8 +1,8 @@
-- form_tag new_product_sprint_taskk_path(@product.slug, @sprint), :method => :get, :class => 'smallForm', :id => 'newTaskForm' do
+- form_tag new_product_sprint_task_path(@product.slug, @sprint), :method => :get, :class => 'smallForm', :id => 'newTaskForm' do
   %fieldset
     = label_tag 'story_id', t('activerecord.models.story')
     = select_tag 'story_id', options_for_select(@product.stories.all(:order => 'name').collect {|s| [ s.name, s.id.to_s ]}, params[:story_id])
-    = button_tag t('app.taskks.new'), 'add', :class => 'inline transparent'
+    = button_tag t('app.tasks.new'), 'add', :class => 'inline transparent'
 
 = render :partial => 'sprints/backlog'
 

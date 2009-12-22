@@ -19,7 +19,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe Taskk do
+describe Task do
   before(:each) do
     @task = Factory.create(:task)
   end
@@ -36,32 +36,32 @@ describe Taskk do
 
   it { should validate_presence_of(:story, :sprint) }
   it { should validate_length_of(:name, :within => 1..200) }
-  it { should validate_inclusion_of(:status, :in => Taskk::STATUS) }
+  it { should validate_inclusion_of(:status, :in => Task::STATUS) }
   it { should validate_numericality_of :estimative }
 
   it 'should set status to "not_started" before save if not status is not defined' do
     task = Factory.build(:task, :id => nil, :status => nil)
     task.save!
-    assert_equal Taskk::TODO, task.status
+    assert_equal Task::TODO, task.status
 
-    task = Factory.build(:task, :id => nil, :status => Taskk::DONE)
+    task = Factory.build(:task, :id => nil, :status => Task::DONE)
     task.save!
-    assert_equal Taskk::DONE, task.status
+    assert_equal Task::DONE, task.status
 
     task = Factory(:task, :status => nil)
     task.save!
-    assert_equal Taskk::TODO, task.status
+    assert_equal Task::TODO, task.status
 
-    task = Factory(:task, :status => Taskk::DOING)
+    task = Factory(:task, :status => Task::DOING)
     task.save!
-    assert_equal Taskk::DOING, task.status
+    assert_equal Task::DOING, task.status
   end
 
   it "should update status_change before save if the status has changed" do
     task1 = Factory.build(:task)
 
     task1.status_changed_at = nil
-    task1.status = Taskk::DONE
+    task1.status = Task::DONE
     task1.save!
 
     task1.status_changed_at.should_not be_nil
@@ -100,36 +100,36 @@ describe Taskk do
 
     sprint = Factory(:sprint, :product => story1.product)
 
-    task1 = Factory(:task, :sprint => sprint, :story => story1, :status => Taskk::TODO)
-    task2 = Factory(:task, :sprint => sprint, :story => story1, :status => Taskk::TODO)
-    task3 = Factory(:task, :sprint => sprint, :story => story2, :status => Taskk::TODO)
-    task4 = Factory(:task, :sprint => sprint, :story => story2, :status => Taskk::TODO)
+    task1 = Factory(:task, :sprint => sprint, :story => story1, :status => Task::TODO)
+    task2 = Factory(:task, :sprint => sprint, :story => story1, :status => Task::TODO)
+    task3 = Factory(:task, :sprint => sprint, :story => story2, :status => Task::TODO)
+    task4 = Factory(:task, :sprint => sprint, :story => story2, :status => Task::TODO)
 
     sprint.reload
     sprint.velocity.should == 0
 
-    task1.status = Taskk::DONE
+    task1.status = Task::DONE
     task1.save!
 
     #as we still miss the task2 as done, the estimative should not yet be considered
     sprint.reload
     sprint.velocity.should == 0
 
-    task2.status = Taskk::DONE
+    task2.status = Task::DONE
     task2.save!
 
     #now it should!
     sprint.reload
     sprint.velocity.should == story1.estimative
 
-    task3.status = Taskk::DONE
+    task3.status = Task::DONE
     task3.save!
 
     #as we still miss the task4 as done, the estimative should not yet be considered
     sprint.reload
     sprint.velocity.should == story1.estimative
 
-    task4.status = Taskk::DONE
+    task4.status = Task::DONE
     task4.save!
 
     #now it should!
@@ -138,13 +138,13 @@ describe Taskk do
   end
 
   it "should return valid status_str" do
-    @task.status = Taskk::TODO
+    @task.status = Task::TODO
     @task.status_str.should == 'todo'
 
-    @task.status = Taskk::DOING
+    @task.status = Task::DOING
     @task.status_str.should == 'doing'
 
-    @task.status = Taskk::DONE
+    @task.status = Task::DONE
     @task.status_str.should == 'done'
   end
 

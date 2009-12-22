@@ -19,7 +19,7 @@ class Story < ActiveRecord::Base
   stampable
 
   belongs_to :product
-  has_many :taskks, :dependent => :destroy
+  has_many :tasks, :dependent => :destroy
 
   validates_presence_of :product_id
   validates_length_of :name, :in => 1..200

@@ -7,9 +7,9 @@ describe SprintsHelper, 'sprint backlog' do
     @story = Factory(:story, :product => @product)
     @sprint = Factory(:sprint, :product => @product)
 
-    @todo = Factory(:task, :story => @story, :sprint => @sprint, :status => Taskk::STATUS[0])
-    @doing = Factory(:task, :story => @story, :sprint => @sprint, :status => Taskk::STATUS[1])
-    @done = Factory(:task, :story => @story, :sprint => @sprint, :status => Taskk::STATUS[2])
+    @todo = Factory(:task, :story => @story, :sprint => @sprint, :status => Task::STATUS[0])
+    @doing = Factory(:task, :story => @story, :sprint => @sprint, :status => Task::STATUS[1])
+    @done = Factory(:task, :story => @story, :sprint => @sprint, :status => Task::STATUS[2])
 
     @sprint.reload
     @story.reload

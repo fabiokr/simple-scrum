@@ -1,6 +1,0 @@
-- form_for [@product, @sprint, @task], :url => product_sprint_taskks_path(@product.slug, @sprint) do |f|
-  %fieldset
-    %legend= t('app.taskks.new')
-    = render :partial => 'taskks/form', :locals => { :f => f }
-    %p= button_tag t('system.create'), :accept, :class => 'positive', :tabindex => 10
-

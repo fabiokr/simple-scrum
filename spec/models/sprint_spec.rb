@@ -87,9 +87,9 @@ describe Sprint do
     @story = Factory(:story, :product => @product)
     @sprint = Factory(:sprint, :product => @product)
 
-    @todo = Factory(:task, :story => @story, :sprint => @sprint, :status => Taskk::STATUS[0])
-    @doing = Factory(:task, :story => @story, :sprint => @sprint, :status => Taskk::STATUS[1])
-    @done = Factory(:task, :story => @story, :sprint => @sprint, :status => Taskk::STATUS[2])
+    @todo = Factory(:task, :story => @story, :sprint => @sprint, :status => Task::STATUS[0])
+    @doing = Factory(:task, :story => @story, :sprint => @sprint, :status => Task::STATUS[1])
+    @done = Factory(:task, :story => @story, :sprint => @sprint, :status => Task::STATUS[2])
 
     @sprint.reload
     @story.reload
@@ -125,20 +125,20 @@ describe Sprint do
     story1 = Factory(:story, :product => @sprint.product, :estimative => 14)
     story2 = Factory(:story, :product => @sprint.product, :estimative => 16)
 
-    task1 = Factory(:task, :story => story1, :sprint => @sprint, :status => Taskk::DONE)
+    task1 = Factory(:task, :story => story1, :sprint => @sprint, :status => Task::DONE)
     task1.status_changed_at = Date.civil(2009,9,18)
     task1.save!
     @sprint.reload
-    task2 = Factory(:task, :story => story1, :sprint => @sprint, :status => Taskk::DONE)
+    task2 = Factory(:task, :story => story1, :sprint => @sprint, :status => Task::DONE)
     task2.status_changed_at = Date.civil(2009,9,25)
     task2.save!
     @sprint.reload
 
-    task3 = Factory(:task, :story => story2, :sprint => @sprint, :status => Taskk::DONE)
+    task3 = Factory(:task, :story => story2, :sprint => @sprint, :status => Task::DONE)
     task3.status_changed_at = Date.civil(2009,10,5)
     task3.save!
     @sprint.reload
-    task4 = Factory(:task, :story => story2, :sprint => @sprint, :status => Taskk::DONE)
+    task4 = Factory(:task, :story => story2, :sprint => @sprint, :status => Task::DONE)
     task4.status_changed_at = Date.civil(2009,10,5)
     task4.save!
     @sprint.reload
@@ -176,17 +176,17 @@ describe Sprint do
     story1 = Factory(:story, :product => @sprint.product, :estimative => 14)
     story2 = Factory(:story, :product => @sprint.product, :estimative => 16)
 
-    task1 = Factory(:task, :story => story1, :sprint => @sprint, :status => Taskk::TODO)
+    task1 = Factory(:task, :story => story1, :sprint => @sprint, :status => Task::TODO)
     task1.save!
     @sprint.reload
-    task2 = Factory(:task, :story => story1, :sprint => @sprint, :status => Taskk::TODO)
+    task2 = Factory(:task, :story => story1, :sprint => @sprint, :status => Task::TODO)
     task2.save!
     @sprint.reload
 
-    task3 = Factory(:task, :story => story2, :sprint => @sprint, :status => Taskk::TODO)
+    task3 = Factory(:task, :story => story2, :sprint => @sprint, :status => Task::TODO)
     task3.save!
     @sprint.reload
-    task4 = Factory(:task, :story => story2, :sprint => @sprint, :status => Taskk::TODO)
+    task4 = Factory(:task, :story => story2, :sprint => @sprint, :status => Task::TODO)
     task4.save!
     @sprint.reload
 
