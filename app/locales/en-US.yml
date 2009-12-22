@@ -96,7 +96,7 @@ en-US:
     view_all: "view all"
     license: "Released under the {{license}} license"
   app:
-    name: 'Simple-SCRUM'
+    name: 'simple-scrum'
     home: 'Home'
     search_hint: 'search'
     paginate:

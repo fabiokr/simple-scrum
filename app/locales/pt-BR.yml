@@ -202,7 +202,7 @@ pt-BR:
     view_all: "ver todos"
     license: "Distribuído sob a licensa {{license}}"
   app:
-    name: 'Simple-SCRUM'
+    name: 'simple-scrum'
     home: 'Início'
     search_hint: 'pesquisar'
     paginate:
