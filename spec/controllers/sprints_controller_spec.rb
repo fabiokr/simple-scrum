@@ -127,7 +127,7 @@ describe SprintsController do
     post :update, :product_id => @product.slug, :id => @sprint.id, :sprint => @sprint.attributes
 
     Sprint.find(assigns(:sprint).id).name.should == @sprint.name
-    redirect_to(edit_product_story_path(@product.slug, @sprint))
+    redirect_to(edit_product_sprint_path(@product.slug, @sprint))
     flash[:message].should_not be_nil
   end
 

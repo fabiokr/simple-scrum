@@ -45,7 +45,7 @@ en-US:
       user: 'User'
       product: 'Product'
       sprint: 'Sprint'
-      story: 'Story'
+      ticket: 'Ticket'
       taskk: 'Task'
       settings: 'Settings'
     attributes:
@@ -67,7 +67,7 @@ en-US:
         end: "End"
         velocity: "Velocity"
         estimated_velocity: "Estimated velocity"
-      story:
+      ticket:
         priority: "Priority"
         estimative: "Estimative"
         father: 'Father'
@@ -132,11 +132,11 @@ en-US:
       show: "Product Dashboard"
       new: "New Product"
       edit: "Editing Product"
-    stories:
+    tickets:
       index: "Product Backlog"
-      show: "Story"
-      new: "New Story"
-      edit: "Editing Story"
+      show: "Ticket"
+      new: "New Ticket"
+      edit: "Editing Ticket"
     sprints:
       index: "Sprints"
       show: "Sprint"

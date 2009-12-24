@@ -1,0 +1,20 @@
+%div{:class => 'card-data'}
+  %h3 #{@ticket.name}
+  %p
+    %b #{t('activerecord.attributes.ticket.status')}:
+    #{t("app.sprints.#{Ticket::STATUS_STR[@ticket.status]}")}
+    - if @ticket.unplanned?
+      = " (#{t('activerecord.attributes.ticket.unplanned')})"
+    %br
+    %b #{t('activerecord.attributes.ticket.estimative')}:
+    #{@ticket.estimative}
+    %br
+    %b #{t('activerecord.attributes.ticket.priority')}:
+    #{@ticket.priority}
+    %br
+    %b #{t('activerecord.attributes.ticket.color')}:
+    %span{:style => "color:#{@ticket.color}"} #{@ticket.color}
+  %br
+  %p
+    #{@ticket.description}
+

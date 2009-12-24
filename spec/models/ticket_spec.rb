@@ -17,13 +17,13 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe Story do
+describe Ticket do
   before(:each) do
-    @story = Factory.create(:story)
+    @ticket = Factory.create(:ticket)
   end
 
   it 'should be valid' do
-    @story.should be_valid
+    @ticket.should be_valid
   end
 
   it { should have_db_columns :id, :name, :description, :estimative, :priority, :product_id, :color, :unplanned, :status, :status_changed_at, :created_at, :updated_at, :creator_id, :updater_id }
@@ -34,35 +34,35 @@ describe Story do
   it { should belong_to :product }
   it { should belong_to :sprint }
   it { should validate_numericality_of :estimative, :priority }
-  it { should validate_inclusion_of(:status, :in => Story::STATUS) }
+  it { should validate_inclusion_of(:status, :in => Ticket::STATUS) }
 
   it "should return valid status_str" do
-    @story.status = Story::TODO
-    @story.status_str.should == 'todo'
+    @ticket.status = Ticket::TODO
+    @ticket.status_str.should == 'todo'
 
-    @story.status = Story::DOING
-    @story.status_str.should == 'doing'
+    @ticket.status = Ticket::DOING
+    @ticket.status_str.should == 'doing'
 
-    @story.status = Story::DONE
-    @story.status_str.should == 'done'
+    @ticket.status = Ticket::DONE
+    @ticket.status_str.should == 'done'
   end
 
   it 'should set status to "not_started" before save if not status is not defined' do
-    story = Factory.build(:story, :id => nil, :status => nil)
-    story.save!
-    assert_equal Story::TODO, story.status
+    ticket = Factory.build(:ticket, :id => nil, :status => nil)
+    ticket.save!
+    assert_equal Ticket::TODO, ticket.status
 
-    story = Factory.build(:story, :id => nil, :status => Story::DONE)
-    story.save!
-    assert_equal Story::DONE, story.status
+    ticket = Factory.build(:ticket, :id => nil, :status => Ticket::DONE)
+    ticket.save!
+    assert_equal Ticket::DONE, ticket.status
 
-    story = Factory(:story, :status => nil)
-    story.save!
-    assert_equal Story::TODO, story.status
+    ticket = Factory(:ticket, :status => nil)
+    ticket.save!
+    assert_equal Ticket::TODO, ticket.status
 
-    story = Factory(:story, :status => Story::DOING)
-    story.save!
-    assert_equal Story::DOING, story.status
+    ticket = Factory(:ticket, :status => Ticket::DOING)
+    ticket.save!
+    assert_equal Ticket::DOING, ticket.status
   end
 
 end

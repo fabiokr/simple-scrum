@@ -151,7 +151,7 @@ pt-BR:
       user: 'Usuário'
       product: 'Produto'
       sprint: 'Sprint'
-      story: 'Estória'
+      ticket: 'Estória'
       taskk: 'Tarefa'
       settings: 'Configurações'
     attributes:
@@ -174,7 +174,7 @@ pt-BR:
         end: "Fim"
         velocity: "Velocidade"
         estimated_velocity: "Velocidade estimada"
-      story:
+      ticket:
         priority: "Prioridade"
         estimative: "Estimativa"
         father: 'Pai'
@@ -239,7 +239,7 @@ pt-BR:
         show: "Painél de produtos"
         new: "Novo produto"
         edit: "Editar produto"
-    stories:
+    tickets:
         index: "Backlog do produto"
         show: "Estória"
         new: "Nova estória"

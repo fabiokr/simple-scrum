@@ -15,7 +15,7 @@
 #  updater_id  :integer
 #
 
-class Story < ActiveRecord::Base
+class Ticket < ActiveRecord::Base
   stampable
 
   before_save :set_default_status

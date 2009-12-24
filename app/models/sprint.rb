@@ -23,7 +23,7 @@ class Sprint < ActiveRecord::Base
   before_save :set_velocity_and_estimated_velocity
 
   belongs_to :product
-  has_many :stories
+  has_many :tickets
 
   validates_presence_of :product_id
   validates_length_of :name, :in => 1..60

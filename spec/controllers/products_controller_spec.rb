@@ -70,13 +70,13 @@ describe ProductsController do
   end
 
   it "should assign product, stories and sprints on :show" do
-    stories = [Factory(:story, :product => @product), Factory(:story, :product => @product)]
+    tickets = [Factory(:ticket, :product => @product), Factory(:ticket, :product => @product)]
     sprints = [Factory(:sprint, :product => @product), Factory(:sprint, :product => @product)]
 
     get :show, :id => @product.slug
 
     assigns(:product).should == @product
-    assigns(:stories).should == stories
+    assigns(:tickets).should == tickets
     assigns(:sprints).should == sprints
   end
 

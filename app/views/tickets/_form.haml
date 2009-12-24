@@ -5,7 +5,7 @@
 %br
 = f.label :status
 %br
-= f.select(:status, Story::STATUS.collect {|s| [ t("app.sprints.#{Story::STATUS_STR[s]}"), s ]}, {}, :tabindex => 2)
+= f.select(:status, Ticket::STATUS.collect {|s| [ t("app.sprints.#{Ticket::STATUS_STR[s]}"), s ]}, {}, :tabindex => 2)
 = f.check_box :unplanned, :tabindex => 3
 = f.label :unplanned
 %br
@@ -19,7 +19,7 @@
 %br
 = f.label :color
 %br
-= f.text_field :color, :class => 'text smallInput', :style => "color:##{@story.color}", :tabindex => 6
+= f.text_field :color, :class => 'text smallInput', :style => "color:##{@ticket.color}", :tabindex => 6
 %br
 = f.label :description
 %br

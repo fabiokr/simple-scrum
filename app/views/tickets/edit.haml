@@ -1,0 +1,7 @@
+= new_link(new_product_ticket_path(@product.slug), t('app.tickets.new'))
+- form_for [@product, @ticket], :url => product_ticket_path(@product.slug, @ticket) do |f|
+  %fieldset
+    %legend= t('app.tickets.edit')
+    = render :partial => 'tickets/form', :locals => { :f => f }
+    %p= button_tag t('system.update'), :accept, :class => 'positive', :tabindex => 10
+

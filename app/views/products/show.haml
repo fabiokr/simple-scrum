@@ -17,25 +17,25 @@
           %td= edit_link edit_product_sprint_path(@product.slug, sprint)
           %td= delete_link product_sprint_path(@product.slug, sprint)
 
-%div{:id => 'stories', :class => 'span-14 last'}
+%div{:id => 'tickets', :class => 'span-14 last'}
   %table{:class => 'dataList'}
     %caption
-      ="#{t('app.stories.index')} - #{t('system.n_of_total_found_registries', :n => @stories.size, :count => @stories.total_entries)} (#{link_to(t('system.view_all'), product_stories_url(@product.slug))})"
+      ="#{t('app.tickets.index')} - #{t('system.n_of_total_found_registries', :n => @tickets.size, :count => @tickets.total_entries)} (#{link_to(t('system.view_all'), product_tickets_url(@product.slug))})"
     %thead
       %tr
-        %th= t('activerecord.attributes.story.priority')
-        %th= t('activerecord.attributes.story.estimative')
-        %th= t('activerecord.models.story')
+        %th= t('activerecord.attributes.ticket.priority')
+        %th= t('activerecord.attributes.ticket.estimative')
+        %th= t('activerecord.models.ticket')
         %th
         %th
         %th
     %tbody
-      - @stories.each do |story|
-        %tr{:story_id => story.id}
-          %td= story.priority
-          %td= story.estimative
-          %td= story.name
-          %td= show_link product_story_path(@product.slug, story)
-          %td= edit_link edit_product_story_path(@product.slug, story)
-          %td= delete_link product_story_path(@product.slug, story)
+      - @tickets.each do |ticket|
+        %tr{:ticket_id => ticket.id}
+          %td= ticket.priority
+          %td= ticket.estimative
+          %td= ticket.name
+          %td= show_link product_ticket_path(@product.slug, ticket)
+          %td= edit_link edit_product_ticket_path(@product.slug, ticket)
+          %td= delete_link product_ticket_path(@product.slug, ticket)
 

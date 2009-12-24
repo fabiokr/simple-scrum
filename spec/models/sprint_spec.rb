@@ -32,7 +32,7 @@ describe Sprint do
   it { should belong_to :creator }
   it { should belong_to :updater }
   it { should belong_to :product }
-  it { should have_many :stories }
+  it { should have_many :tickets }
   it { should validate_numericality_of :velocity, :estimated_velocity }
 
   it "should verify if end date is after start date" do

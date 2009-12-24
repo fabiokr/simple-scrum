@@ -14,11 +14,11 @@
   %thead
     %tr
       %th
-        = t('app.stories.index')
+        = t('app.tickets.index')
   %tbody
-    - @stories.each do |story|
+    - @tickets.each do |ticket|
       %tr
-        %td= link_to story.name, product_story_path(story.product, story)
+        %td= link_to ticket.name, product_ticket_path(ticket.product, ticket)
 
 %table.dataList
   %thead

@@ -1,0 +1,6 @@
+- form_for [@product, @ticket], :url => product_tickets_path(@product.slug) do |f|
+  %fieldset
+    %legend= t('app.tickets.new')
+    = render :partial => 'tickets/form', :locals => { :f => f }
+    %p= button_tag t('system.create'), :accept, :class => 'positive', :tabindex => 10
+

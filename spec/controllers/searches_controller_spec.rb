@@ -11,8 +11,8 @@ describe SearchesController do
   before :each do
     @product1 = Factory(:product, :name => 'a great product', :owner => 'first owner')
     @product2 = Factory(:product, :name => 'another worderful product', :owner => 'second owner')
-    @story1 = Factory(:story, :product => @product1, :name => 'good story', :description => 'really good')
-    @story2 = Factory(:story, :product => @product2, :name => 'great story', :description => 'really wonderful')
+    @ticket1 = Factory(:ticket, :product => @product1, :name => 'good ticket', :description => 'really good')
+    @ticket2 = Factory(:ticket, :product => @product2, :name => 'great ticket', :description => 'really wonderful')
     @sprint1 = Factory(:sprint, :product => @product1, :name => 'this sprint')
     @sprint2 = Factory(:sprint, :product => @product2, :name => 'other sprint')
 
@@ -31,19 +31,19 @@ describe SearchesController do
   it "should do no search if query has less than 3 chars" do
     get :show, :q => 'gr'
     assigns(:products).should == []
-    assigns(:stories).should == []
+    assigns(:tickets).should == []
     assigns(:sprints).should == []
     flash[:notice].should_not be_nil
 
     get :show, :q => 'g'
     assigns(:products).should == []
-    assigns(:stories).should == []
+    assigns(:tickets).should == []
     assigns(:sprints).should == []
     flash[:notice].should_not be_nil
 
     get :show, :q => ''
     assigns(:products).should == []
-    assigns(:stories).should == []
+    assigns(:tickets).should == []
     assigns(:sprints).should == []
     flash[:notice].should_not be_nil
   end
@@ -56,12 +56,12 @@ describe SearchesController do
     assigns(:products).should == [@product2]
   end
 
-  it "should look for story by name and description" do
+  it "should look for ticket by name and description" do
     get :show, :q => 'good'
-    assigns(:stories).should == [@story1]
+    assigns(:tickets).should == [@ticket1]
 
     get :show, :q => 'wonderful'
-    assigns(:stories).should == [@story2]
+    assigns(:tickets).should == [@ticket2]
   end
 
   it "should look for sprint by name" do

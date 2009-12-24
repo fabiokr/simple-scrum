@@ -1,6 +1,0 @@
-- form_for [@product, @story], :url => product_stories_path(@product.slug) do |f|
-  %fieldset
-    %legend= t('app.stories.new')
-    = render :partial => 'stories/form', :locals => { :f => f }
-    %p= button_tag t('system.create'), :accept, :class => 'positive', :tabindex => 10
-

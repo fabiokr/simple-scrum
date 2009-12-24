@@ -1,0 +1,3 @@
+= new_link(new_product_ticket_path(@product.slug), t('app.tickets.new'))
+= render :partial => 'tickets/table', :locals => { :search => @search, :tickets => @tickets }
+

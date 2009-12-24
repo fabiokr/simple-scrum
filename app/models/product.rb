@@ -20,7 +20,7 @@ class Product < ActiveRecord::Base
   validates_length_of :owner, :in => 1..60
   validates_uniqueness_of :slug, :name
 
-  has_many :stories, :dependent => :destroy
+  has_many :tickets, :dependent => :destroy
   has_many :sprints, :dependent => :destroy
 
   def self.per_page
