@@ -23,7 +23,7 @@ class Sprint < ActiveRecord::Base
   before_save :set_velocity_and_estimated_velocity
 
   belongs_to :product
-  has_many :tasks, :dependent => :destroy
+  has_many :stories
 
   validates_presence_of :product_id
   validates_length_of :name, :in => 1..60
@@ -34,15 +34,6 @@ class Sprint < ActiveRecord::Base
 
   def self.per_page
     15
-  end
-
-  def group_tasks_by_story
-    stories = {}
-    self.tasks.each do |task|
-      stories[task.story] = [] if stories[task.story].nil?
-      stories[task.story] << task
-    end
-    stories
   end
 
   def burndown_plot

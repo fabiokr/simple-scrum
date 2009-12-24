@@ -5,6 +5,7 @@
     %tr
       %th= order search, :by => :priority, :as => t('activerecord.attributes.story.priority')
       %th= order search, :by => :name, :as => t('activerecord.models.story')
+      %th= order search, :by => :status, :as => t('activerecord.attributes.story.status')
       %th= order search, :by => :estimative, :as => t('activerecord.attributes.story.estimative')
       %th= order search, :by => :color, :as => t('activerecord.attributes.story.color')
       %th= order search, :by => :updated_at, :as => t('activerecord.attributes._all.updated_at')
@@ -16,6 +17,7 @@
       %tr
         %td= story.priority
         %td= story.name
+        %td= t("app.sprints.#{Story::STATUS_STR[story.status]}")
         %td= story.estimative
         %td
           %div{:class => 'color', :style => "background-color:#{story.color}"}

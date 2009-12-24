@@ -15,8 +15,6 @@ describe SearchesController do
     @story2 = Factory(:story, :product => @product2, :name => 'great story', :description => 'really wonderful')
     @sprint1 = Factory(:sprint, :product => @product1, :name => 'this sprint')
     @sprint2 = Factory(:sprint, :product => @product2, :name => 'other sprint')
-    @task1 = Factory(:task, :story => @story1, :sprint => @sprint1, :name => 'good task', :description => 'really good')
-    @task2 = Factory(:task, :story => @story2, :sprint => @sprint2, :name => 'great task', :description => 'really wonderful')
 
     @user = Factory(:user)
     activate_authlogic
@@ -35,21 +33,18 @@ describe SearchesController do
     assigns(:products).should == []
     assigns(:stories).should == []
     assigns(:sprints).should == []
-    assigns(:tasks).should == []
     flash[:notice].should_not be_nil
 
     get :show, :q => 'g'
     assigns(:products).should == []
     assigns(:stories).should == []
     assigns(:sprints).should == []
-    assigns(:tasks).should == []
     flash[:notice].should_not be_nil
 
     get :show, :q => ''
     assigns(:products).should == []
     assigns(:stories).should == []
     assigns(:sprints).should == []
-    assigns(:tasks).should == []
     flash[:notice].should_not be_nil
   end
 
@@ -75,14 +70,6 @@ describe SearchesController do
 
     get :show, :q => 'other'
     assigns(:sprints).should == [@sprint2]
-  end
-
-  it "should look for task by name and description" do
-    get :show, :q => 'good'
-    assigns(:tasks).should == [@task1]
-
-    get :show, :q => 'wonderful'
-    assigns(:tasks).should == [@task2]
   end
 
 end

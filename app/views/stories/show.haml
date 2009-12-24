@@ -1,6 +1,11 @@
 %div{:class => 'card-data'}
   %h3 #{@story.name}
   %p
+    %b #{t('activerecord.attributes.story.status')}:
+    #{t("app.sprints.#{Story::STATUS_STR[@story.status]}")}
+    - if @story.unplanned?
+      = " (#{t('activerecord.attributes.story.unplanned')})"
+    %br
     %b #{t('activerecord.attributes.story.estimative')}:
     #{@story.estimative}
     %br

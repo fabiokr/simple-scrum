@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
 
-  user_stamp Product, Story, Sprint, Task
+  user_stamp Product, Story, Sprint
 
   helper :all, :breadcrumbs
   helper_method :current_user_session, :current_user

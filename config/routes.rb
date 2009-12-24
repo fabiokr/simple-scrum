@@ -2,9 +2,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :products do |product|
     product.resources :stories
-    product.resources :sprints do |sprint|
-      sprint.resources :tasks, :except => :index
-    end
+    product.resources :sprints
   end
 
   map.resources :users

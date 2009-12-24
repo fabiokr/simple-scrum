@@ -3,19 +3,25 @@
 %br
 = f.text_field :name, :class => 'validate[required,length[0,100]] title', :tabindex => 1
 %br
+= f.label :status
+%br
+= f.select(:status, Story::STATUS.collect {|s| [ t("app.sprints.#{Story::STATUS_STR[s]}"), s ]}, {}, :tabindex => 2)
+= f.check_box :unplanned, :tabindex => 3
+= f.label :unplanned
+%br
 = f.label :priority
 %br
-= f.text_field :priority, :class => 'validate[required,custom[onlyInteger]] text smallInput'
+= f.text_field :priority, :class => 'validate[required,custom[onlyInteger]] text smallInput', :tabindex => 4
 %br
 = f.label :estimative
 %br
-= f.text_field :estimative, :class => 'validate[required,custom[onlyInteger]] text smallInput'
+= f.text_field :estimative, :class => 'validate[required,custom[onlyInteger]] text smallInput', :tabindex => 5
 %br
 = f.label :color
 %br
-= f.text_field :color, :class => 'text smallInput', :style => "color:##{@story.color}", :tabindex => 4
+= f.text_field :color, :class => 'text smallInput', :style => "color:##{@story.color}", :tabindex => 6
 %br
 = f.label :description
 %br
-= f.text_area :description, :class => 'text', :tabindex => 5
+= f.text_area :description, :class => 'text', :tabindex => 7
 

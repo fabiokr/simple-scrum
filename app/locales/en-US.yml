@@ -54,7 +54,6 @@ en-US:
         updated_at: "Updated at"
         name: 'Name'
         description: "Description"
-        status: "Status"
       user:
         login: 'Login'
         email: 'Email'
@@ -73,8 +72,8 @@ en-US:
         estimative: "Estimative"
         father: 'Father'
         color: 'Color'
-      taskk:
         unplanned: 'Unplanned'
+        status: "Status"
   system:
     create: 'new'
     update: 'update'
@@ -155,11 +154,6 @@ en-US:
       burndown_chart_expected_line: "Expected"
       burndown_chart_current_line: "Current"
       burndown_chart_not_enought: "Not enought data to plot the Burndow Chart"
-    taskks:
-      index: "Tasks"
-      show: "Task"
-      new: "New Task"
-      edit: "Editing Task"
     searches:
       result: "Search results"
       insuficient_query: "The query value was to small (at least 3 characters required)"

@@ -18,8 +18,10 @@
 class Story < ActiveRecord::Base
   stampable
 
+  before_save :set_default_status
+
   belongs_to :product
-  has_many :tasks, :dependent => :destroy
+  belongs_to :sprint
 
   validates_presence_of :product_id
   validates_length_of :name, :in => 1..200
@@ -27,8 +29,30 @@ class Story < ActiveRecord::Base
   validates_numericality_of :estimative
   validates_numericality_of :priority
 
+  STATUS = [
+    TODO = 1,
+    DOING = 2,
+    DONE = 3
+  ].freeze
+
+  STATUS_STR = {
+    TODO => "todo",
+    DOING => "doing",
+    DONE => "done"
+  }.freeze
+
+  def status_str
+    STATUS_STR[self.status]
+  end
+
   def self.per_page
     15
+  end
+
+  private
+
+  def set_default_status
+    self.status = TODO if self.status.nil?
   end
 
 end

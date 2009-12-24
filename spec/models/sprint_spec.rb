@@ -32,7 +32,7 @@ describe Sprint do
   it { should belong_to :creator }
   it { should belong_to :updater }
   it { should belong_to :product }
-  it { should have_many :tasks, :dependent => :destroy }
+  it { should have_many :stories }
   it { should validate_numericality_of :velocity, :estimated_velocity }
 
   it "should verify if end date is after start date" do
@@ -82,25 +82,6 @@ describe Sprint do
     @sprint.estimated_velocity.should == 0
   end
 
-  it "should group by story" do
-    @product = Factory(:product)
-    @story = Factory(:story, :product => @product)
-    @sprint = Factory(:sprint, :product => @product)
-
-    @todo = Factory(:task, :story => @story, :sprint => @sprint, :status => Task::STATUS[0])
-    @doing = Factory(:task, :story => @story, :sprint => @sprint, :status => Task::STATUS[1])
-    @done = Factory(:task, :story => @story, :sprint => @sprint, :status => Task::STATUS[2])
-
-    @sprint.reload
-    @story.reload
-    @product.reload
-
-    stories = @sprint.group_tasks_by_story
-
-    stories.should include(@story)
-    stories[@story].should include(@todo, @doing, @done)
-  end
-
   it "should plot empty burndown where there is no data" do
     @sprint.start = nil
     @sprint.end = nil
@@ -116,99 +97,5 @@ describe Sprint do
     plot[:labels][:y].should be_empty
   end
 
-  it "should plot burndown correctly" do
-    #expects 22 weekdays
-    @sprint.start = Date.civil(2009,9,15)
-    @sprint.end = Date.civil(2009,10,15)
-    @sprint.save!
-
-    story1 = Factory(:story, :product => @sprint.product, :estimative => 14)
-    story2 = Factory(:story, :product => @sprint.product, :estimative => 16)
-
-    task1 = Factory(:task, :story => story1, :sprint => @sprint, :status => Task::DONE)
-    task1.status_changed_at = Date.civil(2009,9,18)
-    task1.save!
-    @sprint.reload
-    task2 = Factory(:task, :story => story1, :sprint => @sprint, :status => Task::DONE)
-    task2.status_changed_at = Date.civil(2009,9,25)
-    task2.save!
-    @sprint.reload
-
-    task3 = Factory(:task, :story => story2, :sprint => @sprint, :status => Task::DONE)
-    task3.status_changed_at = Date.civil(2009,10,5)
-    task3.save!
-    @sprint.reload
-    task4 = Factory(:task, :story => story2, :sprint => @sprint, :status => Task::DONE)
-    task4.status_changed_at = Date.civil(2009,10,5)
-    task4.save!
-    @sprint.reload
-
-    Date.stub!(:current).and_return(Date.civil(2009,10,7))
-
-    plot = @sprint.burndown_plot
-
-    date_format = "%e/%m"
-
-    plot[:expected][:x].should == [0, 100]
-    plot[:expected][:y].should == [100, 0]
-
-
-    plot[:current].should_not be_nil
-    plot[:current][:x].should == [BigDecimal.new("0.0"), BigDecimal.new("4.3"), BigDecimal.new("8.6"), BigDecimal.new("12.9"), BigDecimal.new("17.2"), BigDecimal.new("21.5"), BigDecimal.new("25.8"), BigDecimal.new("30.1"), BigDecimal.new("34.4"), BigDecimal.new("38.7"), BigDecimal.new("43.0"), BigDecimal.new("47.3"), BigDecimal.new("51.6"), BigDecimal.new("55.9"), BigDecimal.new("60.2"), BigDecimal.new("64.5"), BigDecimal.new("68.8")]
-
-    plot[:current][:y].should == [BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("52.8"), BigDecimal.new("0.0"), BigDecimal.new("0.0"), BigDecimal.new("0.0")]
-
-    expected_dates = [Date.civil(2009,9,15),Date.civil(2009,9,17),Date.civil(2009,9,21),Date.civil(2009,9,23),Date.civil(2009,9,25),Date.civil(2009,9,29),Date.civil(2009,10,1),Date.civil(2009,10,5),Date.civil(2009,10,7),Date.civil(2009,10,9),Date.civil(2009,10,13),Date.civil(2009,10,15)]
-    expected_dates.collect! {|date| date.strftime(date_format)}
-
-    plot[:labels][:x].should == expected_dates
-
-    #should distribute the labels
-    plot[:labels][:y].should == [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
-  end
-
-    it "should plot future burndowns correctly" do
-    #expects 22 weekdays
-    @sprint.start = Date.civil(2009,9,15)
-    @sprint.end = Date.civil(2009,9,28)
-    @sprint.save!
-
-    story1 = Factory(:story, :product => @sprint.product, :estimative => 14)
-    story2 = Factory(:story, :product => @sprint.product, :estimative => 16)
-
-    task1 = Factory(:task, :story => story1, :sprint => @sprint, :status => Task::TODO)
-    task1.save!
-    @sprint.reload
-    task2 = Factory(:task, :story => story1, :sprint => @sprint, :status => Task::TODO)
-    task2.save!
-    @sprint.reload
-
-    task3 = Factory(:task, :story => story2, :sprint => @sprint, :status => Task::TODO)
-    task3.save!
-    @sprint.reload
-    task4 = Factory(:task, :story => story2, :sprint => @sprint, :status => Task::TODO)
-    task4.save!
-    @sprint.reload
-
-    Date.stub!(:current).and_return(Date.civil(2009,8,7))
-
-    plot = @sprint.burndown_plot
-
-    date_format = "%e/%m"
-
-    plot[:expected][:x].should == [0, 100]
-    plot[:expected][:y].should == [100, 0]
-
-    plot[:current].should_not be_nil
-    plot[:current][:x].should == [0]
-    plot[:current][:y].should == [0]
-
-    #should distribute the labels
-    expected_dates = [Date.civil(2009,9,15),Date.civil(2009,9,16),Date.civil(2009,9,17),Date.civil(2009,9,18),Date.civil(2009,9,21),Date.civil(2009,9,22),Date.civil(2009,9,23),Date.civil(2009,9,24),Date.civil(2009,9,25),Date.civil(2009,9,28)]
-    expected_dates.collect! {|date| date.strftime(date_format)}
-
-    plot[:labels][:x].should == expected_dates
-    plot[:labels][:y].should == [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
-  end
 end
 

@@ -30,13 +30,3 @@
       %tr
         %td= link_to sprint.name, product_sprint_path(sprint.product, sprint)
 
-%table.dataList
-  %thead
-    %tr
-      %th
-        = t('app.tasks.index')
-  %tbody
-    - @tasks.each do |task|
-      %tr
-        %td= link_to task.name, product_sprint_task_path(task.sprint.product, task.sprint, task)
-
