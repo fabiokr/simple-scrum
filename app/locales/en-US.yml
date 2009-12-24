@@ -74,6 +74,7 @@ en-US:
         color: 'Color'
         unplanned: 'Unplanned'
         status: "Status"
+        category_id: "Category"
   system:
     create: 'new'
     update: 'update'
@@ -143,9 +144,6 @@ en-US:
       new: "New Sprint"
       edit: "Editing Sprint"
       backlog: "Sprint Backlog"
-      todo: "To-do"
-      doing: "Doing"
-      done: "Done"
       previous_state: "Previous state"
       next_state: "Next state"
       previous_velocities: "Previous {{product}} velocities"
@@ -169,4 +167,12 @@ en-US:
       email_subject: "Password Reset Instructions"
       email_message_before_link: "A request to reset your password has been made. If you did not make this request, simply ignore this email. If you did make this request just click the link below:"
       email_message_after_link: "If the above URL does not work try copying and pasting it into your browser."
+    ticket_category:
+      story: "Story"
+      bug: "Bug"
+      change: "Change"
+    ticket_status:
+      todo: "To-do"
+      doing: "Doing"
+      done: "Done"
 

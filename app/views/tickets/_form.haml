@@ -1,25 +1,25 @@
 = f.error_messages form_errors_class
+= f.label :category_id
+%br
+= f.select(:category_id, Ticket::CATEGORY.collect {|s| [ t("app.ticket_category.#{Ticket::CATEGORY_STR[s]}"), s ]}, {}, :tabindex => 1)
+%br
 = f.label :name
 %br
-= f.text_field :name, :class => 'validate[required,length[0,100]] title', :tabindex => 1
+= f.text_field :name, :class => 'validate[required,length[0,100]] title', :tabindex => 2
 %br
 = f.label :status
 %br
-= f.select(:status, Ticket::STATUS.collect {|s| [ t("app.sprints.#{Ticket::STATUS_STR[s]}"), s ]}, {}, :tabindex => 2)
-= f.check_box :unplanned, :tabindex => 3
+= f.select(:status, Ticket::STATUS.collect {|s| [ t("app.ticket_status.#{Ticket::STATUS_STR[s]}"), s ]}, {}, :tabindex => 3)
+= f.check_box :unplanned, :tabindex => 4
 = f.label :unplanned
 %br
 = f.label :priority
 %br
-= f.text_field :priority, :class => 'validate[required,custom[onlyInteger]] text smallInput', :tabindex => 4
+= f.text_field :priority, :class => 'validate[required,custom[onlyInteger]] text smallInput', :tabindex => 5
 %br
 = f.label :estimative
 %br
-= f.text_field :estimative, :class => 'validate[required,custom[onlyInteger]] text smallInput', :tabindex => 5
-%br
-= f.label :color
-%br
-= f.text_field :color, :class => 'text smallInput', :style => "color:##{@ticket.color}", :tabindex => 6
+= f.text_field :estimative, :class => 'validate[required,custom[onlyInteger]] text smallInput', :tabindex => 6
 %br
 = f.label :description
 %br

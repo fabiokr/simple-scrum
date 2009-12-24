@@ -23,7 +23,7 @@ class Ticket < ActiveRecord::Base
   belongs_to :product
   belongs_to :sprint
 
-  validates_presence_of :product_id
+  validates_presence_of :product_id, :category_id
   validates_length_of :name, :in => 1..200
 
   validates_numericality_of :estimative
@@ -41,8 +41,24 @@ class Ticket < ActiveRecord::Base
     DONE => "done"
   }.freeze
 
+  CATEGORY = [
+    STORY = 1,
+    BUG = 2,
+    CHANGE = 3
+  ].freeze
+
+  CATEGORY_STR = {
+    STORY => "story",
+    BUG => "bug",
+    CHANGE => "change"
+  }.freeze
+
   def status_str
     STATUS_STR[self.status]
+  end
+
+  def category_str
+    CATEGORY_STR[self.category_id]
   end
 
   def self.per_page

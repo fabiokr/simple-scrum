@@ -5,28 +5,27 @@ $(document).ready(function() {
 function formSpecifics() {
   showPrioritySlider();
   showEstimativeSlider();
-  $("input#story_color").attachColorPicker();
 }
 
 function showPrioritySlider() {
-    $('input#story_priority')
+    $('input#ticket_priority')
         .attr("readonly","readonly")
         .attr('tabindex', '')
         .after('<br/><span class="slider clearfix" id="priority-slider"></span>');
     $('span#priority-slider')
-        .slider({min:0, max:100, value:$('input#story_priority').val(), slide:function(e,ui){$('input#story_priority').val(ui.value)}})
+        .slider({min:0, max:100, value:$('input#ticket_priority').val(), slide:function(e,ui){$('input#ticket_priority').val(ui.value)}})
         .children('a')
-        .attr('tabindex', '2');
+        .attr('tabindex', '5');
 }
 
 function showEstimativeSlider() {
-    $('input#story_estimative')
+    $('input#ticket_estimative')
         .attr("readonly","readonly")
         .attr('tabindex', '')
         .after('<br/><span class="slider clearfix" id="estimative-slider"></span>');
     $('span#estimative-slider')
-        .slider({min:0, max:100, value:$('input#story_estimative').val(), slide:function(e,ui){$('input#story_estimative').val(ui.value)}})
+        .slider({min:0, max:100, value:$('input#ticket_estimative').val(), slide:function(e,ui){$('input#ticket_estimative').val(ui.value)}})
         .children('a')
-        .attr('tabindex', '3');
+        .attr('tabindex', '6');
 }
 

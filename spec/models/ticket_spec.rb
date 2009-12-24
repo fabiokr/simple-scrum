@@ -26,8 +26,8 @@ describe Ticket do
     @ticket.should be_valid
   end
 
-  it { should have_db_columns :id, :name, :description, :estimative, :priority, :product_id, :color, :unplanned, :status, :status_changed_at, :created_at, :updated_at, :creator_id, :updater_id }
-  it { should validate_presence_of(:product_id) }
+  it { should have_db_columns :id, :category_id, :name, :description, :estimative, :priority, :product_id, :unplanned, :status, :status_changed_at, :created_at, :updated_at, :creator_id, :updater_id }
+  it { should validate_presence_of(:product_id, :category_id) }
   it { should validate_length_of(:name, :within => 1..200) }
   it { should belong_to :creator }
   it { should belong_to :updater }
@@ -35,6 +35,7 @@ describe Ticket do
   it { should belong_to :sprint }
   it { should validate_numericality_of :estimative, :priority }
   it { should validate_inclusion_of(:status, :in => Ticket::STATUS) }
+  it { should validate_inclusion_of(:category_id, :in => Ticket::CATEGORY) }
 
   it "should return valid status_str" do
     @ticket.status = Ticket::TODO
@@ -45,6 +46,17 @@ describe Ticket do
 
     @ticket.status = Ticket::DONE
     @ticket.status_str.should == 'done'
+  end
+
+  it "should return valid category_str" do
+    @ticket.category_id = Ticket::STORY
+    @ticket.category_str.should == 'story'
+
+    @ticket.category_id = Ticket::BUG
+    @ticket.category_str.should == 'bug'
+
+    @ticket.category_id = Ticket::CHANGE
+    @ticket.category_str.should == 'change'
   end
 
   it 'should set status to "not_started" before save if not status is not defined' do

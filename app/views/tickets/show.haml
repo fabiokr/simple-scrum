@@ -1,8 +1,11 @@
 %div{:class => 'card-data'}
   %h3 #{@ticket.name}
   %p
+    %b #{t('activerecord.attributes.ticket.category_id')}:
+    #{t("app.ticket_category.#{Ticket::CATEGORY_STR[@ticket.category_id]}")}
+    %br
     %b #{t('activerecord.attributes.ticket.status')}:
-    #{t("app.sprints.#{Ticket::STATUS_STR[@ticket.status]}")}
+    #{t("app.ticket_status.#{Ticket::STATUS_STR[@ticket.status]}")}
     - if @ticket.unplanned?
       = " (#{t('activerecord.attributes.ticket.unplanned')})"
     %br
@@ -11,9 +14,6 @@
     %br
     %b #{t('activerecord.attributes.ticket.priority')}:
     #{@ticket.priority}
-    %br
-    %b #{t('activerecord.attributes.ticket.color')}:
-    %span{:style => "color:#{@ticket.color}"} #{@ticket.color}
   %br
   %p
     #{@ticket.description}

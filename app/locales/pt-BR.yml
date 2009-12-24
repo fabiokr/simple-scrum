@@ -151,7 +151,7 @@ pt-BR:
       user: 'Usuário'
       product: 'Produto'
       sprint: 'Sprint'
-      ticket: 'Estória'
+      ticket: 'Ticket'
       taskk: 'Tarefa'
       settings: 'Configurações'
     attributes:
@@ -241,18 +241,15 @@ pt-BR:
         edit: "Editar produto"
     tickets:
         index: "Backlog do produto"
-        show: "Estória"
-        new: "Nova estória"
-        edit: "Editar estória"
+        show: "Ticket"
+        new: "Novo ticket"
+        edit: "Editar ticket"
     sprints:
         index: "Sprints"
         show: "Sprint"
         new: "Nova sprint"
         edit: "Editar sprint"
         backlog: "Backlog da sprint"
-        todo: "A fazer"
-        doing: "Fazendo"
-        done: "Finalizado"
         previous_state: "Estado anterior"
         next_state: "Próximo estado"
         previous_velocities: "Velocidades anteriores de {{product}}"
@@ -282,4 +279,12 @@ pt-BR:
       email_from: "Simple Scrum"
       email_message_before_link: "Uma solicitação para criar uma nova senha para sua conta foi feita. Se não foi você quem fez a solicitação, simplesmente ignore esta mensagem. Se foi você, por favor clique no link abaixo:"
       email_message_after_link: "Se a URL acima não funcionar, tente copiá-la e colá-la em seu navegador."
+    ticket_category:
+      story: "Estória"
+      bug: "Bug"
+      change: "Alteração"
+    ticket_status:
+      todo: "A fazer"
+      doing: "Fazendo"
+      done: "Finalizado"
 
