@@ -8,17 +8,11 @@
     %br
     %b= "#{t('activerecord.attributes.sprint.estimated_velocity')}: "
     = "#{@sprint.estimated_velocity}"
-    = "(#{t('app.sprints.previous_velocities', :product => @product.name)}:"
-    = (@product_sprints.map {|sprint| sprint.velocity}).join(', ')
-    )
-    = "(#{t('app.sprints.previous_projects_velocities')}:"
-    = (@all_products_sprints.map {|sprint| sprint.velocity}).join(', ')
-    )
   %thead
     %tr
-      %th= "#{t('activerecord.models.story')}"
-      %th= "#{t('app.sprints.todo')}"
-      %th= "#{t('app.sprints.doing')}"
-      %th= "#{t('app.sprints.done')}"
+      %th= "#{t('activerecord.models.ticket')}"
+      %th= "#{t('app.ticket_status.todo')}"
+      %th= "#{t('app.ticket_status.doing')}"
+      %th= "#{t('app.ticket_status.done')}"
   %tbody
 

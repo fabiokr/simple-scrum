@@ -252,8 +252,6 @@ pt-BR:
         backlog: "Backlog da sprint"
         previous_state: "Estado anterior"
         next_state: "Próximo estado"
-        previous_velocities: "Velocidades anteriores de {{product}}"
-        previous_projects_velocities: "Velocidades de produtos anteriores"
         burndown_chart: "Gráfico de Burndown"
         burndown_chart_expected_line: "Esperado"
         burndown_chart_current_line: "Atual"

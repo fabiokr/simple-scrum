@@ -146,8 +146,6 @@ en-US:
       backlog: "Sprint Backlog"
       previous_state: "Previous state"
       next_state: "Next state"
-      previous_velocities: "Previous {{product}} velocities"
-      previous_projects_velocities: "Previous products velocities"
       burndown_chart: "Burndown Chart"
       burndown_chart_expected_line: "Expected"
       burndown_chart_current_line: "Current"

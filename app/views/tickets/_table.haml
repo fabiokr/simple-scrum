@@ -15,7 +15,7 @@
       %th
   %tbody
     - tickets.each do |ticket|
-      %tr
+      %tr{:class => "status-#{Ticket::STATUS_STR[ticket.status]}"}
         %td= ticket.priority
         %td= ticket.name
         %td
