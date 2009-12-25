@@ -16,8 +16,8 @@ function showDetailDialog(href) {
     $(data).dialog({
       title:i18n.product_backlog_dialog_title,
       modal:true,
-      height:500,
-      width:710,
+      height:400,
+      width:550,
       resizable:false,
       show:'fade',
       hide:'fade'

@@ -19,7 +19,7 @@
         %td= ticket.priority
         %td= ticket.name
         %td
-          %div{:class => "color category_#{Ticket::CATEGORY_STR[ticket.category_id]}"}
+          %div{:class => "color category-#{Ticket::CATEGORY_STR[ticket.category_id]}"}
         %td= t("app.ticket_category.#{Ticket::CATEGORY_STR[ticket.category_id]}")
         %td= t("app.ticket_status.#{Ticket::STATUS_STR[ticket.status]}")
         %td= ticket.estimative

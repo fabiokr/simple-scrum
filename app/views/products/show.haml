@@ -36,7 +36,7 @@
         %tr{:ticket_id => ticket.id, :class => "category_#{Ticket::CATEGORY_STR[ticket.category_id]}"}
           %td= ticket.name
           %td
-            %div{:class => "color category_#{Ticket::CATEGORY_STR[ticket.category_id]}"}
+            %div{:class => "color category-#{Ticket::CATEGORY_STR[ticket.category_id]}"}
           %td= t("app.ticket_category.#{Ticket::CATEGORY_STR[ticket.category_id]}")
           %td= ticket.priority
           %td= ticket.estimative

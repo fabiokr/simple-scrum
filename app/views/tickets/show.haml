@@ -1,4 +1,4 @@
-%div{:class => 'card-data'}
+%div{:class => "card-data category-#{Ticket::CATEGORY_STR[@ticket.category_id]}"}
   %h3 #{@ticket.name}
   %p
     %b #{t('activerecord.attributes.ticket.category_id')}:
