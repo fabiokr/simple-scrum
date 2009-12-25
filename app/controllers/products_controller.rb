@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @product = Product.find_by_slug(params[:id])
-    @tickets = @product.tickets.descend_by_updated_at.paginate(:page => 1)
+    @tickets = @product.tickets.sprint_id_null.status_equals(Ticket::TODO).descend_by_updated_at.paginate(:page => 1)
     @sprints = @product.sprints.descend_by_updated_at.paginate(:page => 1)
 
     respond_to do |format|

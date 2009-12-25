@@ -69,14 +69,15 @@ describe ProductsController do
     assigns(:products).should include(@product)
   end
 
-  it "should assign product, stories and sprints on :show" do
-    tickets = [Factory(:ticket, :product => @product), Factory(:ticket, :product => @product)]
+  it "should assign product, tickets (only the ones without sprint and with status to-do) and sprints on :show" do
     sprints = [Factory(:sprint, :product => @product), Factory(:sprint, :product => @product)]
+    tickets = [Factory(:ticket, :product => @product, :status => Ticket::DOING), Factory(:ticket, :product => @product, :status => Ticket::DONE), Factory(:ticket, :product => @product, :status => Ticket::TODO), Factory(:ticket, :product => @product, :sprint => sprints[0], :status => Ticket::TODO)]
+    expected_tickets = [tickets[2]]
 
     get :show, :id => @product.slug
 
     assigns(:product).should == @product
-    assigns(:tickets).should == tickets
+    assigns(:tickets).should == expected_tickets
     assigns(:sprints).should == sprints
   end
 
