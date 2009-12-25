@@ -1,5 +1,5 @@
 %h2= "#{@product.name} (#{t('activerecord.attributes.product.owner')}: #{@product.owner})"
-%div{:id => 'sprints', :class => 'span-10'}
+%div{:id => 'sprints', :class => 'span-8'}
   %table{:class => 'dataList'}
     %caption
       ="#{t('app.sprints.index')} - #{t('system.n_of_total_found_registries', :n => @sprints.size, :count => @sprints.total_entries)} (#{link_to(t('system.view_all'), product_sprints_url(@product.slug))})"
@@ -17,24 +17,29 @@
           %td= edit_link edit_product_sprint_path(@product.slug, sprint)
           %td= delete_link product_sprint_path(@product.slug, sprint)
 
-%div{:id => 'tickets', :class => 'span-14 last'}
+%div{:id => 'tickets', :class => 'span-16 last'}
   %table{:class => 'dataList'}
     %caption
       ="#{t('app.tickets.index')} - #{t('system.n_of_total_found_registries', :n => @tickets.size, :count => @tickets.total_entries)} (#{link_to(t('system.view_all'), product_tickets_url(@product.slug))})"
     %thead
       %tr
+        %th= t('activerecord.models.ticket')
+        %th
+        %th= t('activerecord.attributes.ticket.category_id')
         %th= t('activerecord.attributes.ticket.priority')
         %th= t('activerecord.attributes.ticket.estimative')
-        %th= t('activerecord.models.ticket')
         %th
         %th
         %th
     %tbody
       - @tickets.each do |ticket|
-        %tr{:ticket_id => ticket.id}
+        %tr{:ticket_id => ticket.id, :class => "category_#{Ticket::CATEGORY_STR[ticket.category_id]}"}
+          %td= ticket.name
+          %td
+            %div{:class => "color category_#{Ticket::CATEGORY_STR[ticket.category_id]}"}
+          %td= t("app.ticket_category.#{Ticket::CATEGORY_STR[ticket.category_id]}")
           %td= ticket.priority
           %td= ticket.estimative
-          %td= ticket.name
           %td= show_link product_ticket_path(@product.slug, ticket)
           %td= edit_link edit_product_ticket_path(@product.slug, ticket)
           %td= delete_link product_ticket_path(@product.slug, ticket)

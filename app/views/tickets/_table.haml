@@ -5,6 +5,7 @@
     %tr
       %th= order search, :by => :priority, :as => t('activerecord.attributes.ticket.priority')
       %th= order search, :by => :name, :as => t('activerecord.models.ticket')
+      %th
       %th= order search, :by => :category_id, :as => t('activerecord.attributes.ticket.category_id')
       %th= order search, :by => :status, :as => t('activerecord.attributes.ticket.status')
       %th= order search, :by => :estimative, :as => t('activerecord.attributes.ticket.estimative')
@@ -14,9 +15,11 @@
       %th
   %tbody
     - tickets.each do |ticket|
-      %tr{:class => "category_#{Ticket::CATEGORY_STR[ticket.category_id]}"}
+      %tr
         %td= ticket.priority
         %td= ticket.name
+        %td
+          %div{:class => "color category_#{Ticket::CATEGORY_STR[ticket.category_id]}"}
         %td= t("app.ticket_category.#{Ticket::CATEGORY_STR[ticket.category_id]}")
         %td= t("app.ticket_status.#{Ticket::STATUS_STR[ticket.status]}")
         %td= ticket.estimative
