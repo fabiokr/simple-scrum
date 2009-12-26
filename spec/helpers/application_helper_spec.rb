@@ -26,10 +26,10 @@ describe ApplicationHelper do
     assert_equal "#{I18n.t('system.create')}:", show_label('system.create')
   end
 
-  it "should create a valid link on new_link" do
+  it "should create a valid button on new_button" do
     self.should_receive(:icon).and_return('icon')
 
-    result = new_link('/link', 'text');
+    result = new_button('/link', 'text');
     assert result.match(/<a.*>icontext<\/a>/)
     assert result.match(/.*class="button newLink".*/)
     assert result.match(/.*href="\/link".*/)

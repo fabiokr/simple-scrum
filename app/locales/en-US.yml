@@ -76,12 +76,12 @@ en-US:
         status: "Status"
         category_id: "Category"
   system:
-    create: 'new'
-    update: 'update'
-    show: 'show'
-    edit: 'edit'
-    destroy: 'delete'
-    search: 'search'
+    create: 'New'
+    update: 'Update'
+    show: 'Show'
+    edit: 'Edit'
+    destroy: 'Delete'
+    search: 'Search'
     search_legend: 'Search'
     back: 'back'
     confirm: 'Are you sure?'
@@ -133,6 +133,7 @@ en-US:
       show: "Product Dashboard"
       new: "New Product"
       edit: "Editing Product"
+      destroy: "Delete Product"
     tickets:
       index: "Product Backlog"
       show: "Ticket"

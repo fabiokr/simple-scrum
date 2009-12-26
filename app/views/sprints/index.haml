@@ -1,3 +1,3 @@
-= new_link(new_product_sprint_path(@product.slug), t('app.sprints.new'))
+= new_button(new_product_sprint_path(@product.slug), t('app.sprints.new'))
 = render :partial => 'sprints/table', :locals => { :search => @search, :sprints => @sprints }
 

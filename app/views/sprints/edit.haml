@@ -1,4 +1,4 @@
-= new_link(new_product_sprint_path(@product.slug), t('app.sprints.new'))
+= new_button(new_product_sprint_path(@product.slug), t('app.sprints.new'))
 - form_for [@product, @sprint], :url => product_sprint_path(@product.slug, @sprint) do |f|
   %fieldset
     %legend= t('app.sprints.edit')

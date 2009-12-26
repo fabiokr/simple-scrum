@@ -1,4 +1,4 @@
-= new_link(new_product_ticket_path(@product.slug), t('app.tickets.new'))
+= new_button(new_product_ticket_path(@product.slug), t('app.tickets.new'))
 - form_for [@product, @ticket], :url => product_ticket_path(@product.slug, @ticket) do |f|
   %fieldset
     %legend= t('app.tickets.edit')
