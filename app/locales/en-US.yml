@@ -133,7 +133,7 @@ en-US:
       show: "Product Dashboard"
       new: "New Product"
       edit: "Editing Product"
-      destroy: "Delete Product"
+      current_sprint: "Current Sprint: {{sprint}} (Ends: {{end}})"
     tickets:
       index: "Product Backlog"
       show: "Ticket"

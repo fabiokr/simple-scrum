@@ -1,62 +1,36 @@
 %h2= "#{@product.name} (#{t('activerecord.attributes.product.owner')}: #{@product.owner})"
-%div{:id => 'sprints', :class => 'span-12 accordionWrapper'}
-  - @sprints.each do |sprint|
-    %div{:class => 'set'}
-      %div{:class => 'title'}
-        %h3= sprint_title(sprint)
-      %div{:class => 'content'}
-        %table
-          %thead
-            %tr
-              %th= t('activerecord.models.ticket')
-              %th= t('activerecord.attributes.ticket.category_id')
-              %th= t('activerecord.attributes.ticket.priority')
-              %th= t('activerecord.attributes.ticket.estimative')
-              %th
-              %th
-              %th
-          %tbody
-            - sprint.tickets.each do |ticket|
-              %tr{:ticket_id => ticket.id, :class => "status-#{Ticket::STATUS_STR[ticket.status]}"}
-                %td= ticket.name
-                %td{:class => "color category-#{Ticket::CATEGORY_STR[ticket.category_id]}"}
-                  = t("app.ticket_category.#{Ticket::CATEGORY_STR[ticket.category_id]}")
-                %td= ticket.priority
-                %td= ticket.estimative
-                %td= show_link product_ticket_path(@product.slug, ticket)
-                %td= edit_link edit_product_ticket_path(@product.slug, ticket)
-                %td= delete_link product_ticket_path(@product.slug, ticket)
-/
-  %ul{:id => 'sprints', :class => 'accordion'}
-    - @sprints.each do |sprint|
-      %li{:class => "#{sprint == @sprints.first ? 'current' : ''}"}
-        %h3= sprint_title(sprint)
-        %div
-          %table
-            %thead
-              %tr
-                %th= t('activerecord.models.ticket')
-                %th= t('activerecord.attributes.ticket.category_id')
-                %th= t('activerecord.attributes.ticket.priority')
-                %th= t('activerecord.attributes.ticket.estimative')
-                %th
-                %th
-                %th
-            %tbody
-              - sprint.tickets.each do |ticket|
-                %tr{:ticket_id => ticket.id, :class => "status-#{Ticket::STATUS_STR[ticket.status]}"}
-                  %td= ticket.name
-                  %td{:class => "color category-#{Ticket::CATEGORY_STR[ticket.category_id]}"}
-                    = t("app.ticket_category.#{Ticket::CATEGORY_STR[ticket.category_id]}")
-                  %td= ticket.priority
-                  %td= ticket.estimative
-                  %td= show_link product_ticket_path(@product.slug, ticket)
-                  %td= edit_link edit_product_ticket_path(@product.slug, ticket)
-                  %td= delete_link product_ticket_path(@product.slug, ticket)
+%div{:id => 'sprints', :class => 'span-12'}
+  %table{:class => 'dataList'}
+    %caption
+      = t('app.products.current_sprint', {:sprint => @sprint.name, :end => (@sprint.end.nil? ? '' : distance_of_time_in_words_to_now(@sprint.end))})
+      %span{:class => 'right'}
+        = show_link product_sprint_path(@product.slug, @sprint)
+        = edit_link edit_product_sprint_path(@product.slug, @sprint)
+        = delete_link product_sprint_path(@product.slug, @sprint)
+    %thead
+      %tr
+        %th= t('activerecord.models.ticket')
+        %th= t('activerecord.attributes.ticket.category_id')
+        %th= t('activerecord.attributes.ticket.priority')
+        %th= t('activerecord.attributes.ticket.estimative')
+        %th
+        %th
+        %th
+    %tbody
+      - @sprint.tickets.each do |ticket|
+        %tr{:ticket_id => ticket.id, :class => "status-#{Ticket::STATUS_STR[ticket.status]}"}
+          %td= ticket.name
+          %td{:class => "color category-#{Ticket::CATEGORY_STR[ticket.category_id]}"}
+            = t("app.ticket_category.#{Ticket::CATEGORY_STR[ticket.category_id]}")
+          %td= ticket.priority
+          %td= ticket.estimative
+          %td= show_link product_ticket_path(@product.slug, ticket)
+          %td= edit_link edit_product_ticket_path(@product.slug, ticket)
+          %td= delete_link product_ticket_path(@product.slug, ticket)
 %div{:id => 'tickets', :class => 'span-12 last'}
   %table{:class => 'dataList'}
     %caption
-      ="#{t('app.tickets.index')} - #{t('system.n_of_total_found_registries', :n => @tickets.size, :count => @tickets.total_entries)} (#{link_to(t('system.view_all'), product_tickets_url(@product.slug))})"
+      ="#{t('app.tickets.index')} - #{t('system.found_registries', :count => @tickets.size)} (#{link_to(t('system.view_all'), product_tickets_url(@product.slug))})"
     %thead
       %tr
         %th= t('activerecord.models.ticket')

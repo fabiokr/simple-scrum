@@ -239,6 +239,7 @@ pt-BR:
         show: "Painél de produtos"
         new: "Novo produto"
         edit: "Editar produto"
+        current_sprint: "Sprint atual: {{sprint}} (Final: {{end}})"
     tickets:
         index: "Backlog do produto"
         show: "Ticket"

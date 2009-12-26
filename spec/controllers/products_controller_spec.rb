@@ -69,8 +69,8 @@ describe ProductsController do
     assigns(:products).should include(@product)
   end
 
-  it "should assign product, tickets (only the ones without sprint and with status to-do) and sprints on :show" do
-    sprints = [Factory(:sprint, :product => @product), Factory(:sprint, :product => @product)]
+  it "should assign product, available tickets and  the current sprint on :show" do
+    sprints = [Factory(:sprint, :product => @product, :start => 10.days.ago.to_date), Factory(:sprint, :product => @product, :start => 15.days.ago.to_date)]
     tickets = [Factory(:ticket, :product => @product, :status => Ticket::DOING), Factory(:ticket, :product => @product, :status => Ticket::DONE), Factory(:ticket, :product => @product, :status => Ticket::TODO), Factory(:ticket, :product => @product, :sprint => sprints[0], :status => Ticket::TODO)]
     expected_tickets = [tickets[2]]
 
@@ -78,7 +78,7 @@ describe ProductsController do
 
     assigns(:product).should == @product
     assigns(:tickets).should == expected_tickets
-    assigns(:sprints).should == sprints
+    assigns(:sprint).should == sprints[0]
   end
 
   it "should assign a new product on :new" do
