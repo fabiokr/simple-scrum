@@ -2,7 +2,9 @@
 %div{:id => 'sprints', :class => 'span-12'}
   %table{:class => 'dataList'}
     %caption
-      = t('app.products.current_sprint', {:sprint => @sprint.name, :end => (@sprint.end.nil? ? '' : distance_of_time_in_words_to_now(@sprint.end))})
+      = t('app.products.current_sprint')
+      %br
+      = t('app.products.sprint_ends', {:sprint => @sprint.name, :end => (@sprint.end.nil? ? '' : distance_of_time_in_words_to_now(@sprint.end))})
       %span{:class => 'right'}
         = show_link product_sprint_path(@product.slug, @sprint)
         = edit_link edit_product_sprint_path(@product.slug, @sprint)
