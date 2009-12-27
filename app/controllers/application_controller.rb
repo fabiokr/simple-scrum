@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   user_stamp Product, Ticket, Sprint
 
+  after_filter :discard_flash_if_xhr
+
   helper :all, :breadcrumbs
   helper_method :current_user_session, :current_user
 
@@ -53,6 +55,10 @@ class ApplicationController < ActionController::Base
     store_location
     flash[:notice] = msg
     redirect_to new_session_path
+  end
+
+  def discard_flash_if_xhr
+    flash.discard if request.xhr?
   end
 
 end

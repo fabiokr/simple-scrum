@@ -67,8 +67,10 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.update_attributes(params[:ticket])
-        flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.ticket'))
-        format.html { redirect_to(edit_product_ticket_path(@product.slug, @ticket)) }
+        format.html {
+          flash[:message] = t('system.successfully_updated', :model => t('activerecord.models.ticket'))
+          redirect_to(edit_product_ticket_path(@product.slug, @ticket))
+        }
       else
         format.html { render :action => "edit" }
       end

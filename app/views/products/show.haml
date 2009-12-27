@@ -1,5 +1,5 @@
 %h2= "#{@product.name} (#{t('activerecord.attributes.product.owner')}: #{@product.owner})"
-%div{:id => 'sprints', :class => 'span-12'}
+%div{:id => 'sprint', :class => 'span-12', :sprint_id => @sprint.id}
   %table{:class => 'dataList'}
     %caption
       = t('app.products.current_sprint')

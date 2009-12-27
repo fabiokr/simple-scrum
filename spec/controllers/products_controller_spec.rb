@@ -71,8 +71,8 @@ describe ProductsController do
 
   it "should assign product, available tickets and  the current sprint on :show" do
     sprints = [Factory(:sprint, :product => @product, :start => 10.days.ago.to_date), Factory(:sprint, :product => @product, :start => 15.days.ago.to_date)]
-    tickets = [Factory(:ticket, :product => @product, :status => Ticket::DOING), Factory(:ticket, :product => @product, :status => Ticket::DONE), Factory(:ticket, :product => @product, :status => Ticket::TODO), Factory(:ticket, :product => @product, :sprint => sprints[0], :status => Ticket::TODO)]
-    expected_tickets = [tickets[2]]
+    tickets = [Factory(:ticket, :product => @product, :status => Ticket::DOING, :priority => 80), Factory(:ticket, :product => @product, :status => Ticket::DONE, :priority => 75), Factory(:ticket, :product => @product, :status => Ticket::TODO, :priority => 70), Factory(:ticket, :product => @product, :sprint => sprints[0], :status => Ticket::TODO, :priority => 65)]
+    expected_tickets = [tickets[0], tickets[2]]
 
     get :show, :id => @product.slug
 

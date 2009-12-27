@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @product = Product.find_by_slug(params[:id])
-    @tickets = @product.tickets.sprint_id_null.status_equals(Ticket::TODO).descend_by_priority
+    @tickets = @product.tickets.sprint_id_null.status_does_not_equal(Ticket::DONE).descend_by_priority
     @sprint = @product.sprints.descend_by_start.find(:first)
 
     respond_to do |format|
