@@ -138,7 +138,6 @@ describe ProductsController do
 
     lambda { Product.find(@product.id) }.should raise_error
     response.should_not render_template
-    flash[:message].should_not be_nil
   end
 
 end

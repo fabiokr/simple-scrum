@@ -137,7 +137,6 @@ describe TicketsController do
 
     lambda { Ticket.find(@ticket.id) }.should raise_error
     response.should_not render_template
-    flash[:message].should_not be_nil
   end
 
 end
