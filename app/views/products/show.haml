@@ -5,6 +5,9 @@
       = t('app.products.current_sprint')
       %br
       = t('app.products.sprint_ends', {:sprint => @sprint.name, :end => (@sprint.end.nil? ? '' : distance_of_time_in_words_to_now(@sprint.end))})
+      %br
+      = "#{t('activerecord.attributes.sprint.estimated_velocity')}: "
+      = "#{@sprint.estimated_velocity}"
       %span{:class => 'right'}
         = show_link product_sprint_path(@product.slug, @sprint)
         = edit_link edit_product_sprint_path(@product.slug, @sprint)
