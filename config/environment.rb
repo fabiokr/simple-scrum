@@ -57,5 +57,7 @@ Rails::Initializer.run do |config|
   config.i18n.default_locale = 'en-US'
 
   #config.reload_plugins = true if RAILS_ENV == 'development'
+
+  config.active_record.observers = :ticket_observer
 end
 
