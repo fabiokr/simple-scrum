@@ -1,5 +1,8 @@
 %div{:class => "card-data #{Ticket::CATEGORY_STR[@ticket.category_id]}-card"}
-  %h3 #{@ticket.name}
+  %h3
+    #{@ticket.name}
+    = edit_link edit_product_ticket_path(@product.slug, @ticket)
+    = delete_link product_ticket_path(@product.slug, @ticket)
   %p
     %b #{t('activerecord.attributes.ticket.category_id')}:
     #{t("app.ticket_category.#{Ticket::CATEGORY_STR[@ticket.category_id]}")}

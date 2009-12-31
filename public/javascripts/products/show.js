@@ -3,12 +3,12 @@ var tickets, sprint;
 $(document).ready(function() {
   prepareDragNDrop();
 
-  $('table.dataList tbody tr td:not(:has(*))').live('click', function(){
-    showDetailDialog($(this).parent().find('a.showLink').attr('href'));
+  $('table.dataList tbody tr td:not(:has(*))').addClass('clickable').live('click', function(){
+    showDetailDialog($(this).parent().attr('ticket_path'));
   });
 
-  $('table.dataList caption', sprint).live('click', function(){
-    window.location = $(this).parent().find('a.showLink').attr('href');
+  $('table.dataList caption', sprint).addClass('clickable').live('click', function(){
+    window.location = $(this).attr('sprint_path');
   });
 });
 

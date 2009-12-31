@@ -1,17 +1,27 @@
-table#kanban
-  caption
-    text-align: left
-  th
-    text-align: center
-    width: 25%
-  td
-    /border-bottom: 1px solid #CCCCCC
-    div.postit
+.postit
+  text-align: center
+  border: 1px solid white
+  width: 200px
+  min-height: 35px
+
+.postit:hover
+  border: 1px solid orange
+
+.ui-draggable-dragging
+  margin: 0
+
+#kanban
+  min-height: 450px
+  h4
+    background: #eee
+    padding: 4px 10px 4px 5px
+    margin-bottom: 0
+  div.todo, div.doing, div.done
+    height: 100%
+    border: 1px solid white
+    ul
+      list-style-type: none
+    h5
+      background: #c3d9ff
       text-align: center
-      border: 1px solid white
-      width: 60%
-      margin: 0 20% 0 20%
-      min-height: 35px
-    div.postit:hover
-      border: 1px solid orange
 

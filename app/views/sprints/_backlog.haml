@@ -1,22 +1,27 @@
-%table#kanban
-  %caption
-    %b= "#{t('activerecord.models.sprint')}: "
-    = "#{@sprint.name}"
+%div{:id => 'kanban'}
+  %h4
+    %b #{t('activerecord.models.sprint')}:
+    #{@sprint.name}
     %br
-    %b= "#{t('activerecord.attributes.sprint.velocity')}: "
-    = "#{@sprint.velocity}"
+    %b #{t('activerecord.attributes.sprint.velocity')}:
+    #{@sprint.velocity}
     %br
-    %b= "#{t('activerecord.attributes.sprint.estimated_velocity')}: "
-    = "#{@sprint.estimated_velocity}"
-  %thead
-    %tr
-      %th= "#{t('app.ticket_status.todo')}"
-      %th= "#{t('app.ticket_status.doing')}"
-      %th= "#{t('app.ticket_status.done')}"
-  %tbody
+    %b #{t('activerecord.attributes.sprint.estimated_velocity')}:
+    #{@sprint.estimated_velocity}
+
+  %div{:class => 'span-8 todo', :status => Ticket::TODO}
+    %h5 #{t('app.ticket_status.todo')}
     - @sprint.tickets.each do |ticket|
-      %tr
-        %td #{postit(ticket) unless ticket.status != Ticket::TODO}
-        %td #{postit(ticket) unless ticket.status != Ticket::DOING}
-        %td #{postit(ticket) unless ticket.status != Ticket::DONE}
+      %ul
+        %li #{postit(ticket) unless ticket.status != Ticket::TODO}
+  %div{:class => 'span-8 doing', :status => Ticket::DOING}
+    %h5 #{t('app.ticket_status.doing')}
+    - @sprint.tickets.each do |ticket|
+      %ul
+        %li #{postit(ticket) unless ticket.status != Ticket::DOING}
+  %div{:class => 'span-8 last done', :status => Ticket::DONE}
+    %h5 #{t('app.ticket_status.done')}
+    - @sprint.tickets.each do |ticket|
+      %ul
+        %li #{postit(ticket) unless ticket.status != Ticket::DONE}
 
