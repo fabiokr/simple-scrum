@@ -239,6 +239,7 @@ pt-BR:
         show: "Painél de produtos"
         new: "Novo produto"
         edit: "Editar produto"
+        no_sprint_defined: "Nenhuma Sprint definida"
         current_sprint: "Sprint atual:"
         sprint_ends: "{{sprint}} (fim em {{end}})"
     tickets:

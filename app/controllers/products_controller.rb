@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find_by_slug(params[:id])
     @tickets = @product.tickets.sprint_id_null.status_does_not_equal(Ticket::DONE).descend_by_priority
-    @sprint = @product.sprints.descend_by_start.find(:first)
+    @current_sprint = @product.sprints.descend_by_start.find(:first)
 
     respond_to do |format|
       format.html # show.html.erb

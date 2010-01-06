@@ -1,32 +1,6 @@
 %h2= "#{@product.name} (#{t('activerecord.attributes.product.owner')}: #{@product.owner})"
-%div{:id => 'sprint', :class => 'span-12', :sprint_id => @sprint.id}
-  %table{:class => 'dataList'}
-    %caption{:sprint_path => product_sprint_path(@product.slug, @sprint)}
-      = t('app.products.current_sprint')
-      (#{link_to(t('system.view_all'), product_sprints_url(@product.slug))})
-      %br
-      = t('app.products.sprint_ends', {:sprint => @sprint.name, :end => (@sprint.end.nil? ? '' : distance_of_time_in_words_to_now(@sprint.end))})
-      %br
-      = "#{t('activerecord.attributes.sprint.estimated_velocity')}: "
-      = "#{@sprint.estimated_velocity}"
-      %span{:class => 'right'}
-        = edit_link edit_product_sprint_path(@product.slug, @sprint)
-        = delete_link product_sprint_path(@product.slug, @sprint)
-    %thead
-      %tr
-        %th= t('activerecord.models.ticket')
-        %th= t('activerecord.attributes.ticket.category_id')
-        %th= t('activerecord.attributes.ticket.priority')
-        %th= t('activerecord.attributes.ticket.estimative')
-    %tbody
-      - @sprint.tickets.each do |ticket|
-        %tr{:ticket_path => product_ticket_path(@product.slug, ticket), :class => "status-#{Ticket::STATUS_STR[ticket.status]}"}
-          %td= ticket.name
-          %td{:class => "color category-#{Ticket::CATEGORY_STR[ticket.category_id]}"}
-            = t("app.ticket_category.#{Ticket::CATEGORY_STR[ticket.category_id]}")
-          %td= ticket.priority
-          %td= ticket.estimative
-%div{:id => 'tickets', :class => 'span-12 last'}
+
+%div{:id => 'tickets', :class => 'span-12'}
   %table{:class => 'dataList'}
     %caption
       ="#{t('app.tickets.index')} - #{t('system.found_registries', :count => @tickets.size)} (#{link_to(t('system.view_all'), product_tickets_url(@product.slug))})"
@@ -44,4 +18,44 @@
             = t("app.ticket_category.#{Ticket::CATEGORY_STR[ticket.category_id]}")
           %td= ticket.priority
           %td= ticket.estimative
+
+%div{:id => 'sprint', :class => 'span-12 last'}
+  - if @current_sprint.nil?
+    %table{:class => 'dataList'}
+      %caption
+        #{t('app.products.no_sprint_defined')} (#{link_to(t('app.sprints.new'), new_product_sprint_path(@product.slug))})
+      %thead
+        %tr
+          %th= t('activerecord.models.ticket')
+          %th= t('activerecord.attributes.ticket.category_id')
+          %th= t('activerecord.attributes.ticket.priority')
+          %th= t('activerecord.attributes.ticket.estimative')
+      %tbody
+  - else
+    %table{:class => 'dataList'}
+      %caption{:sprint_path => product_sprint_path(@product.slug, @current_sprint), :sprint_id => @current_sprint.id}
+        = t('app.products.current_sprint')
+        (#{link_to(t('system.view_all'), product_sprints_url(@product.slug))})
+        %br
+        = t('app.products.sprint_ends', {:sprint => @current_sprint.name, :end => (@current_sprint.end.nil? ? '' : distance_of_time_in_words_to_now(@current_sprint.end))})
+        %br
+        = "#{t('activerecord.attributes.sprint.estimated_velocity')}: "
+        = "#{@current_sprint.estimated_velocity}"
+        %span{:class => 'right'}
+          = edit_link edit_product_sprint_path(@product.slug, @current_sprint)
+          = delete_link product_sprint_path(@product.slug, @current_sprint)
+      %thead
+        %tr
+          %th= t('activerecord.models.ticket')
+          %th= t('activerecord.attributes.ticket.category_id')
+          %th= t('activerecord.attributes.ticket.priority')
+          %th= t('activerecord.attributes.ticket.estimative')
+      %tbody
+        - @current_sprint.tickets.each do |ticket|
+          %tr{:ticket_path => product_ticket_path(@product.slug, ticket), :class => "status-#{Ticket::STATUS_STR[ticket.status]}"}
+            %td= ticket.name
+            %td{:class => "color category-#{Ticket::CATEGORY_STR[ticket.category_id]}"}
+              = t("app.ticket_category.#{Ticket::CATEGORY_STR[ticket.category_id]}")
+            %td= ticket.priority
+            %td= ticket.estimative
 

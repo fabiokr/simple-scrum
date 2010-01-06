@@ -39,7 +39,7 @@ class Sprint < ActiveRecord::Base
   def burndown_plot
     plot = {:expected => {:x => [], :y => []}, :current => {:x => [], :y => []}, :labels => {:x => [], :y => []}}
 
-    return plot if self.start.nil? || self.end.nil? || self.tasks.empty?
+    return plot if self.start.nil? || self.end.nil? || self.tickets.empty?
 
     result = calculate_current
     plot[:current][:x], plot[:current][:y] = result[:x], result[:y]
@@ -66,7 +66,7 @@ class Sprint < ActiveRecord::Base
 
   #plot methods
   def calculate_current
-    y, x, x_labels, x_value, today, points, stories_end = [], [], [], 0, Date.current, self.estimated_velocity, calculate_stories_end
+    y, x, x_labels, x_value, today, points, tickets_end = [], [], [], 0, Date.current, self.estimated_velocity, calculate_tickets_end
 
     weekdays = (self.start..self.end).find_all {|date| date.weekday?}
     weekdays.each do |date|
@@ -74,7 +74,9 @@ class Sprint < ActiveRecord::Base
       if date <= today
         x << x_value
         x_value += 1
-        stories_end[date].each {|story| points -= story.estimative} if stories_end.has_key? date
+        if tickets_end.has_key? date
+          tickets_end[date].each {|ticket| points -= ticket.estimative}
+        end
         y << points
       end
     end
@@ -96,20 +98,20 @@ class Sprint < ActiveRecord::Base
 
   private
 
-  #organizes the dates that the stories ended
-  def calculate_stories_end
-    stories_end = {}
-    self.group_tasks_by_story.each do |story, tasks|
-      story_ended = true
-      tasks.each {|task| story_ended = false if task.status != Task::DONE}
-
-      if story_ended
-        date = (tasks.sort_by {|task| task.status_changed_at}).last.status_changed_at.to_date
-        stories_end[date] = [] if !stories_end.has_key? date
-        stories_end[date] << story
+  #organizes the dates that the tickets ended
+  def calculate_tickets_end
+    tickets_end = {}
+    self.tickets.each do |ticket|
+      unless ticket.status != Ticket::DONE
+        end_date = ticket.status_changed_at.to_date
+        if tickets_end.has_key? end_date
+          tickets_end[end_date] << ticket
+        else
+          tickets_end[end_date] = [ticket]
+        end
       end
     end
-    stories_end
+    tickets_end
   end
 
   def distribute_labels(values, max = 20.0)

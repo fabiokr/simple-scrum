@@ -216,6 +216,7 @@ en-US:
       show: "Product Dashboard"
       new: "New Product"
       edit: "Editing Product"
+      no_sprint_defined: "No Sprint defined"
       current_sprint: "Current Sprint:"
       sprint_ends: "{{sprint}} (ends in {{end}})"
     tickets:

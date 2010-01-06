@@ -78,7 +78,7 @@ describe ProductsController do
 
     assigns(:product).should == @product
     assigns(:tickets).should == expected_tickets
-    assigns(:sprint).should == sprints[0]
+    assigns(:current_sprint).should == sprints[0]
   end
 
   it "should assign a new product on :new" do

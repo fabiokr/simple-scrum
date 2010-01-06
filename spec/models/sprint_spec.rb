@@ -97,5 +97,81 @@ describe Sprint do
     plot[:labels][:y].should be_empty
   end
 
+  it 'should plot burndown' do
+    #expects 22 weekdays
+    @sprint.start = Date.civil(2009,9,15)
+    @sprint.end = Date.civil(2009,10,15)
+    @sprint.save!
+
+    ticket1 = Factory(:ticket, :product => @sprint.product, :sprint => @sprint, :estimative => 5, :status => Ticket::DONE)
+    ticket2 = Factory(:ticket, :product => @sprint.product, :sprint => @sprint, :estimative => 8, :status => Ticket::DONE)
+    ticket3 = Factory(:ticket, :product => @sprint.product, :sprint => @sprint, :estimative => 10, :status => Ticket::DONE)
+    ticket4 = Factory(:ticket, :product => @sprint.product, :sprint => @sprint, :estimative => 7, :status => Ticket::DONE)
+
+    ticket1.status_changed_at = Date.civil(2009,9,18)
+    ticket2.status_changed_at = Date.civil(2009,9,25)
+    ticket3.status_changed_at = Date.civil(2009,10,5)
+    ticket4.status_changed_at = Date.civil(2009,10,5)
+
+    ticket1.save!
+    ticket2.save!
+    ticket3.save!
+    ticket4.save!
+
+    @sprint.reload
+
+    Date.stub!(:current).and_return(Date.civil(2009,10,7))
+
+    plot = @sprint.burndown_plot
+
+    date_format = "%e/%m"
+
+    plot[:expected][:x].should == [0, 100]
+    plot[:expected][:y].should == [100, 0]
+
+    plot[:current][:x].should == [BigDecimal.new("0.0"), BigDecimal.new("4.3"), BigDecimal.new("8.6"), BigDecimal.new("12.9"), BigDecimal.new("17.2"), BigDecimal.new("21.5"), BigDecimal.new("25.8"), BigDecimal.new("30.1"), BigDecimal.new("34.4"), BigDecimal.new("38.7"), BigDecimal.new("43.0"), BigDecimal.new("47.3"), BigDecimal.new("51.6"), BigDecimal.new("55.9"), BigDecimal.new("60.2"), BigDecimal.new("64.5"), BigDecimal.new("68.8")]
+    plot[:current][:y].should == [BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("99.0"), BigDecimal.new("82.5"), BigDecimal.new("82.5"), BigDecimal.new("82.5"), BigDecimal.new("82.5"), BigDecimal.new("82.5"), BigDecimal.new("56.1"), BigDecimal.new("56.1"), BigDecimal.new("56.1"), BigDecimal.new("56.1"), BigDecimal.new("56.1"), BigDecimal.new("56.1"), BigDecimal.new("0.0"), BigDecimal.new("0.0"), BigDecimal.new("0.0")]
+
+    expected_dates = [Date.civil(2009,9,15),Date.civil(2009,9,17),Date.civil(2009,9,21),Date.civil(2009,9,23),Date.civil(2009,9,25),Date.civil(2009,9,29),Date.civil(2009,10,1),Date.civil(2009,10,5),Date.civil(2009,10,7),Date.civil(2009,10,9),Date.civil(2009,10,13),Date.civil(2009,10,15)]
+    expected_dates.collect! {|date| date.strftime(date_format)}
+
+    plot[:labels][:x].should == expected_dates
+
+    #should distribute the labels
+    plot[:labels][:y].should == [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
+  end
+
+  it "should plot future burndowns correctly" do
+    #expects 22 weekdays
+    @sprint.start = Date.civil(2009,9,15)
+    @sprint.end = Date.civil(2009,9,28)
+    @sprint.save!
+
+    ticket1 = Factory(:ticket, :product => @sprint.product, :sprint => @sprint, :estimative => 14, :status => Ticket::TODO)
+    ticket2 = Factory(:ticket, :product => @sprint.product, :sprint => @sprint, :estimative => 16, :status => Ticket::TODO)
+
+    @sprint.reload
+
+    Date.stub!(:current).and_return(Date.civil(2009,8,7))
+
+    plot = @sprint.burndown_plot
+
+    date_format = "%e/%m"
+
+    plot[:expected][:x].should == [0, 100]
+    plot[:expected][:y].should == [100, 0]
+
+    plot[:current].should_not be_nil
+    plot[:current][:x].should == [0]
+    plot[:current][:y].should == [0]
+
+    #should distribute the labels
+    expected_dates = [Date.civil(2009,9,15),Date.civil(2009,9,16),Date.civil(2009,9,17),Date.civil(2009,9,18),Date.civil(2009,9,21),Date.civil(2009,9,22),Date.civil(2009,9,23),Date.civil(2009,9,24),Date.civil(2009,9,25),Date.civil(2009,9,28)]
+    expected_dates.collect! {|date| date.strftime(date_format)}
+
+    plot[:labels][:x].should == expected_dates
+    plot[:labels][:y].should == [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
+  end
+
 end
 

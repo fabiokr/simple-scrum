@@ -77,5 +77,15 @@ describe Ticket do
     assert_equal Ticket::DOING, ticket.status
   end
 
+  it "should update status_changed_at before save if the status has changed" do
+    ticket = Factory.build(:ticket)
+
+    ticket.status_changed_at = nil
+    ticket.status = Ticket::DONE
+    ticket.save!
+
+    ticket.status_changed_at.should_not be_nil
+  end
+
 end
 

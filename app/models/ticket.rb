@@ -19,6 +19,7 @@ class Ticket < ActiveRecord::Base
   stampable
 
   before_save :set_default_status
+  before_save :set_status_changed_at
 
   belongs_to :product
   belongs_to :sprint
@@ -69,6 +70,10 @@ class Ticket < ActiveRecord::Base
 
   def set_default_status
     self.status = TODO if self.status.nil?
+  end
+
+  def set_status_changed_at
+    self.status_changed_at = Time.current if self.status_changed?
   end
 
 end
