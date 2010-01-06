@@ -255,7 +255,7 @@ pt-BR:
         backlog: "Backlog da sprint"
         previous_state: "Estado anterior"
         next_state: "Próximo estado"
-        burndown_chart: "Gráfico de Burndown"
+        burndown_chart: "Gráfico de Burndown (clique para esconder/mostrar)"
         burndown_chart_expected_line: "Esperado"
         burndown_chart_current_line: "Atual"
         burndown_chart_not_enought: "Não existem dados suficientes para plotar o gráfico de Burndown"

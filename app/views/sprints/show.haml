@@ -1,4 +1,6 @@
-= render :partial => 'sprints/backlog'
-#burdown_chart{:class => 'center'}
+#burndown-chart{:class => 'center'}
+  %h4{:class => 'title-background'}
+    #{t('app.sprints.burndown_chart')}
   = burndown_chart @sprint
+= render :partial => 'sprints/backlog'
 

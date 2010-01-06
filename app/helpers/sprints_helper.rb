@@ -11,9 +11,7 @@ module SprintsHelper
 
     image_tag(
       Gchart.line_xy(
-        :size => '550x400',
-        :title => t('app.sprints.burndown_chart'),
-        #:bg => 'efefef',
+        :size => '750x400',
         :legend => [t('app.sprints.burndown_chart_expected_line'), t('app.sprints.burndown_chart_current_line')],
         :axis_with_labels => ['x', 'y'],
         :bar_colors => ['FF0000','00FF00'],

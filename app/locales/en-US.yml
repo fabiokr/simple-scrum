@@ -232,7 +232,7 @@ en-US:
       backlog: "Sprint Backlog"
       previous_state: "Previous state"
       next_state: "Next state"
-      burndown_chart: "Burndown Chart"
+      burndown_chart: "Burndown Chart (click to hide/show)"
       burndown_chart_expected_line: "Expected"
       burndown_chart_current_line: "Current"
       burndown_chart_not_enought: "Not enought data to plot the Burndow Chart"

@@ -9,6 +9,10 @@ function prepareBacklog() {
   $('.postit').addClass('clickable').live('click', function(){
     showDetailDialog($(this).attr('ticket_show_url'));
   });
+
+  $('#burndown-chart h4').click(function(){
+    $(this).next().toggle();
+  });
 }
 
 function prepareDragNDrop() {
