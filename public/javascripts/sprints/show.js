@@ -47,15 +47,17 @@ function prepareDragNDrop() {
 }
 
 function changeStatus(ticket, status) {
-  ticket.fadeOut(function() {
-    content.spin();
-    $.post(
-      ticket.attr('ticket_show_url'),
-      {'authenticity_token': AUTH_TOKEN, '_method': 'put', 'ticket[status]': status},
-      function(data){
-        content.load(window.location.pathname, function(){content.unspin();prepareDragNDrop();});
-      }
-    );
-  });
+  if(status != ticket.attr('ticket_status')) {
+    ticket.fadeOut(function() {
+      content.spin();
+      $.post(
+        ticket.attr('ticket_show_url'),
+        {'authenticity_token': AUTH_TOKEN, '_method': 'put', 'ticket[status]': status},
+        function(data){
+          content.load(window.location.pathname, function(){content.unspin();prepareDragNDrop();});
+        }
+      );
+    });
+  }
 }
 
