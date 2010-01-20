@@ -22,17 +22,17 @@ Rails::Initializer.run do |config|
   config.gem "rspec", :lib => false, :version => ">= 1.2.0"
   config.gem "rspec-rails", :lib => false, :version => ">= 1.2"
   config.gem "remarkable_rails", :lib => false
-  config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => "http://gems.github.com"
+  config.gem 'factory_girl', :lib => 'factory_girl'
   config.gem 'faker'
 
   config.gem 'haml'
   config.gem 'random_data'
   config.gem "searchlogic"
-  config.gem 'mislav-will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
+  config.gem 'will_paginate', :lib => 'will_paginate'
   config.gem 'json'
   config.gem 'googlecharts', :lib => 'gchart'
   config.gem 'mdarby-weekdays', :lib => 'weekdays'
-  config.gem "authlogic"
+  config.gem "authlogic", :version => '2.1.2'
   config.gem 'gravtastic'
   config.gem 'smurf'
   config.gem 'crumble', :lib => 'breadcrumb'
