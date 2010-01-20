@@ -1,3 +1,36 @@
-== Personal Scrum
-TODO
+== Simple Scrum
+Released under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+
+= Contacts
+Fabio Kreusch - fabio@kreusch.com.br
+http://www.kreusch.com.br
+
+Source url: http://github.com/fabiokr/simple-scrum
+Demo application url: http://simple-scrum-demo.heroku.com
+
+= Description
+
+Simple Scrum aims to be a simple agile project management application, based on Scrum workflow. You can add Projects, add Stories to projects, define Sprints and view a burndown chart of your sprints.
+Very simple. I developed it to track my own personal projects, but maybe it can help others that want a simple and focused application to manage their projects.
+
+It is developed with Ruby on Rails (http://rubyonrails.org/), and it haves a high test coverage.
+
+If you have trouble when trying to use the application, you can contact me. I cannot assure I will respond, but I promisse I will try =P
+Bugs can also be posted on the Github bug tracking tool (http://github.com/fabiokr/simple-scrum/issues).
+
+= Install instructions
+
+These steps where run into an Ubuntu system, but they will probably be the same for other environments.
+You will need Ruby (http://www.ruby-lang.org) and Git (http://git-scm.com/) installed.
+
+- First, get the source from the Github page: http://github.com/fabiokr/simple-scrum/zipball/master
+- On the system console, go to the application root directoy, and run the command 'rake gems:install'. This will install the required Ruby Gems.
+- Next, run 'git submodule init' and then 'git submodule update'. This will install the required plugins.
+- Now we need to configure the database. The sample configuration is in config/database-default.yml. Copy that file and rename it to 'database.yml'. This file is configured to used Sqlite3 database, a simple database mainly used to develop applications. If you want to use a different database, like Mysql, you can find instructions with a simple Google search about 'Rails Mysql configuration' or something like that.
+- Now we have to create the required tables. Just run the command 'rake db:migrate'.
+- Now we will use the seed file to populate the database with the initial data. This will import the data on db/seeds.rb file to the database. It will create a user 'admin' with a password 'adminadmin'. Just run 'rake db:seed' and be happy.
+
+Done!
+
+You can now run the application on Rails developemnt server with the command 'script/server'.
 
